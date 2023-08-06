@@ -39,7 +39,7 @@ public class TeamsBatchJobController {
 			return new ResponseEntity<>("Batch Processing Successfull",HttpStatus.OK);
 		}catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>("Error while batch processing", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error while batch processing, Check server logs for full details", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}	
 	
@@ -53,7 +53,7 @@ public class TeamsBatchJobController {
 			return new ResponseEntity<>("Batch Processing Successfull",HttpStatus.OK);
 		}catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>("Error while batch processing", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error while batch processing, Check server logs for full details", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}	
 	
