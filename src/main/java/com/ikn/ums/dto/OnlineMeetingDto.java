@@ -3,7 +3,6 @@ package com.ikn.ums.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ikn.ums.entity.Transcript;
 
 import lombok.Data;
 

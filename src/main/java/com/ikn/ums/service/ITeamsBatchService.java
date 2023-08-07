@@ -6,10 +6,10 @@ import com.ikn.ums.dto.EventDto;
 
 public interface ITeamsBatchService {
 	
-	void performBatchProcessing();
+	void performBatchProcessing() throws Exception;
 	String initializeMicrosoftGraph();
 	
-	List<EventDto> getEventByUserPrincipalName(String userPrincipalName);
-	void performSingleUserBatchProcessing(String userPrincipalName);
+	List<EventDto> getEventByUserPrincipalName(String userPrincipalName) throws Exception;
+	void performSingleUserBatchProcessing(String userPrincipalName) throws Exception;
 
 }

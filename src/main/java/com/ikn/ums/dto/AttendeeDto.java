@@ -7,7 +7,7 @@ public class AttendeeDto {
 	
 	private String type;
 
-	private StartDto status;
+	private StatusDto status;
 	
 	private EmailAddressDto emailAddress;
 

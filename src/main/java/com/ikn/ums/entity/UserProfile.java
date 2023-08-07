@@ -3,10 +3,12 @@ package com.ikn.ums.entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+
 import lombok.Data;
 
 @Data
 //@Entity
+//@Table(name = "user_profile_tab")
 public class UserProfile {
 	
 	@Id

@@ -8,10 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "attendee_tab")
 public class Attendee {
 	
 	@Id

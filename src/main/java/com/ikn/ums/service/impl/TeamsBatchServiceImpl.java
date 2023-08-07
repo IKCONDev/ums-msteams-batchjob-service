@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -47,6 +48,7 @@ import com.ikn.ums.dto.TranscriptDto;
 import com.ikn.ums.dto.UserProfileDto;
 import com.ikn.ums.entity.Event;
 import com.ikn.ums.entity.Transcript;
+import com.ikn.ums.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.model.CalendarViewResponseWrapper;
 import com.ikn.ums.model.OnlineMeetingResponseWrapper;
 import com.ikn.ums.model.TranscriptsResponseWrapper;
@@ -108,9 +110,14 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	@Transactional
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void performBatchProcessing() {
+	public void performBatchProcessing() throws Exception{
 		String userProfileUrl = "https://graph.microsoft.com/v1.0/users?$filter=accountEnabled eq true and userType eq 'Member'";
 		List<Object> onlineMeetingList = new ArrayList<>();
+
+		// get access token from MS teams server , only if it is already null
+		if (this.accessToken == null) {
+			this.accessToken = this.initializeMicrosoftGraph();
+		}
 
 		// prepare headers
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -130,15 +137,8 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 		// iterate each user and get their events and save to UMS db
 		userDtoList.forEach(userDto -> {
-			if(!userDto.getUserPrincipalName().equalsIgnoreCase("hr@ikcontech.com") &&
-					!userDto.getUserPrincipalName().equalsIgnoreCase("Uday.Jakkula@ikcontech.com")&&
-					!userDto.getUserPrincipalName().equalsIgnoreCase("Saisubrahmanyam@ikcontech.com")&&
-					!userDto.getUserPrincipalName().equalsIgnoreCase("admin@ikcontech.com")&&
-					!userDto.getUserPrincipalName().equalsIgnoreCase("r.battula@ikcontech.com")&&
-					!userDto.getUserPrincipalName().equalsIgnoreCase("deepthi.a@ikcontech.com")&&
-					!userDto.getUserPrincipalName().equalsIgnoreCase("Lead2@ikcontech.com")&&
-					!userDto.getUserPrincipalName().equalsIgnoreCase("Parmeena.Gopalakrishnan@ikcontech.com")){
-				
+			if (!environment.getProperty("userprincipal.exclude.users").contains(userDto.getUserPrincipalName())) {
+
 				String userId = userDto.getUserId();
 				// get userprincipalName and pass it to calendarView method to fetch the
 				// calendar events if the user
@@ -205,11 +205,13 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 												try (FileWriter fileWriter = new FileWriter(
 														"Transcript " + transcriptDto.getTranscriptId())) {
 													fileWriter.write(transcriptContent);
-													System.out.println("Transcript content has been written to the file.");
+													System.out.println(
+															"Transcript content has been written to the file.");
 
 													// save file loc to db
 													// Get the file path
-													File file = new File("Transcript " + transcriptDto.getTranscriptId());
+													File file = new File(
+															"Transcript " + transcriptDto.getTranscriptId());
 													String filePath = file.getAbsolutePath();
 													System.out.println("File path: " + filePath);
 													if (!filePath.equalsIgnoreCase("")) {
@@ -286,9 +288,14 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	@Transactional
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void performSingleUserBatchProcessing(String upn) {
+	public void performSingleUserBatchProcessing(String upn) throws Exception {
 		String userProfileUrl = "https://graph.microsoft.com/v1.0/users/" + upn;
 		List<Object> onlineMeetingList = new ArrayList<>();
+
+		// get access token from MS teams server , only if it is already null
+		if (this.accessToken == null) {
+			this.accessToken = this.initializeMicrosoftGraph();
+		}
 
 		// prepare headers
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -558,8 +565,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		}
 	}
 
-	// will pass the transcript content URL to this method from the transcript
-	// details object.
+	// will pass the transcript content URL to this method from the transcript details object.
 	private String getTranscriptContent(String transcriptContentUrl) {
 		StringBuilder stringBuilder = new StringBuilder(transcriptContentUrl);
 		String url = stringBuilder.toString();
@@ -581,18 +587,34 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		return rentity.getBody();
 	}
 
-	// get events of a particular user
+	// get events of a single user
 	@Override
-	public List<EventDto> getEventByUserPrincipalName(String userPrincipalName) {
-		List<Event> eventsList = eventRepository.findByUserPrinicipalName(userPrincipalName);
-		ModelMapper mapper = new ModelMapper();
-		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+	public List<EventDto> getEventByUserPrincipalName(String userPrincipalName) throws Exception {
+		
 		List<EventDto> eventsListDto = new ArrayList<>();
-		eventsList.forEach(event -> {
-			EventDto eventDto = new EventDto();
-			mapper.map(event, eventDto);
-			eventsListDto.add(eventDto);
-		});
+		
+		//check whether the user exists or not
+		int count = eventRepository.findUserPrinicipalName(userPrincipalName);
+		
+		if(count > 0) {
+			//get events list if a particular user after batch processing
+			List<Event> eventsList = eventRepository.findByUserPrinicipalName(userPrincipalName);
+			
+			//create mapper object
+			ModelMapper mapper = new ModelMapper();
+			mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+			
+			//loop though DTO for conversion
+			eventsList.forEach(event -> {
+				EventDto eventDto = new EventDto();
+				
+				//map DTO to entity
+				mapper.map(event, eventDto);
+				eventsListDto.add(eventDto);
+			});
+		}else {
+			throw new UserPrincipalNotFoundException("user with provided principal name "+userPrincipalName+" does not exist to retrive their events data.");
+		}
 		return eventsListDto;
 	}
 }

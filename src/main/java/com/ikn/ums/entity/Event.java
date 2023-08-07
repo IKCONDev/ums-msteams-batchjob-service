@@ -13,12 +13,52 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "event_tab")
 public class Event {
+	
+	private static Logger logger = LoggerFactory.getLogger(Event.class);
+	
+	public Event() {
+		logger.info("Event class no-param constructor executed");
+	}
+	
+	public Event(String userId, String userPrinicipalName, String eventId, String eventCreatedDateTime,
+            String originalStartTimeZone, String originalEndTimeZone, String subject, String type,
+            String occurrenceId, Start start, End end, Location location, Set<Attendee> attendee,
+            Organizer organizer, OnlineMeeting onlineMeeting, String onlineMeetingProvider,
+            Recurrence recurrence, String seriesMasterId) {
+		
+		logger.info("Event class parameterized constructor executed");
+		
+        this.userId = userId;
+        this.userPrinicipalName = userPrinicipalName;
+        this.eventId = eventId;
+        this.eventCreatedDateTime = eventCreatedDateTime;
+        this.originalStartTimeZone = originalStartTimeZone;
+        this.originalEndTimeZone = originalEndTimeZone;
+        this.subject = subject;
+        this.type = type;
+        this.occurrenceId = occurrenceId;
+        this.start = start;
+        this.end = end;
+        this.location = location;
+        this.attendee = attendee;
+        this.organizer = organizer;
+        this.onlineMeeting = onlineMeeting;
+        this.onlineMeetingProvider = onlineMeetingProvider;
+        this.recurrence = recurrence;
+        this.seriesMasterId = seriesMasterId;
+        this.insertedBy = "IKCON UMS";
+        this.insertedDate = LocalDateTime.now().toString();
+    }
 
 	@Id
 	@SequenceGenerator(name = "events_gen", initialValue = 1, allocationSize = 1)

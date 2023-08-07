@@ -1,13 +1,10 @@
 package com.ikn.ums.dto;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
-@SuppressWarnings("unused")
 public class UserProfileDto {
 	
 	@JsonProperty("id")
