@@ -1,6 +1,5 @@
 package com.ikn.ums;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -22,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.ikn.ums.controller.TeamsBatchJobRestController;
 import com.ikn.ums.dto.EventDto;
+import com.ikn.ums.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.repo.EventRepository;
 import com.ikn.ums.service.ITeamsBatchService;
 
@@ -130,7 +130,7 @@ public class TeamsBatchJobRestControllerTest {
     }
     
     @Test
-    public void test_getUserEvents_Fail() throws Exception {
+    public void test_getUserEvents_Fail_ServerError() throws Exception {
         String userPrincipalName = "Vaishnav.P@ikcontech.com";
         List<EventDto> mockEventsList = new ArrayList<>();
 
@@ -152,6 +152,31 @@ public class TeamsBatchJobRestControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isInternalServerError());
+    }
+    
+    @Test
+    public void test_getUserEvents_Fail_NotFound() throws Exception {
+        String userPrincipalName = "Bharat@ikcontech.com";
+        List<EventDto> mockEventsList = new ArrayList<>();
+
+        // Create an EventDto object
+        EventDto e = new EventDto();
+        e.setEventId("j777dd3h883=");
+        e.setUserId("9e2a07ef-86ff-4814-bf01-92c6bc0a74ff");
+        e.setUserPrinicipalName(userPrincipalName);
+
+        // Add the EventDto object to the mockEventsList
+        mockEventsList.add(e);
+
+        // Mock the service response
+        doThrow(new UserPrincipalNotFoundException()).when(batchService).getEventByUserPrincipalName(userPrincipalName);
+
+        // Perform the request and validate the response
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/teams/events/" + userPrincipalName)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
     
     
