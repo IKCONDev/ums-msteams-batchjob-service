@@ -1,6 +1,13 @@
 package com.ikn.ums.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +21,11 @@ import com.ikn.ums.dto.EventDto;
 import com.ikn.ums.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.service.ITeamsBatchService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/teams")
+@Slf4j
 public class TeamsBatchJobRestController {
 
 	@Autowired
@@ -37,9 +47,9 @@ public class TeamsBatchJobRestController {
 	@GetMapping(path="/batch-process")
 	public ResponseEntity<?> meetingDataBatchProcessing() {
 		try {
+			//perform batch processing
 			teamsBatchService.performBatchProcessing();
 			return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error while batch processing, Check server logs for full details",

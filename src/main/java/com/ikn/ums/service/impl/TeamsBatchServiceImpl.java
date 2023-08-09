@@ -42,6 +42,7 @@ import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
+import com.ikn.ums.dto.BatchDetailsDto;
 import com.ikn.ums.dto.EventDto;
 import com.ikn.ums.dto.OnlineMeetingDto;
 import com.ikn.ums.dto.TranscriptDto;
@@ -111,6 +112,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void performBatchProcessing() throws Exception{
+		
 		String userProfileUrl = "https://graph.microsoft.com/v1.0/users?$filter=accountEnabled eq true and userType eq 'Member'";
 		List<Object> onlineMeetingList = new ArrayList<>();
 
@@ -162,8 +164,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 					// if joinurl is not null, then the event is an online meeting, proceed to get
 					// and insert online meeting object
-					if (eventDto.getOnlineMeeting().getJoinUrl() != null
-							|| eventDto.getOnlineMeeting().getJoinUrl() != "") {
+					if (eventDto.getOnlineMeeting()!= null) {
 						String meetingJoinUrl = eventDto.getOnlineMeeting().getJoinUrl();
 
 						// get online meeting objects of the user one by one and attach to event
@@ -337,7 +338,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 			// if joinurl is not null, then the event is an online meeting, proceed to get
 			// and insert online meeting object
-			if (eventDto.getOnlineMeeting().getJoinUrl() != null || eventDto.getOnlineMeeting().getJoinUrl() != "") {
+			if (eventDto.getOnlineMeeting() != null) {
 				String meetingJoinUrl = eventDto.getOnlineMeeting().getJoinUrl();
 
 				// get online meeting objects of the user one by one and attach to event
