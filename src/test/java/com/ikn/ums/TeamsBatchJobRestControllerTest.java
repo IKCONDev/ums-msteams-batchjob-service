@@ -43,22 +43,25 @@ public class TeamsBatchJobRestControllerTest {
 	@MockBean
 	private EventRepository eventRepo;
 	
-    @Test
-    public void test_meetingDataBatchProcessing_Success() throws Exception {
-    	
-    	BatchDetailsDto batchDetailsDto = new BatchDetailsDto();
-    	batchDetailsDto.setId(1);
-    	batchDetailsDto.setStartDateTime(LocalDateTime.now());
-    	
-       // Mock the behavior of teamsBatchService
-       doNothing().when(batchService).performBatchProcessing(batchDetailsDto);       
-      // Perform the request and verify the response
-       mockMvc.perform(MockMvcRequestBuilders
-    			.get("/api/teams/batch-process").accept(MediaType.APPLICATION_JSON))
-    	        .andDo(print())
-    	        .andExpect(status().isOk())
-    	        .andExpect(MockMvcResultMatchers.content().string("Batch processing successfull"));
-    }
+	@Test
+	public void test_meetingDataBatchProcessing_Success() throws Exception {
+	    BatchDetailsDto batchDetailsDto = new BatchDetailsDto();
+	    batchDetailsDto.setId(1);
+	    batchDetailsDto.setStartDateTime(LocalDateTime.now());
+	    batchDetailsDto.setStatus("COMPLETED");
+	    
+	    // Mock the behavior of teamsBatchService
+	    when(batchService.getLatestBatchProcessingRecordDetails()).thenReturn(batchDetailsDto);
+	    doNothing().when(batchService).performBatchProcessing(batchDetailsDto);
+	    
+	    // Perform the request and verify the response
+	    mockMvc.perform(MockMvcRequestBuilders
+	            .get("/api/teams/batch-process")
+	            .accept(MediaType.APPLICATION_JSON))
+	            .andDo(print())
+	            .andExpect(status().isOk())
+	            .andExpect(MockMvcResultMatchers.content().string("Batch processing successfull"));
+	}
     
     @Test
     public void test_meetingDataBatchProcessing_Fail() throws Exception {
