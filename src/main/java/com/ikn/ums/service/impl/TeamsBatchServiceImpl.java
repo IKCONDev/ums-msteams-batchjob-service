@@ -83,7 +83,7 @@ import okhttp3.Request;
 
 @SuppressWarnings("unused")
 @Service
-@Slf4j
+//@Slf4j
 public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 	@Autowired
@@ -332,7 +332,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			EventDto updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(updatedEventWithOnlineMeeting);
 			updateEventsListDto.add(updatedEventWithOnlineMeetingAndTranscript);
 			
-			log.debug("Event => "+updatedEventWithOnlineMeetingAndTranscript);
+			//log.debug("Event => "+updatedEventWithOnlineMeetingAndTranscript);
 			//display
 			System.out.println("Event => "+updatedEventWithOnlineMeetingAndTranscript);
 		});

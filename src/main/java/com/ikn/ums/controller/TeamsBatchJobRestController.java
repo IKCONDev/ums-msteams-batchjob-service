@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/teams")
-@Slf4j
+//@Slf4j
 public class TeamsBatchJobRestController {
 
 	@Autowired
@@ -43,7 +43,7 @@ public class TeamsBatchJobRestController {
 		try {
 			BatchDetailsDto existingBatchProcess = teamsBatchService.getLatestBatchProcessingRecordDetails();
 			if(existingBatchProcess.getStatus() == "RUNNING") {
-				log.info("An instance of batch process is altready running");
+				//log.info("An instance of batch process is altready running");
 				return new ResponseEntity<>("An instance of batch process is altready running",HttpStatus.OK);
 			}else {
 				//perform batch processing
