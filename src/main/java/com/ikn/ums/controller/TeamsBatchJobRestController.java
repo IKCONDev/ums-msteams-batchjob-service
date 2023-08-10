@@ -1,13 +1,6 @@
 package com.ikn.ums.controller;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ikn.ums.dto.BatchDetailsDto;
 import com.ikn.ums.dto.EventDto;
 import com.ikn.ums.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.service.ITeamsBatchService;
@@ -47,24 +41,18 @@ public class TeamsBatchJobRestController {
 	@GetMapping(path="/batch-process")
 	public ResponseEntity<?> meetingDataBatchProcessing() {
 		try {
-			//perform batch processing
-			teamsBatchService.performBatchProcessing();
-			return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
+			BatchDetailsDto existingBatchProcess = teamsBatchService.getLatestBatchProcessingRecordDetails();
+			if(existingBatchProcess.getStatus() == "RUNNING") {
+				log.info("An instance of batch process is altready running");
+				return new ResponseEntity<>("An instance of batch process is altready running",HttpStatus.OK);
+			}else {
+				//perform batch processing
+				teamsBatchService.performBatchProcessing(existingBatchProcess);
+				return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error while batch processing, Check server logs for full details",
-					HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@GetMapping(path = "/batch-user/{userPrincipalName}")
-	public ResponseEntity<?> meetingUserDataBatchProcessing(@PathVariable String userPrincipalName) {
-		try {
-			teamsBatchService.performSingleUserBatchProcessing(userPrincipalName);
-			return new ResponseEntity<>("Batch processing successfull for user "+userPrincipalName, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Error while batch processing for user "+userPrincipalName+", Check server logs for full details",
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

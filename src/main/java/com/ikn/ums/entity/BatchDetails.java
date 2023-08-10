@@ -1,7 +1,6 @@
 package com.ikn.ums.entity;
 
-import java.sql.Timestamp;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +19,9 @@ public class BatchDetails {
 	@SequenceGenerator(name = "attendess_gen", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(generator = "attendess_gen")
 	private Integer id;
-	private ZonedDateTime  startDateTime;
-	private ZonedDateTime  endDateTime;
-	private ZonedDateTime  lastExecutionDateTime;
-	private ZonedDateTime  lastSuccessfullExecutionDateTime;
+	private LocalDateTime  startDateTime;
+	private LocalDateTime  endDateTime;
+	private LocalDateTime  lastSuccessfullExecutionDateTime;
 	private String status;
 
 }

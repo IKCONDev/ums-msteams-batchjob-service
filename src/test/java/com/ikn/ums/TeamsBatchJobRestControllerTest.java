@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.ikn.ums.controller.TeamsBatchJobRestController;
+import com.ikn.ums.dto.BatchDetailsDto;
 import com.ikn.ums.dto.EventDto;
 import com.ikn.ums.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.repo.EventRepository;
@@ -44,9 +46,12 @@ public class TeamsBatchJobRestControllerTest {
     @Test
     public void test_meetingDataBatchProcessing_Success() throws Exception {
     	
+    	BatchDetailsDto batchDetailsDto = new BatchDetailsDto();
+    	batchDetailsDto.setId(1);
+    	batchDetailsDto.setStartDateTime(LocalDateTime.now());
+    	
        // Mock the behavior of teamsBatchService
-       doNothing().when(batchService).performBatchProcessing();
-       
+       doNothing().when(batchService).performBatchProcessing(batchDetailsDto);       
       // Perform the request and verify the response
        mockMvc.perform(MockMvcRequestBuilders
     			.get("/api/teams/batch-process").accept(MediaType.APPLICATION_JSON))
@@ -57,8 +62,13 @@ public class TeamsBatchJobRestControllerTest {
     
     @Test
     public void test_meetingDataBatchProcessing_Fail() throws Exception {
+    	
+    	BatchDetailsDto batchDetailsDto = new BatchDetailsDto();
+    	batchDetailsDto.setId(1);
+    	batchDetailsDto.setStartDateTime(LocalDateTime.now());
+    	
         // Mock the behavior of teamsBatchService
-        doThrow(new Exception()).when(batchService).performBatchProcessing();
+        doThrow(new Exception()).when(batchService).performBatchProcessing(batchDetailsDto);
         
         // Perform the request and verify the response 
         // Expecting a 500 Internal Server Error for the failed scenario
@@ -71,37 +81,6 @@ public class TeamsBatchJobRestControllerTest {
     }
 
 
-    
-    @Test
-    public void test_meetingDataUserBatchProcessing_Success() throws Exception {
-    	String userPrincipal = "Vaishnav.P@ikcontech.com";
-    	
-    	// Mock the behavior of teamsBatchService
-        doNothing().when(batchService).performSingleUserBatchProcessing(userPrincipal);
-    	
-      // Perform the request and verify the response
-      mockMvc.perform(MockMvcRequestBuilders
-    			.get("/api/teams/batch-user/"+userPrincipal).accept(MediaType.APPLICATION_JSON))
-    	        .andDo(print())
-    	        .andExpect(status().isOk())
-    	        .andExpect(MockMvcResultMatchers.content().string("Batch processing successfull for user "+userPrincipal));
-    }
-    
-    @Test
-    public void test_meetingUserDataBatchProcessing_Fail() throws Exception {
-    	String userPrincipal = "Bharat@ikcontech.com";
-        // Mock the behavior of teamsBatchService
-        doThrow(new Exception()).when(batchService).performSingleUserBatchProcessing(userPrincipal);
-        
-        // Perform the request and verify the response 
-        // Expecting a 500 Internal Server Error for the failed scenario
-        mockMvc.perform(MockMvcRequestBuilders
-            .get("/api/teams/batch-user/"+userPrincipal)
-            .accept(MediaType.APPLICATION_JSON))
-            .andDo(print())
-            .andExpect(status().isInternalServerError())
-            .andExpect(MockMvcResultMatchers.content().string("Error while batch processing for user "+userPrincipal+", Check server logs for full details")); 
-    }
     
     
     @Test
