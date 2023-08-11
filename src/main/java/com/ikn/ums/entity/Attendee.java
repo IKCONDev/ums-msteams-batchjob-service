@@ -1,11 +1,16 @@
 package com.ikn.ums.entity;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,11 +27,10 @@ public class Attendee {
 	@GeneratedValue(generator = "attendess_gen")
 	private Integer id;
 	private String type;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,optional = false, targetEntity = EmailAddress.class)
-	@JoinColumn(name = "status_fk_id", nullable = true, referencedColumnName = "id", unique = true)
-	private Status status;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,optional = false, targetEntity = EmailAddress.class)
-	@JoinColumn(name = "email_fk_id", nullable = false, referencedColumnName = "id", unique = true)
-	private EmailAddress emailAddress;
+	private String status;
+	private String email;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_fk_id",nullable = true)
+	private UserProfile user;
 
 }

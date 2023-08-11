@@ -12,13 +12,9 @@ public class EventDto {
 	
 	    @JsonProperty("id")
 		private String eventId;
-	    
-	    private String userId;
-	    
-	    private String userPrinicipalName;
-	    
+	      
 	    @JsonProperty("createdDateTime")
-		private String eventCreatedDateTime;
+		private String createdDateTime;
 	    
 		private String originalStartTimeZone;
 		
@@ -52,6 +48,8 @@ public class EventDto {
 	    private String insertedBy = "IKCON UMS";
 	    
 	    private String insertedDate = LocalDateTime.now().toString();
+	    
+	    private UserProfileDto user;
 	    
 	
 }

@@ -7,8 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,9 +20,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.ikn.ums.controller.TeamsBatchJobRestController;
 import com.ikn.ums.dto.BatchDetailsDto;
-import com.ikn.ums.dto.EventDto;
-import com.ikn.ums.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.repo.EventRepository;
+import com.ikn.ums.repo.UserProfileRepository;
 import com.ikn.ums.service.ITeamsBatchService;
 
 
@@ -42,6 +39,9 @@ public class TeamsBatchJobRestControllerTest {
        
 	@MockBean
 	private EventRepository eventRepo;
+	
+	@MockBean 
+	private UserProfileRepository userProfileRepo;
 	
 	@Test
 	public void test_meetingDataBatchProcessing_Success() throws Exception {
@@ -82,84 +82,4 @@ public class TeamsBatchJobRestControllerTest {
             .andExpect(status().isInternalServerError())
             .andExpect(MockMvcResultMatchers.content().string("Error while batch processing, Check server logs for full details")); 
     }
-
-
-    
-    
-    @Test
-    public void test_getUserEvents_Success() throws Exception {
-        String userPrincipalName = "Vaishnav.P@ikcontech.com";
-        List<EventDto> mockEventsList = new ArrayList<>();
-
-        // Create an EventDto object
-        EventDto e = new EventDto();
-        e.setEventId("j777dd3h883=");
-        e.setUserId("9e2a07ef-86ff-4814-bf01-92c6bc0a74ff");
-        e.setUserPrinicipalName(userPrincipalName);
-
-        // Add the EventDto object to the mockEventsList
-        mockEventsList.add(e);
-
-        // Mock the service response
-        when(batchService.getEventByUserPrincipalName(userPrincipalName)).thenReturn(mockEventsList);
-
-        // Perform the request and validate the response
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/api/teams/events/" + userPrincipalName)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-    
-    @Test
-    public void test_getUserEvents_Fail_ServerError() throws Exception {
-        String userPrincipalName = "Vaishnav.P@ikcontech.com";
-        List<EventDto> mockEventsList = new ArrayList<>();
-
-        // Create an EventDto object
-        EventDto e = new EventDto();
-        e.setEventId("j777dd3h883=");
-        e.setUserId("9e2a07ef-86ff-4814-bf01-92c6bc0a74ff");
-        e.setUserPrinicipalName(userPrincipalName);
-
-        // Add the EventDto object to the mockEventsList
-        mockEventsList.add(e);
-
-        // Mock the service response
-        doThrow(new Exception()).when(batchService).getEventByUserPrincipalName(userPrincipalName);
-
-        // Perform the request and validate the response
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/api/teams/events/" + userPrincipalName)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isInternalServerError());
-    }
-    
-    @Test
-    public void test_getUserEvents_Fail_NotFound() throws Exception {
-        String userPrincipalName = "Bharat@ikcontech.com";
-        List<EventDto> mockEventsList = new ArrayList<>();
-
-        // Create an EventDto object
-        EventDto e = new EventDto();
-        e.setEventId("j777dd3h883=");
-        e.setUserId("9e2a07ef-86ff-4814-bf01-92c6bc0a74ff");
-        e.setUserPrinicipalName(userPrincipalName);
-
-        // Add the EventDto object to the mockEventsList
-        mockEventsList.add(e);
-
-        // Mock the service response
-        doThrow(new UserPrincipalNotFoundException()).when(batchService).getEventByUserPrincipalName(userPrincipalName);
-
-        // Perform the request and validate the response
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/api/teams/events/" + userPrincipalName)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isNotFound());
-    }
-    
-    
 }

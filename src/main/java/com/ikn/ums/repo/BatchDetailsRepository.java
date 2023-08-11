@@ -4,9 +4,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.ikn.ums.entity.BatchDetails;
 
+@Repository
 public interface BatchDetailsRepository extends JpaRepository<BatchDetails, Integer> {
 	
 	@Query("SELECT bd FROM BatchDetails bd WHERE bd.startDateTime = (SELECT MAX(bd2.startDateTime) FROM BatchDetails bd2)")

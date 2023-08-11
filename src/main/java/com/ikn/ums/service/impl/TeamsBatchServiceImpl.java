@@ -18,10 +18,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -55,17 +57,23 @@ import com.ikn.ums.dto.EventDto;
 import com.ikn.ums.dto.OnlineMeetingDto;
 import com.ikn.ums.dto.TranscriptDto;
 import com.ikn.ums.dto.UserProfileDto;
+import com.ikn.ums.entity.Attendee;
 import com.ikn.ums.entity.BatchDetails;
 import com.ikn.ums.entity.Event;
 import com.ikn.ums.entity.Transcript;
+import com.ikn.ums.entity.UserProfile;
 import com.ikn.ums.exception.UserPrincipalNotFoundException;
+import com.ikn.ums.exception.UsersNotFoundException;
 import com.ikn.ums.model.CalendarViewResponseWrapper;
 import com.ikn.ums.model.OnlineMeetingResponseWrapper;
 import com.ikn.ums.model.TranscriptsResponseWrapper;
 import com.ikn.ums.model.UserProfilesResponseWrapper;
 import com.ikn.ums.repo.BatchDetailsRepository;
 import com.ikn.ums.repo.EventRepository;
+import com.ikn.ums.repo.UserProfileRepository;
 import com.ikn.ums.service.ITeamsBatchService;
+import com.ikn.ums.service.IUserProfileService;
+import com.ikn.ums.utils.InitializeMicrosoftGraph;
 import com.ikn.ums.utils.ObjectMapper;
 import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
 import com.microsoft.graph.models.User;
@@ -89,8 +97,6 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	@Autowired
 	private Environment environment;
 
-	private ClientSecretCredential clientSecretCredential;
-	private GraphServiceClient<Request> _graphServiceClient;
 	private String accessToken = null;
 
 	@Autowired
@@ -99,42 +105,22 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	@Autowired
 	private BatchDetailsRepository batchDetailsRepository;
 
-	LocalDateTime lastBatchProcessingStartTime;
+	@Autowired
+	private IUserProfileService userProfileService;
 
-	ModelMapper mapper;
-	
-	List<List<EventDto>> allUsersEventList;
+	@Autowired
+	private InitializeMicrosoftGraph microsoftGraph;
 
-	public TeamsBatchServiceImpl() {
-		//ObjectMapper objMapper = new ObjectMapper();
-		//mapper = objMapper.modelMapper;
-		mapper = new ModelMapper();
-		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+	private LocalDateTime lastBatchProcessingStartTime;
 
-	// initialize Microsoft graph API and get access token
-	@Override
-	public String initializeMicrosoftGraph() {
-		if (clientSecretCredential == null) {
-			final String clientId = environment.getProperty("app.clientId");
-			final String clientSecret = environment.getProperty("app.clientSecret");
-			final String tenantId = environment.getProperty("app.tenantId");
-			this.clientSecretCredential = new ClientSecretCredentialBuilder().clientId(clientId).tenantId(tenantId)
-					.clientSecret(clientSecret).build();
-		}
-		final TokenCredentialAuthProvider authProvider = new TokenCredentialAuthProvider(
-				List.of("https://graph.microsoft.com/.default"), clientSecretCredential);
-		this._graphServiceClient = GraphServiceClient.builder().authenticationProvider(authProvider).buildClient();
-		return this.accessToken = getAccessToken();
-	}
+	private List<List<EventDto>> allUsersEventList;
 
-	// helper method
-	private String getAccessToken() {
-		final String[] graphscopes = new String[] { "https://graph.microsoft.com/.default" };
-		final TokenRequestContext context = new TokenRequestContext();
-		context.addScopes(graphscopes);
-		final AccessToken token = this.clientSecretCredential.getToken(context).block();
-		return token.getToken();
+	private ObjectMapper mapper;
+
+	// constructor
+	@Autowired
+	public TeamsBatchServiceImpl(ObjectMapper mapper) {
+		this.mapper = mapper;
 	}
 
 	@Transactional
@@ -143,140 +129,121 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 		// get access token from MS teams server , only if it is already null
 		if (this.accessToken == null) {
-			this.accessToken = this.initializeMicrosoftGraph();
+			this.accessToken = this.microsoftGraph.initializeMicrosoftGraph();
 		}
 
-		// set current batch processing details
-		BatchDetailsDto currentBatchDetailsDto = new BatchDetailsDto();
-		BatchDetails batchDetails = new BatchDetails();
-		
-		// get current time which is taken as batch processing start date time for current batch process
-	    LocalDateTime currentbatchStartTime = LocalDateTime.now();
-	  
-		//save current status of batch process in DB, and this will be latest record in DB
-		currentBatchDetailsDto.setStatus("RUNNING");
-		currentBatchDetailsDto.setStartDateTime(currentbatchStartTime);
-		
-		//map dto to entity
-		mapper.map(currentBatchDetailsDto, batchDetails);
-		
-		//save current batch object
-		BatchDetails retBatchDetails = batchDetailsRepository.save(batchDetails);
+		// get all users
+		List<UserProfile> userDtoList = userProfileService.fetchAllUsers();
 
-		
-		//get last batch processing time
-		try {
-			if (lastBatchDetails.getStartDateTime() != null) {
-				lastBatchProcessingStartTime = lastBatchDetails.getStartDateTime();
-			}
-			
-			// get all users
-			List<UserProfileDto> userDtoList = getUsers();
+		if (!userDtoList.isEmpty()) {
 
-			// iterate each user and get their events and save to UMS db
-			userDtoList.forEach(userDto -> {
-				if (!environment.getProperty("userprincipal.exclude.users").contains(userDto.getUserPrincipalName())) {
+			// set current batch processing details
+			BatchDetailsDto currentBatchDetailsDto = new BatchDetailsDto();
+			BatchDetails batchDetails = new BatchDetails();
 
-					String userId = userDto.getUserId();
-					// get userprincipalName and pass it to calendarView method to fetch the
-					// calendar events if the user
-					String userPrincipalName = userDto.getUserPrincipalName();
-					System.out.println(userId + " " + userPrincipalName);
+			// get current time which is taken as batch processing start date time for
+			// current batch process
+			LocalDateTime currentbatchStartTime = LocalDateTime.now();
 
-					// get users calendar view of events using principal name
-					List<EventDto> calendarEventsDtolist = getUserCalendarView(userId, userPrincipalName,
-							lastBatchProcessingStartTime);
-					
-					//save user events
-					saveAllUsersCalendarEvents(calendarEventsDtolist);
-									
+			// save current status of batch process in DB, and this will be latest record in
+			// DB
+			currentBatchDetailsDto.setStatus("RUNNING");
+			currentBatchDetailsDto.setStartDateTime(currentbatchStartTime);
+
+			// map dto to entity
+			this.mapper.modelMapper.map(currentBatchDetailsDto, batchDetails);
+
+			// save current batch object
+			BatchDetails retBatchDetails = batchDetailsRepository.save(batchDetails);
+
+			// get last batch processing time
+			try {
+				if (lastBatchDetails.getStartDateTime() != null) {
+					lastBatchProcessingStartTime = lastBatchDetails.getStartDateTime();
 				}
-			});
-			// set current batch processing details, if passed
-			retBatchDetails.setStatus("COMPLETED");
-			retBatchDetails.setEndDateTime(LocalDateTime.now());
-			retBatchDetails.setLastSuccessfullExecutionDateTime(currentbatchStartTime);
-			batchDetailsRepository.save(retBatchDetails);
 
-		} catch (Exception e) {
+				// iterate each user and get their events and save to UMS db
+				userDtoList.forEach(userDto -> {
+					if (!environment.getProperty("userprincipal.exclude.users")
+							.contains(userDto.getUserPrincipalName())) {
 
-			// set current batch processing details, if failed
-			retBatchDetails.setStatus("FAILED");
-			retBatchDetails.setEndDateTime(LocalDateTime.now());
-			batchDetailsRepository.save(retBatchDetails);
-			throw e;
+						String userId = userDto.getUserId();
+						// get userprincipalName and pass it to calendarView method to fetch the
+						// calendar events if the user
+						String userPrincipalName = userDto.getUserPrincipalName();
+						System.out.println(userId + " " + userPrincipalName);
+
+						// get users calendar view of events using principal name
+						List<EventDto> calendarEventsDtolist = getUserCalendarView(userDto,
+								lastBatchProcessingStartTime);
+
+						// save user events
+						saveAllUsersCalendarEvents(calendarEventsDtolist, userDto);
+
+					}
+				});
+				// set current batch processing details, if passed
+				retBatchDetails.setStatus("COMPLETED");
+				retBatchDetails.setEndDateTime(LocalDateTime.now());
+				retBatchDetails.setLastSuccessfullExecutionDateTime(currentbatchStartTime);
+				batchDetailsRepository.save(retBatchDetails);
+			} catch (Exception e) {
+
+				// set current batch processing details, if failed
+				retBatchDetails.setStatus("FAILED");
+				retBatchDetails.setEndDateTime(LocalDateTime.now());
+				batchDetailsRepository.save(retBatchDetails);
+				throw e;
+			}
+		}else {
+			throw new UsersNotFoundException("Users not available for batch processing");
 		}
 	}
 
-	
-	@SuppressWarnings("rawtypes")
-	private List<UserProfileDto> getUsers() {
-
-		// get users
-		String userProfileUrl = "https://graph.microsoft.com/v1.0/users?$filter=accountEnabled eq true and userType eq 'Member'";
-		List<Object> onlineMeetingList = new ArrayList<>();
-
-		// prepare headers
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add("Authorization", "Bearer " + this.accessToken);
-		httpHeaders.add("content-type", "application/json");
-
-		// prepare http entity with headers
-		HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
-
-		// prepare the rest template and hit the graph api user end point
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<UserProfilesResponseWrapper> userProfilesResponse = restTemplate.exchange(userProfileUrl,
-				HttpMethod.GET, httpEntity, UserProfilesResponseWrapper.class);
-
-		// get all user profiles from reponse object
-		List<UserProfileDto> userDtoList = userProfilesResponse.getBody().getValue();
-
-		return userDtoList;
-	}
-	
-	private List<EventDto> getUserCalendarView(String userId, String userPrincipalName, LocalDateTime lastSuccessfulBatchStartTime) {
+	private List<EventDto> getUserCalendarView(UserProfile userDto, LocalDateTime lastSuccessfulBatchStartTime) {
 		// Get the current date in the system's default time zone
 		LocalDateTime currentStartDateTime = LocalDateTime.now();
 
 		// Set the datetime to 1 hour ago for the first time execution of batch process
 		LocalDateTime dateTimeOneHourAgo = currentStartDateTime.minus(1, ChronoUnit.HOURS);
-		
+
 		// Convert to UTC
-        ZonedDateTime zonedStartDateTime = dateTimeOneHourAgo.atZone(ZoneId.systemDefault());
-        ZonedDateTime utcZonedStartDateTime = zonedStartDateTime.withZoneSameInstant(ZoneId.of("UTC"));
-        
-        // Extract UTC LocalDateTime
-        LocalDateTime dateTimeOneHourAgoUTC = utcZonedStartDateTime.toLocalDateTime();
-		
+		ZonedDateTime zonedStartDateTime = dateTimeOneHourAgo.atZone(ZoneId.systemDefault());
+		ZonedDateTime utcZonedStartDateTime = zonedStartDateTime.withZoneSameInstant(ZoneId.of("UTC"));
+
+		// Extract UTC LocalDateTime
+		LocalDateTime dateTimeOneHourAgoUTC = utcZonedStartDateTime.toLocalDateTime();
+
 		// Get the current date in the system's default time zone
 		LocalDateTime currentEndDateTime = LocalDateTime.now();
-		
-		 // Convert to UTC
-        ZonedDateTime zonedEndDateTime = currentEndDateTime.atZone(ZoneId.systemDefault());
-        ZonedDateTime utcZonedEndDateTime = zonedEndDateTime.withZoneSameInstant(ZoneId.of("UTC"));
 
-        // Extract UTC LocalDateTime
-        LocalDateTime currentEndDateTimeUTC = utcZonedEndDateTime.toLocalDateTime();
-        
-        LocalDateTime batchStartTimeUTC = null;
-        //convert lastsuccessfulbatchtime to UTC
-        if(lastSuccessfulBatchStartTime != null) {
-        	ZonedDateTime zonedLastSuccessfulBatchTime = lastSuccessfulBatchStartTime.atZone(ZoneId.systemDefault());
-            ZonedDateTime utcZonedLastSuccessfulBatchTime = zonedLastSuccessfulBatchTime.withZoneSameInstant(ZoneId.of("UTC"));
-            
-            //Extract UTC LocalDateTime
-            batchStartTimeUTC = utcZonedLastSuccessfulBatchTime.toLocalDateTime();
-        }
+		// Convert to UTC
+		ZonedDateTime zonedEndDateTime = currentEndDateTime.atZone(ZoneId.systemDefault());
+		ZonedDateTime utcZonedEndDateTime = zonedEndDateTime.withZoneSameInstant(ZoneId.of("UTC"));
+
+		// Extract UTC LocalDateTime
+		LocalDateTime currentEndDateTimeUTC = utcZonedEndDateTime.toLocalDateTime();
+
+		LocalDateTime batchStartTimeUTC = null;
+		// convert lastsuccessfulbatchtime to UTC
+		if (lastSuccessfulBatchStartTime != null) {
+			ZonedDateTime zonedLastSuccessfulBatchTime = lastSuccessfulBatchStartTime.atZone(ZoneId.systemDefault());
+			ZonedDateTime utcZonedLastSuccessfulBatchTime = zonedLastSuccessfulBatchTime
+					.withZoneSameInstant(ZoneId.of("UTC"));
+
+			// Extract UTC LocalDateTime
+			batchStartTimeUTC = utcZonedLastSuccessfulBatchTime.toLocalDateTime();
+		}
 
 		StringBuilder calendarViewBaseUrl = null;
 		if (lastSuccessfulBatchStartTime == null) {
-			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userPrincipalName
-					+ "/calendarView?startDateTime=" + dateTimeOneHourAgoUTC + "&endDateTime=" + currentEndDateTimeUTC);
+			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/"
+					+ userDto.getUserPrincipalName() + "/calendarView?startDateTime=" + dateTimeOneHourAgoUTC
+					+ "&endDateTime=" + currentEndDateTimeUTC);
 		} else {
-			calendarViewBaseUrl = new StringBuilder(
-					"https://graph.microsoft.com/v1.0/users/" + userPrincipalName + "/calendarView?startDateTime="
-							+batchStartTimeUTC  + "&endDateTime=" + currentEndDateTimeUTC);
+			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/"
+					+ userDto.getUserPrincipalName() + "/calendarView?startDateTime=" + batchStartTimeUTC
+					+ "&endDateTime=" + currentEndDateTimeUTC);
 		}
 		// String select =
 		// environment.getProperty("calendarview.url.queryparam.select");
@@ -305,161 +272,161 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		// get the response (list of calendar event objects)
 		CalendarViewResponseWrapper calendarViewWrapper = response.getBody();
 		List<EventDto> listCalendarViewDto = calendarViewWrapper.getValue();
-		
+
 		ListIterator<EventDto> iterator = listCalendarViewDto.listIterator();
-		
-		//prevent concurrent modifications on events list by using iterator instead of for each loop.
-		while(iterator.hasNext()) {
+
+		// prevent concurrent modifications on events list by using iterator instead of
+		// for each loop.
+		while (iterator.hasNext()) {
 			EventDto eventDto = iterator.next();
 			String eventEndTimeUTC = eventDto.getEnd().getDateTime();
 			LocalDateTime originalEventEndDateTimeUTC = LocalDateTime.parse(eventEndTimeUTC);
 			System.out.println(originalEventEndDateTimeUTC);
-			if(originalEventEndDateTimeUTC.compareTo(currentEndDateTimeUTC)>0) {
+			if (originalEventEndDateTimeUTC.compareTo(currentEndDateTimeUTC) > 0) {
 				iterator.remove();
 			}
 		}
-		
+
 		// get user events with its attached online meetings
-		//for each event attach corresponding online meeting
+		// for each event attach corresponding online meeting
 		List<EventDto> updateEventsListDto = new ArrayList<>();
-		listCalendarViewDto.forEach(eventDto ->{
+		listCalendarViewDto.forEach(eventDto -> {
 			System.out.println(eventDto);
-			//attach userId and principal name to event
-			eventDto.setUserId(userId);
-			eventDto.setUserPrinicipalName(userPrincipalName);
-			//attach online meeting to event
-			EventDto updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto);
-			EventDto updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(updatedEventWithOnlineMeeting);
+			// attach userId and principal name to event
+			//eventDto.setUser(userDto);
+			System.out.println("Dynamic allocation " + userDto);
+			// attach online meeting to event
+			EventDto updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
+			EventDto updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
+					updatedEventWithOnlineMeeting, userDto);
 			updateEventsListDto.add(updatedEventWithOnlineMeetingAndTranscript);
-			
-			//log.debug("Event => "+updatedEventWithOnlineMeetingAndTranscript);
-			//display
-			System.out.println("Event => "+updatedEventWithOnlineMeetingAndTranscript);
+
+			// log.debug("Event => "+updatedEventWithOnlineMeetingAndTranscript);
+			// display
+			System.out.println("Event => " + updatedEventWithOnlineMeetingAndTranscript);
 		});
 		return updateEventsListDto;
 	}
 
-
 	// attach online meeting to event, so that event will now contain its online
 	// meeting details
-	private EventDto attachOnlineMeetingDetailsToEvent(EventDto eventDto) {
-		
-			// if joinurl is not null, then the event is an online meeting, proceed to get
-			// and insert online meeting object
-			if (eventDto.getOnlineMeeting() != null) {
-				String meetingJoinUrl = eventDto.getOnlineMeeting().getJoinUrl();
+	private EventDto attachOnlineMeetingDetailsToEvent(EventDto eventDto, UserProfile user) {
 
-				// get online meeting objects of the user one by one and attach to event
-				OnlineMeetingDto onlineMeeting = getOnlineMeeting(meetingJoinUrl, eventDto.getUserId());
-				if (onlineMeeting != null) {
-					eventDto.getOnlineMeeting().setOnlineMeetingId(onlineMeeting.getOnlineMeetingId());
-					eventDto.getOnlineMeeting().setSubject(onlineMeeting.getSubject());
-					eventDto.getOnlineMeeting().setOnlineMeetingType(eventDto.getType());
-				}
+		// if joinurl is not null, then the event is an online meeting, proceed to get
+		// and insert online meeting object
+		if (eventDto.getOnlineMeeting() != null) {
+			String meetingJoinUrl = eventDto.getOnlineMeeting().getJoinUrl();
+
+			// get online meeting objects of the user one by one and attach to event
+			OnlineMeetingDto onlineMeeting = getOnlineMeeting(meetingJoinUrl, user.getUserId());
+			if (onlineMeeting != null) {
+				eventDto.getOnlineMeeting().setOnlineMeetingId(onlineMeeting.getOnlineMeetingId());
+				eventDto.getOnlineMeeting().setSubject(onlineMeeting.getSubject());
+				eventDto.getOnlineMeeting().setOnlineMeetingType(eventDto.getType());
 			}
-			return eventDto;
+		}
+		return eventDto;
 	}
 
 	// attach transcripts to respective online meetings
-	private EventDto attachTranscriptsToOnlineMeeting(EventDto eventDto) {
-	
+	private EventDto attachTranscriptsToOnlineMeeting(EventDto eventDto, UserProfile user) {
+
 		if (eventDto.getOccurrenceId() != null || eventDto.getOccurrenceId() != "") {
-				eventDto.getOnlineMeeting().setOccurrenceId(eventDto.getOccurrenceId());
-			}
+			eventDto.getOnlineMeeting().setOccurrenceId(eventDto.getOccurrenceId());
+		}
 
-			// Retrieve transcripts of particular instance of the recurring meeting and
-			// insert into db
-			if (eventDto.getOnlineMeeting().getOccurrenceId() != null) {
-				List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(eventDto.getUserId(),
-						eventDto.getOnlineMeeting().getOnlineMeetingId());
-				List<TranscriptDto> actualMeetingTranscriptsListDto = new ArrayList<>();
-				transcriptsListDto.forEach(transcriptDetail -> {
-					// get created date of transcripts and compare with meeting occurrence date
-					String timestamp = transcriptDetail.getCreatedDateTime();
-					ZonedDateTime zonedDateTime = ZonedDateTime.parse(timestamp);
-					LocalDate dateOnly = zonedDateTime.toLocalDate();
-					DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-					String transcriptGeneratedDate = dateOnly.format(dateFormatter);
+		// Retrieve transcripts of particular instance of the recurring meeting and
+		// insert into db
+		if (eventDto.getOnlineMeeting().getOccurrenceId() != null) {
+			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getUserId(),
+					eventDto.getOnlineMeeting().getOnlineMeetingId());
+			List<TranscriptDto> actualMeetingTranscriptsListDto = new ArrayList<>();
+			transcriptsListDto.forEach(transcriptDetail -> {
+				// get created date of transcripts and compare with meeting occurrence date
+				String timestamp = transcriptDetail.getCreatedDateTime();
+				ZonedDateTime zonedDateTime = ZonedDateTime.parse(timestamp);
+				LocalDate dateOnly = zonedDateTime.toLocalDate();
+				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				String transcriptGeneratedDate = dateOnly.format(dateFormatter);
 
-					// if transcript date matches with occurrence date, add all those transcripts to
-					// list and attach to the online meeting object
-					if (eventDto.getOccurrenceId().contains(transcriptGeneratedDate)) {
-						actualMeetingTranscriptsListDto.add(transcriptDetail);
+				// if transcript date matches with occurrence date, add all those transcripts to
+				// list and attach to the online meeting object
+				if (eventDto.getOccurrenceId().contains(transcriptGeneratedDate)) {
+					actualMeetingTranscriptsListDto.add(transcriptDetail);
 
-						// write transcripts data into a file and store in the file loc in db
-						if (actualMeetingTranscriptsListDto != null) {
-							actualMeetingTranscriptsListDto.forEach(transcriptDto -> {
-								String transcriptContent = getTranscriptContent(
-										transcriptDto.getTranscriptContentUrl());
+					// write transcripts data into a file and store in the file loc in db
+					if (actualMeetingTranscriptsListDto != null) {
+						actualMeetingTranscriptsListDto.forEach(transcriptDto -> {
+							String transcriptContent = getTranscriptContent(transcriptDto.getTranscriptContentUrl());
 
-								// write transcript into file
-								try (FileWriter fileWriter = new FileWriter(
-										"Transcript " + transcriptDto.getTranscriptId())) {
-									fileWriter.write(transcriptContent);
-									System.out.println("Transcript content has been written to the file.");
+							// write transcript into file
+							try (FileWriter fileWriter = new FileWriter(
+									"Transcript " + transcriptDto.getTranscriptId())) {
+								fileWriter.write(transcriptContent);
+								System.out.println("Transcript content has been written to the file.");
 
-									// save file loc to db
-									// Get the file path
-									File file = new File("Transcript " + transcriptDto.getTranscriptId());
-									String filePath = file.getAbsolutePath();
-									System.out.println("File path: " + filePath);
-									if (!filePath.equalsIgnoreCase("")) {
+								// save file loc to db
+								// Get the file path
+								File file = new File("Transcript " + transcriptDto.getTranscriptId());
+								String filePath = file.getAbsolutePath();
+								System.out.println("File path: " + filePath);
+								if (!filePath.equalsIgnoreCase("")) {
 
-										// set transcript file path
-										transcriptDto.setTranscriptFilePath(filePath);
-									}
-
-								} catch (IOException e) {
-									e.printStackTrace();
-									throw new RuntimeException(e);
+									// set transcript file path
+									transcriptDto.setTranscriptFilePath(filePath);
 								}
-							});
-							eventDto.getOnlineMeeting().setMeetingTranscripts(actualMeetingTranscriptsListDto);
+
+							} catch (IOException e) {
+								e.printStackTrace();
+								throw new RuntimeException(e);
+							}
+						});
+						eventDto.getOnlineMeeting().setMeetingTranscripts(actualMeetingTranscriptsListDto);
+					}
+
+				}
+			});
+		} // if
+		else {
+
+			// Retrieve transcripts of single instance meeting and insert into db
+			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getUserId(),
+					eventDto.getOnlineMeeting().getOnlineMeetingId());
+			if (transcriptsListDto != null) {
+				// eventDto.getOnlineMeeting().setMeetingTranscripts(transcriptsListDto);
+				transcriptsListDto.forEach(transcript -> {
+					String transcriptContent = getTranscriptContent(transcript.getTranscriptContentUrl());
+
+					// write transcript into file
+					try (FileWriter fileWriter = new FileWriter("Transcript " + transcript.getTranscriptId())) {
+						fileWriter.write(transcriptContent);
+						System.out.println("Transcript content has been written to the file.");
+
+						// save file loc to db
+						// Get the file path
+						File file = new File("Transcript-" + transcript.getTranscriptId());
+						String filePath = file.getPath();
+						System.out.println("File path: " + filePath);
+						if (!filePath.equalsIgnoreCase("")) {
+							// set transcript file path
+							transcript.setTranscriptFilePath(filePath);
 						}
+
+					} catch (IOException e) {
+						e.printStackTrace();
+						throw new RuntimeException(e);
 
 					}
 				});
-			} // if
-			else {
-
-				// Retrieve transcripts of single instance meeting and insert into db
-				List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(eventDto.getUserId(),
-						eventDto.getOnlineMeeting().getOnlineMeetingId());
-				if (transcriptsListDto != null) {
-					// eventDto.getOnlineMeeting().setMeetingTranscripts(transcriptsListDto);
-					transcriptsListDto.forEach(transcript -> {
-						String transcriptContent = getTranscriptContent(transcript.getTranscriptContentUrl());
-
-						// write transcript into file
-						try (FileWriter fileWriter = new FileWriter("Transcript " + transcript.getTranscriptId())) {
-							fileWriter.write(transcriptContent);
-							System.out.println("Transcript content has been written to the file.");
-
-							// save file loc to db
-							// Get the file path
-							File file = new File("Transcript-" + transcript.getTranscriptId());
-							String filePath = file.getPath();
-							System.out.println("File path: " + filePath);
-							if (!filePath.equalsIgnoreCase("")) {
-								// set transcript file path
-								transcript.setTranscriptFilePath(filePath);
-							}
-
-						} catch (IOException e) {
-							e.printStackTrace();
-							throw new RuntimeException(e);
-
-						}
-					});
-					//set transcripts to online meeting of the event
-					eventDto.getOnlineMeeting().setMeetingTranscripts(transcriptsListDto);
-				}
+				// set transcripts to online meeting of the event
+				eventDto.getOnlineMeeting().setMeetingTranscripts(transcriptsListDto);
 			}
+		}
 		return eventDto;
 	}
 
 	// map all event dto's to event entities to save into db
-	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto) {
+	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto, UserProfile user) {
 		eventsListDto.forEach(eventDto -> {
 			// iterate through event objects and get the online meeting object from each
 			// event object one by one
@@ -467,12 +434,51 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			Event event = new Event();
 
 			// map eventDto to event and add all the events to list
-			mapper.map(eventDto, event);
-			/// logic for isOnlinemeeting based on join url (optional)
+			mapper.modelMapper.map(eventDto, event);
+
+			// map manual property entries
+			event.setOnlineMeetingId(eventDto.getOnlineMeeting().getOnlineMeetingId());
+			event.setStartDateTime(LocalDateTime.parse(eventDto.getStart().getDateTime()));
+			event.setStartTimeZone(eventDto.getStart().getTimeZone());
+			event.setEndDateTime(LocalDateTime.parse(eventDto.getEnd().getDateTime()));
+			event.setEndTimeZone(eventDto.getEnd().getTimeZone());
+			event.setLocation(eventDto.getLocation().getDisplayName());
+			event.setOrganizerEmailId(eventDto.getOrganizer().getEmailAddress().getAddress());
+			event.setOrganizerName(eventDto.getOrganizer().getEmailAddress().getName());
+			event.setJoinUrl(eventDto.getOnlineMeeting().getJoinUrl());
+			event.setUser(user);
+			Set<Attendee> attendeesList = new HashSet<>();
+			List<String> mailIds = new ArrayList<>();
+			eventDto.getAttendees().forEach(attendeeDto ->{
+				Attendee attendee = new Attendee();
+				String attendeeEmailAddress = attendeeDto.getEmailAddress().getAddress();
+				//map dto to entity
+				mapper.modelMapper.map(attendeeDto, attendee);
+				//manually map the unmatched field
+				attendee.setEmail(attendeeEmailAddress);
+				attendee.setStatus(attendeeDto.getStatus().getResponse());
+				mailIds.add(attendeeEmailAddress);
+				attendeesList.add(attendee);
+				//set event to attendee
+				//attendee.setEvent(event);
+			});
+			
+			//set user profile for each attendee
+			List<UserProfile> userProfilesList = userProfileService.getUsersByMailIds(mailIds);
+			attendeesList.forEach(attendee->{
+				for(int i=0; i<userProfilesList.size(); i++) {
+					if(attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getMail())) {
+						attendee.setUser(userProfilesList.get(i));
+					}
+				}
+			});
+			
+			event.setAttendees(attendeesList);			
+			// logic for isOnlinemeeting based on join url (optional)
 			eventEntities.add(event);
 
 			// finally save all event entities of the user in UMS DB,
-			// now all the events contain (its online meeting and transcript details)
+			// now all the events contain (its online meeting Id and transcript details if any)
 			List<Event> eventsList = eventRepository.saveAll(eventEntities);
 		});
 	}
@@ -559,7 +565,6 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		return rentity.getBody();
 	}
 
-
 	@Override
 	public BatchDetailsDto getLatestBatchProcessingRecordDetails() {
 		Optional<BatchDetails> optBatchDetails = batchDetailsRepository.getLatestBatchProcessingRecord();
@@ -570,43 +575,40 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			latestBatchDetailsDto = new BatchDetailsDto();
 
 			// map entity to dto
-			this.mapper.map(latestBatchDetails, latestBatchDetailsDto);
+			this.mapper.modelMapper.map(latestBatchDetails, latestBatchDetailsDto);
 			return latestBatchDetailsDto;
 		}
 		latestBatchDetailsDto = new BatchDetailsDto();
 		latestBatchDetailsDto.setStatus("COMPLETED");
 		return latestBatchDetailsDto;
 	}
-	
-	// get events of a single user
-		@Override
-		public List<EventDto> getEventByUserPrincipalName(String userPrincipalName) throws Exception {
 
-			List<EventDto> eventsListDto = new ArrayList<>();
+	/*
+	 * // get events of a single user
+	 * 
+	 * @Override public List<EventDto> getEventByUserPrincipalName(String
+	 * userPrincipalName) throws Exception {
+	 * 
+	 * List<EventDto> eventsListDto = new ArrayList<>();
+	 * 
+	 * // check whether the user exists or not int count =
+	 * eventRepository.findUserPrinicipalName(userPrincipalName);
+	 * 
+	 * if (count > 0) { // get events list if a particular user after batch
+	 * processing List<Event> eventsList =
+	 * eventRepository.findByUserPrinicipalName(userPrincipalName);
+	 * 
+	 * // create mapper object ModelMapper mapper = new ModelMapper();
+	 * mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+	 * 
+	 * // loop though DTO for conversion eventsList.forEach(event -> { EventDto
+	 * eventDto = new EventDto();
+	 * 
+	 * // map DTO to entity mapper.map(event, eventDto);
+	 * eventsListDto.add(eventDto); }); } else { throw new
+	 * UserPrincipalNotFoundException("user with provided principal name " +
+	 * userPrincipalName + " does not exist to retrive their events data."); }
+	 * return eventsListDto; }
+	 */
 
-			// check whether the user exists or not
-			int count = eventRepository.findUserPrinicipalName(userPrincipalName);
-
-			if (count > 0) {
-				// get events list if a particular user after batch processing
-				List<Event> eventsList = eventRepository.findByUserPrinicipalName(userPrincipalName);
-
-				// create mapper object
-				ModelMapper mapper = new ModelMapper();
-				mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-				// loop though DTO for conversion
-				eventsList.forEach(event -> {
-					EventDto eventDto = new EventDto();
-
-					// map DTO to entity
-					mapper.map(event, eventDto);
-					eventsListDto.add(eventDto);
-				});
-			} else {
-				throw new UserPrincipalNotFoundException("user with provided principal name " + userPrincipalName
-						+ " does not exist to retrive their events data.");
-			}
-			return eventsListDto;
-		}
 }

@@ -1,14 +1,20 @@
 package com.ikn.ums.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -30,93 +36,77 @@ public class Event {
 		logger.info("Event class no-param constructor executed");
 	}
 	
-	public Event(String userId, String userPrinicipalName, String eventId, String eventCreatedDateTime,
-            String originalStartTimeZone, String originalEndTimeZone, String subject, String type,
-            String occurrenceId, Start start, End end, Location location, Set<Attendee> attendee,
-            Organizer organizer, OnlineMeeting onlineMeeting, String onlineMeetingProvider,
-            Recurrence recurrence, String seriesMasterId) {
-		
-		logger.info("Event class parameterized constructor executed");
-		
-        this.userId = userId;
-        this.userPrinicipalName = userPrinicipalName;
-        this.eventId = eventId;
-        this.eventCreatedDateTime = eventCreatedDateTime;
-        this.originalStartTimeZone = originalStartTimeZone;
-        this.originalEndTimeZone = originalEndTimeZone;
-        this.subject = subject;
-        this.type = type;
-        this.occurrenceId = occurrenceId;
-        this.start = start;
-        this.end = end;
-        this.location = location;
-        this.attendee = attendee;
-        this.organizer = organizer;
-        this.onlineMeeting = onlineMeeting;
-        this.onlineMeetingProvider = onlineMeetingProvider;
-        this.recurrence = recurrence;
-        this.seriesMasterId = seriesMasterId;
-        this.insertedBy = "IKCON UMS";
-        this.insertedDate = LocalDateTime.now().toString();
-    }
 
 	@Id
 	@SequenceGenerator(name = "events_gen", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(generator = "events_gen")
+	@Column(name = "Id", nullable = false)
 	private Integer id;
 	
-	private String userId;
-	
-	private String userPrinicipalName;
-	
+	@Column(name = "EventId", nullable = false)
 	private String eventId;
 	
-	private String eventCreatedDateTime;
+	@Column(name = "CreatedDateTime", nullable = false)
+	private String createdDateTime;
 	
+	@Column(name = "OriginalStartTimeZone")
 	private String originalStartTimeZone;
 	
+	@Column(name = "OriginalEndTimeZone")
 	private String originalEndTimeZone;
 	
+	@Column(name = "Subject")
 	private String subject;
 	
+	@Column(name = "Type")
 	private String type;
 	
+	@Column(name = "OccurrenceId")
 	private String occurrenceId;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "start_fk_id", referencedColumnName = "id",unique = true)
-	private Start start;
+	@Column(name = "StartDateTime")
+	private LocalDateTime startDateTime;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "end_fk_id", referencedColumnName = "id",unique = true)
-	private End end;
+	private LocalDateTime endDateTime;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "location_fk_id", referencedColumnName = "id", unique = true, nullable = true)
-	private Location location;
+	private String startTimeZone;
 	
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "attendee_id", referencedColumnName = "id",unique = true, nullable = false)
-	private Set<Attendee> attendee;
+	private String endTimeZone;
+		
+	private String location;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@JoinColumn(name = "event_fk_id", referencedColumnName = "id")
+    private Set<Attendee> attendees;
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "organizer_fk_id", referencedColumnName = "id", unique = true)
-	private Organizer organizer;
+    private String organizerEmailId;
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "onlineMeeting_fk_id", referencedColumnName = "id", unique = true)
-	private OnlineMeeting onlineMeeting;
+    private String organizerName;
+    
+	private String onlineMeetingId;
     
 	private String onlineMeetingProvider;
 	
+	/*
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "recurrence_fk_id", referencedColumnName = "id", unique = true, nullable = true)
 	private Recurrence recurrence;
+	*/
 	
 	private String seriesMasterId;
+	
+	private String joinUrl;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "meeting_fk_id",nullable = true)
+	private List<Transcript> meetingTranscripts;
 	
 	private String insertedBy = "IKCON UMS";
     
     private String insertedDate = LocalDateTime.now().toString();
+    
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "UserFkId", referencedColumnName = "userId", nullable = false) 
+    private UserProfile user;
 
 }
