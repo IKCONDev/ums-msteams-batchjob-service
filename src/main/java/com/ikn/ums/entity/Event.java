@@ -76,7 +76,7 @@ public class Event {
 	private String location;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@JoinColumn(name = "event_fk_id", referencedColumnName = "id")
+	@JoinColumn(name = "event_fk_id", referencedColumnName = "id", nullable = true)
     private Set<Attendee> attendees;
     
     private String organizerEmailId;
@@ -100,7 +100,7 @@ public class Event {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "meeting_fk_id",nullable = true)
 	private List<Transcript> meetingTranscripts;
-	
+	                 
 	private String insertedBy = "IKCON UMS";
     
     private String insertedDate = LocalDateTime.now().toString();
