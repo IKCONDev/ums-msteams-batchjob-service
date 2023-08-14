@@ -447,6 +447,16 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			event.setOrganizerName(eventDto.getOrganizer().getEmailAddress().getName());
 			event.setJoinUrl(eventDto.getOnlineMeeting().getJoinUrl());
 			event.setUser(user);
+			List<TranscriptDto> retrivedTranscriptDtos = eventDto.getOnlineMeeting().getMeetingTranscripts();
+			List<Transcript> transcripts = new ArrayList<>();
+			retrivedTranscriptDtos.forEach(transcriptDto ->{
+				Transcript t = new Transcript();
+				mapper.modelMapper.map(transcriptDto, t);
+				transcripts.add(t);
+			});
+			//set transcripts to event
+			event.setMeetingTranscripts(transcripts);
+			//set attendees to event
 			Set<Attendee> attendeesList = new HashSet<>();
 			List<String> mailIds = new ArrayList<>();
 			eventDto.getAttendees().forEach(attendeeDto ->{
