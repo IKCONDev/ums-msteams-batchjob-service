@@ -298,6 +298,8 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			// attach online meeting to event
 			EventDto updatedEventWithOnlineMeeting = null;
 			EventDto updatedEventWithOnlineMeetingAndTranscript = null;
+			
+			//get an event's online meeting and transcript, only if the event is an online Meeting
 			if(eventDto.getOnlineMeeting() != null) {
 				updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
 				updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
