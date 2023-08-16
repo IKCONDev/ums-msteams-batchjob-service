@@ -14,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.ikn.ums.controller.TeamsBatchJobRestController;
 import com.ikn.ums.dto.BatchDetailsDto;
+import com.ikn.ums.entity.CronDetails;
+import com.ikn.ums.repo.CronRepository;
 import com.ikn.ums.repo.EventRepository;
 import com.ikn.ums.repo.UserProfileRepository;
 import com.ikn.ums.service.ITeamsBatchService;
@@ -43,8 +46,13 @@ public class TeamsBatchJobRestControllerTest {
 	@MockBean 
 	private UserProfileRepository userProfileRepo;
 	
+	@MockBean
+	private TeamsBatchJobApplication teamsBatchJobApp;
+	
+	
 	@Test
 	public void test_meetingDataBatchProcessing_Success() throws Exception {
+	
 	    BatchDetailsDto batchDetailsDto = new BatchDetailsDto();
 	    batchDetailsDto.setId(1);
 	    batchDetailsDto.setStartDateTime(LocalDateTime.now());

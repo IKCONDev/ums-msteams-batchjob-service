@@ -43,7 +43,7 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
             @Override
             public Date nextExecutionTime(TriggerContext triggerContext) {
                 
-            	//get cron time from database
+            	//get cron time from db
               	String cronTime = cronRepository.getCronTime(1).getCronTime();
                 CronTrigger trigger = new CronTrigger(cronTime);
                 System.out.println("Next Cron Time : "+cronTime);
