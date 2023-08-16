@@ -19,9 +19,12 @@ import org.springframework.scheduling.support.CronTrigger;
 import com.ikn.ums.controller.TeamsBatchJobRestController;
 import com.ikn.ums.repo.CronRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootApplication
 @EnableScheduling
 @ComponentScan(basePackages = "com.ikn.ums")
+@Slf4j
 public class TeamsBatchJobApplication extends SpringBootServletInitializer implements SchedulingConfigurer {
 	
 	@Autowired
@@ -32,12 +35,14 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
 	
 	@Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+		log.info("Batch processing started");
         taskRegistrar.addTriggerTask(new Runnable() {
             @Override
             public void run() {
             	//run batch processing
             	ResponseEntity<?> response = batchJobController.meetingDataBatchProcessing();
     			System.out.println("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
+    			log.info("batch processing ended");
             }
         }, new Trigger() {
             @Override
