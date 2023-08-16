@@ -195,7 +195,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				batchDetailsRepository.save(retBatchDetails);
 				throw e;
 			}
-		}else {
+		} else {
 			throw new UsersNotFoundException("Users not available for batch processing");
 		}
 	}
@@ -293,13 +293,17 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		listCalendarViewDto.forEach(eventDto -> {
 			System.out.println(eventDto);
 			// attach userId and principal name to event
-			//eventDto.setUser(userDto);
+			// eventDto.setUser(userDto);
 			System.out.println("Dynamic allocation " + userDto);
 			// attach online meeting to event
-			EventDto updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
-			EventDto updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
-					updatedEventWithOnlineMeeting, userDto);
-			updateEventsListDto.add(updatedEventWithOnlineMeetingAndTranscript);
+			EventDto updatedEventWithOnlineMeeting = null;
+			EventDto updatedEventWithOnlineMeetingAndTranscript = null;
+			if(eventDto.getOnlineMeeting() != null) {
+				updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
+				updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
+						updatedEventWithOnlineMeeting, userDto);
+				updateEventsListDto.add(updatedEventWithOnlineMeetingAndTranscript);
+			}
 
 			// log.debug("Event => "+updatedEventWithOnlineMeetingAndTranscript);
 			// display
@@ -323,6 +327,9 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				eventDto.getOnlineMeeting().setOnlineMeetingId(onlineMeeting.getOnlineMeetingId());
 				eventDto.getOnlineMeeting().setSubject(onlineMeeting.getSubject());
 				eventDto.getOnlineMeeting().setOnlineMeetingType(eventDto.getType());
+				if(eventDto.getOccurrenceId()!=null) {
+					eventDto.getOnlineMeeting().setOccurrenceId(eventDto.getOccurrenceId());
+				}
 			}
 		}
 		return eventDto;
@@ -331,13 +338,13 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	// attach transcripts to respective online meetings
 	private EventDto attachTranscriptsToOnlineMeeting(EventDto eventDto, UserProfile user) {
 
-		if (eventDto.getOccurrenceId() != null || eventDto.getOccurrenceId() != "") {
-			eventDto.getOnlineMeeting().setOccurrenceId(eventDto.getOccurrenceId());
-		}
+//		if (eventDto.getOnlineMeeting() != null) {
+//			eventDto.getOnlineMeeting().setOccurrenceId(eventDto.getOccurrenceId());
+//		}
 
 		// Retrieve transcripts of particular instance of the recurring meeting and
 		// insert into db
-		if (eventDto.getOnlineMeeting().getOccurrenceId() != null) {
+		if (eventDto.getOccurrenceId() != null) {
 			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getUserId(),
 					eventDto.getOnlineMeeting().getOnlineMeetingId());
 			List<TranscriptDto> actualMeetingTranscriptsListDto = new ArrayList<>();
@@ -449,52 +456,54 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			event.setUser(user);
 			List<TranscriptDto> retrivedTranscriptDtos = eventDto.getOnlineMeeting().getMeetingTranscripts();
 			List<Transcript> transcripts = new ArrayList<>();
-			retrivedTranscriptDtos.forEach(transcriptDto ->{
-				Transcript t = new Transcript();
-				mapper.modelMapper.map(transcriptDto, t);
-				transcripts.add(t);
-			});
-			//set transcripts to event
-			event.setMeetingTranscripts(transcripts);
-			//set attendees to event
+			if (retrivedTranscriptDtos != null) {
+				retrivedTranscriptDtos.forEach(transcriptDto -> {
+					Transcript t = new Transcript();
+					mapper.modelMapper.map(transcriptDto, t);
+					transcripts.add(t);
+				});
+				// set transcripts to event
+				event.setMeetingTranscripts(transcripts);
+			}
+			// set attendees to event
 			Set<Attendee> attendeesList = new HashSet<>();
 			List<String> mailIds = new ArrayList<>();
-			eventDto.getAttendees().forEach(attendeeDto ->{
+			eventDto.getAttendees().forEach(attendeeDto -> {
 				Attendee attendee = new Attendee();
 				String attendeeEmailAddress = attendeeDto.getEmailAddress().getAddress();
-				//map dto to entity
+				// map dto to entity
 				mapper.modelMapper.map(attendeeDto, attendee);
-				//manually map the unmatched field
+				// manually map the unmatched field
 				attendee.setEmail(attendeeEmailAddress);
 				attendee.setStatus(attendeeDto.getStatus().getResponse());
 				mailIds.add(attendeeEmailAddress);
 				attendeesList.add(attendee);
-				//set event to attendee
-				//attendee.setEvent(event);
+				// set event to attendee
+				// attendee.setEvent(event);
 			});
-			
-			//set user profile for each attendee
+
+			// set user profile for each attendee
 			List<UserProfile> userProfilesList = userProfileService.getUsersByMailIds(mailIds);
-			attendeesList.forEach(attendee->{
-				for(int i=0; i<userProfilesList.size(); i++) {
-					if(attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getMail())) {
+			attendeesList.forEach(attendee -> {
+				for (int i = 0; i < userProfilesList.size(); i++) {
+					if (attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getMail())) {
 						attendee.setUser(userProfilesList.get(i));
 					}
 				}
 			});
-			
-			event.setAttendees(attendeesList);			
+
+			event.setAttendees(attendeesList);
 			// logic for isOnlinemeeting based on join url (optional)
 			eventEntities.add(event);
 
 			// finally save all event entities of the user in UMS DB,
-			// now all the events contain (its online meeting Id and transcript details if any)
+			// now all the events contain (its online meeting Id and transcript details if
+			// any)
 			List<Event> eventsList = eventRepository.saveAll(eventEntities);
 		});
 	}
 
 	private OnlineMeetingDto getOnlineMeeting(String joinWebUrl, String userId) {
-
 		// prepare url to get online meeting object
 		StringBuilder stringBuilder = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userId
 				+ "/onlineMeetings?$filter=joinWebUrl eq '" + joinWebUrl + "'");
