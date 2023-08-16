@@ -35,13 +35,14 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
 	
 	@Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		log.info("Batch processing started");
         taskRegistrar.addTriggerTask(new Runnable() {
             @Override
             public void run() {
             	//run batch processing
+            	log.info("Batch processing started");
             	ResponseEntity<?> response = batchJobController.meetingDataBatchProcessing();
     			System.out.println("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
+    			log.debug("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
     			log.info("batch processing ended");
             }
         }, new Trigger() {
