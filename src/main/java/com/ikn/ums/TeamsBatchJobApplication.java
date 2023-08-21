@@ -1,5 +1,6 @@
 package com.ikn.ums;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,11 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
             @Override
             public void run() {
             	//run batch processing
-            	log.info("Batch processing started");
+            	log.info("Batch processing started at "+LocalDateTime.now());
             	ResponseEntity<?> response = batchJobController.meetingDataBatchProcessing();
     			System.out.println("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
-    			log.debug("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
-    			log.info("batch processing ended");
+    			log.info("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
+    			log.info("batch processing ended at : "+LocalDateTime.now());
             }
         }, new Trigger() {
             @Override
@@ -53,6 +54,7 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
               	String cronTime = cronRepository.getCronTime(1).getCronTime();
                 CronTrigger trigger = new CronTrigger(cronTime);
                 System.out.println("Next Cron Time : "+cronTime);
+                log.info("Next Cron Time : "+cronTime);
                 Date nextExec = trigger.nextExecutionTime(triggerContext);  
                 return nextExec;
             }
