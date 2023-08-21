@@ -1845,3 +1845,11 @@ Caused by: java.lang.IllegalStateException: org.springframework.boot.web.servlet
 16:50:08.020 [RMI TCP Connection(36)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 16:50:08.111 [RMI TCP Connection(36)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 16:50:08.305 [RMI TCP Connection(36)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+17:19:38.947 [main] INFO  c.i.u.TeamsBatchJobRestControllerTest - Starting TeamsBatchJobRestControllerTest using Java 11.0.18 on IKCON1049 with PID 6564 (started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+17:19:38.951 [main] INFO  c.i.u.TeamsBatchJobRestControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:19:42.079 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:19:42.080 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:19:42.082 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+17:19:42.182 [main] INFO  c.i.u.TeamsBatchJobRestControllerTest - Started TeamsBatchJobRestControllerTest in 4.214 seconds (JVM running for 7.625)
+17:19:42.294 [main] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@7bdb4f17
+17:19:42.358 [main] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=1, startDateTime=2023-08-21T17:19:42.349196400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=COMPLETED)
