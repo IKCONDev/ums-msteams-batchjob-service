@@ -11,9 +11,11 @@ import com.ikn.ums.dto.BatchDetailsDto;
 import com.ikn.ums.exception.UsersNotFoundException;
 import com.ikn.ums.service.ITeamsBatchService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/teams")
-//@Slf4j
+@Slf4j
 public class TeamsBatchJobRestController {
 
 	@Autowired
@@ -39,19 +41,22 @@ public class TeamsBatchJobRestController {
 	public ResponseEntity<?> meetingDataBatchProcessing() {
 		try {
 			BatchDetailsDto existingBatchProcess = teamsBatchService.getLatestBatchProcessingRecordDetails();
+			log.info("Last batch processing details "+existingBatchProcess.toString());
 			if(existingBatchProcess.getStatus() == "RUNNING") {
-				//log.info("An instance of batch process is already running");
+				log.info("An instance of batch process is already running");
 				return new ResponseEntity<>("An instance of batch process is already running",HttpStatus.OK);
 			}else {
 				//perform batch processing
 				teamsBatchService.performBatchProcessing(existingBatchProcess);
+				//log.info("An instance of batch process is already running");
 				return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
 			}
 		}catch (UsersNotFoundException e) {
+			log.info("Users not found for batch processing");
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			log.info("Error while batch processing "+e.getStackTrace().toString());
 			return new ResponseEntity<>("Error while batch processing, Check server logs for full details",
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}

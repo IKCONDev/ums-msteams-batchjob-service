@@ -91,7 +91,7 @@ import okhttp3.Request;
 
 @SuppressWarnings("unused")
 @Service
-//@Slf4j
+@Slf4j
 public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 	@Autowired
@@ -155,6 +155,8 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 			// save current batch object
 			BatchDetails retBatchDetails = batchDetailsRepository.save(batchDetails);
+			log.info("Current batch processing details "+retBatchDetails.toString());
+			
 
 			// get last batch processing time
 			try {
@@ -187,12 +189,13 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				retBatchDetails.setEndDateTime(LocalDateTime.now());
 				retBatchDetails.setLastSuccessfullExecutionDateTime(currentbatchStartTime);
 				batchDetailsRepository.save(retBatchDetails);
+				log.info("Current batch processing details after completion "+retBatchDetails);
 			} catch (Exception e) {
-
 				// set current batch processing details, if failed
 				retBatchDetails.setStatus("FAILED");
 				retBatchDetails.setEndDateTime(LocalDateTime.now());
 				batchDetailsRepository.save(retBatchDetails);
+				log.info("Current batch processing details after completion "+retBatchDetails);
 				throw e;
 			}
 		} else {
