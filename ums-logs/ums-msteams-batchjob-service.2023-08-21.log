@@ -1853,3 +1853,628 @@ Caused by: java.lang.IllegalStateException: org.springframework.boot.web.servlet
 17:19:42.182 [main] INFO  c.i.u.TeamsBatchJobRestControllerTest - Started TeamsBatchJobRestControllerTest in 4.214 seconds (JVM running for 7.625)
 17:19:42.294 [main] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@7bdb4f17
 17:19:42.358 [main] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=1, startDateTime=2023-08-21T17:19:42.349196400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=COMPLETED)
+17:31:20.473 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 11096 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+17:31:20.475 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+17:31:20.538 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\VaishnavPuthiyanampa\.m2\repository\com\oracle\database\jdbc\ojdbc8\21.5.0.0\ojdbc8-21.5.0.0.jar referenced one or more files that do not exist: file:/C:/Users/VaishnavPuthiyanampa/.m2/repository/com/oracle/database/jdbc/ojdbc8/21.5.0.0/oraclepki.jar
+17:31:20.538 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+17:31:20.539 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+17:31:22.135 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+17:31:22.628 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 469 ms. Found 4 JPA repository interfaces.
+17:31:24.027 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+17:31:24.047 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+17:31:24.052 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+17:31:24.053 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+17:31:24.500 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+17:31:24.500 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3961 ms
+17:31:24.934 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+17:31:25.095 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+17:31:25.351 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+17:31:25.609 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:31:26.055 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:31:26.119 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+17:31:27.025 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+17:31:27.636 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+17:31:27.670 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:31:29.051 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+17:31:29.685 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+17:31:29.706 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+17:31:29.740 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+17:31:29.757 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+17:31:30.102 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+17:31:30.102 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+17:31:30.109 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+17:31:30.112 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+17:31:30.117 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+17:31:30.149 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+java.lang.IllegalArgumentException: Cron expression must consist of 6 fields (found 5 in "1 * * * *")
+	at org.springframework.scheduling.support.CronExpression.parse(CronExpression.java:186)
+	at org.springframework.scheduling.support.CronTrigger.<init>(CronTrigger.java:76)
+	at org.springframework.scheduling.support.CronTrigger.<init>(CronTrigger.java:51)
+	at com.ikn.ums.TeamsBatchJobApplication$2.nextExecutionTime(TeamsBatchJobApplication.java:55)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.schedule(ReschedulingRunnable.java:77)
+	at org.springframework.scheduling.concurrent.ConcurrentTaskScheduler.schedule(ConcurrentTaskScheduler.java:199)
+	at org.springframework.scheduling.config.ScheduledTaskRegistrar.scheduleTriggerTask(ScheduledTaskRegistrar.java:406)
+	at org.springframework.scheduling.config.ScheduledTaskRegistrar.scheduleTasks(ScheduledTaskRegistrar.java:364)
+	at org.springframework.scheduling.config.ScheduledTaskRegistrar.afterPropertiesSet(ScheduledTaskRegistrar.java:349)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.finishRegistration(ScheduledAnnotationBeanPostProcessor.java:320)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.onApplicationEvent(ScheduledAnnotationBeanPostProcessor.java:239)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.onApplicationEvent(ScheduledAnnotationBeanPostProcessor.java:110)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:176)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:169)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:143)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:421)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:378)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:941)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.ikn.ums.TeamsBatchJobApplication.main(TeamsBatchJobApplication.java:71)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+17:31:30.158 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+17:31:30.162 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+17:31:30.168 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+17:34:40.339 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 19280 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+17:34:40.341 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+17:34:40.400 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\VaishnavPuthiyanampa\.m2\repository\com\oracle\database\jdbc\ojdbc8\21.5.0.0\ojdbc8-21.5.0.0.jar referenced one or more files that do not exist: file:/C:/Users/VaishnavPuthiyanampa/.m2/repository/com/oracle/database/jdbc/ojdbc8/21.5.0.0/oraclepki.jar
+17:34:40.401 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+17:34:40.401 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+17:34:41.717 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+17:34:42.113 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 374 ms. Found 4 JPA repository interfaces.
+17:34:43.366 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+17:34:43.376 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+17:34:43.378 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+17:34:43.378 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+17:34:43.867 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+17:34:43.868 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3466 ms
+17:34:44.251 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+17:34:44.348 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+17:34:44.616 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+17:34:44.899 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:34:45.296 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:34:45.353 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+17:34:46.416 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+17:34:46.951 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+17:34:46.971 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:34:48.360 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+17:34:49.186 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+17:34:49.219 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+17:34:49.271 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+17:34:49.294 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+17:34:49.436 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+17:34:49.444 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 10.053 seconds (JVM running for 12.059)
+17:35:00.017 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T17:35:00.017371600
+17:35:00.096 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5141, startDateTime=2023-08-21T17:05:00.059526, endDateTime=2023-08-21T17:05:27.749588, lastSuccessfullExecutionDateTime=2023-08-21T17:05:00.059526, status=COMPLETED)
+17:35:06.267 [ForkJoinPool.commonPool-worker-3] INFO  c.a.identity.ClientSecretCredential - Azure Identity => getToken() result for scopes [https://graph.microsoft.com/.default]: SUCCESS
+17:35:06.408 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5142, startDateTime=2023-08-21T17:35:06.367626900, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+17:35:41.135 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5142, startDateTime=2023-08-21T17:35:06.367626900, endDateTime=2023-08-21T17:35:41.122477900, lastSuccessfullExecutionDateTime=2023-08-21T17:35:06.367626900, status=COMPLETED)
+17:35:41.212 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+17:35:41.212 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T17:35:41.212396500
+17:35:41.220 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+17:36:00.007 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T17:36:00.007004
+17:36:00.023 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5142, startDateTime=2023-08-21T17:35:06.367627, endDateTime=2023-08-21T17:35:41.122478, lastSuccessfullExecutionDateTime=2023-08-21T17:35:06.367627, status=COMPLETED)
+17:36:00.105 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5143, startDateTime=2023-08-21T17:36:00.101136200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+17:36:04.393 [RMI TCP Connection(5)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+17:36:04.550 [RMI TCP Connection(5)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+17:36:04.553 [RMI TCP Connection(5)-127.0.0.1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+17:36:04.591 [RMI TCP Connection(5)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+17:36:04.602 [RMI TCP Connection(5)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+17:36:04.618 [RMI TCP Connection(5)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+17:36:04.642 [RMI TCP Connection(5)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+17:36:04.663 [RMI TCP Connection(5)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+19:05:49.929 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 19984 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+19:05:49.931 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+19:05:49.977 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\VaishnavPuthiyanampa\.m2\repository\com\oracle\database\jdbc\ojdbc8\21.5.0.0\ojdbc8-21.5.0.0.jar referenced one or more files that do not exist: file:/C:/Users/VaishnavPuthiyanampa/.m2/repository/com/oracle/database/jdbc/ojdbc8/21.5.0.0/oraclepki.jar
+19:05:49.977 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+19:05:49.977 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+19:05:50.941 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:05:51.199 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 243 ms. Found 4 JPA repository interfaces.
+19:05:52.012 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+19:05:52.021 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+19:05:52.023 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+19:05:52.023 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+19:05:52.211 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:05:52.212 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2234 ms
+19:05:52.396 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:05:52.484 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+19:05:52.690 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+19:05:52.840 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19:05:54.004 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19:05:54.034 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+19:05:54.646 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+19:05:55.053 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:05:55.074 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:05:55.731 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19:05:56.077 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+19:05:56.090 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+19:05:56.116 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+19:05:56.128 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+19:05:56.188 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:05:56.193 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 6.833 seconds (JVM running for 8.051)
+19:06:00.009 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:06:00.009321100
+19:06:00.065 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5155, startDateTime=2023-08-21T19:00:03.113752, endDateTime=2023-08-21T19:00:42.650496, lastSuccessfullExecutionDateTime=2023-08-21T19:00:03.113752, status=COMPLETED)
+19:06:03.451 [ForkJoinPool.commonPool-worker-3] INFO  c.a.identity.ClientSecretCredential - Azure Identity => getToken() result for scopes [https://graph.microsoft.com/.default]: SUCCESS
+19:06:03.515 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5165, startDateTime=2023-08-21T19:06:03.493113200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:06:36.485 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5165, startDateTime=2023-08-21T19:06:03.493113200, endDateTime=2023-08-21T19:06:36.464306300, lastSuccessfullExecutionDateTime=2023-08-21T19:06:03.493113200, status=COMPLETED)
+19:06:36.572 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:06:36.572 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:06:36.572639700
+19:06:36.578 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:07:00.009 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:07:00.009872100
+19:07:00.022 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5165, startDateTime=2023-08-21T19:06:03.493113, endDateTime=2023-08-21T19:06:36.464306, lastSuccessfullExecutionDateTime=2023-08-21T19:06:03.493113, status=COMPLETED)
+19:07:00.036 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5166, startDateTime=2023-08-21T19:07:00.032813400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:07:28.318 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5166, startDateTime=2023-08-21T19:07:00.032813400, endDateTime=2023-08-21T19:07:28.317735100, lastSuccessfullExecutionDateTime=2023-08-21T19:07:00.032813400, status=COMPLETED)
+19:07:28.362 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:07:28.363 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:07:28.362976900
+19:07:28.366 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:08:00.007 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:08:00.007017400
+19:08:00.024 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5166, startDateTime=2023-08-21T19:07:00.032813, endDateTime=2023-08-21T19:07:28.317735, lastSuccessfullExecutionDateTime=2023-08-21T19:07:00.032813, status=COMPLETED)
+19:08:00.046 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5167, startDateTime=2023-08-21T19:08:00.040894100, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:08:27.970 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5167, startDateTime=2023-08-21T19:08:00.040894100, endDateTime=2023-08-21T19:08:27.970117400, lastSuccessfullExecutionDateTime=2023-08-21T19:08:00.040894100, status=COMPLETED)
+19:08:27.995 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:08:27.995 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:08:27.995035800
+19:08:28.029 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:09:00.005 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:09:00.005963600
+19:09:00.016 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5167, startDateTime=2023-08-21T19:08:00.040894, endDateTime=2023-08-21T19:08:27.970117, lastSuccessfullExecutionDateTime=2023-08-21T19:08:00.040894, status=COMPLETED)
+19:09:00.034 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5168, startDateTime=2023-08-21T19:09:00.030146800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:09:36.047 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5168, startDateTime=2023-08-21T19:09:00.030146800, endDateTime=2023-08-21T19:09:36.046233800, lastSuccessfullExecutionDateTime=2023-08-21T19:09:00.030146800, status=COMPLETED)
+19:09:36.077 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:09:36.078 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:09:36.078322600
+19:09:36.084 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:10:00.003 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:10:00.003177600
+19:10:00.021 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5168, startDateTime=2023-08-21T19:09:00.030147, endDateTime=2023-08-21T19:09:36.046234, lastSuccessfullExecutionDateTime=2023-08-21T19:09:00.030147, status=COMPLETED)
+19:10:00.043 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5169, startDateTime=2023-08-21T19:10:00.037704400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:10:28.461 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5169, startDateTime=2023-08-21T19:10:00.037704400, endDateTime=2023-08-21T19:10:28.460904800, lastSuccessfullExecutionDateTime=2023-08-21T19:10:00.037704400, status=COMPLETED)
+19:10:28.502 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:10:28.502 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:10:28.502265100
+19:10:28.509 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:11:00.003 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:11:00.003420
+19:11:00.059 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5169, startDateTime=2023-08-21T19:10:00.037704, endDateTime=2023-08-21T19:10:28.460905, lastSuccessfullExecutionDateTime=2023-08-21T19:10:00.037704, status=COMPLETED)
+19:11:00.102 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5170, startDateTime=2023-08-21T19:11:00.095557200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:11:27.605 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5170, startDateTime=2023-08-21T19:11:00.095557200, endDateTime=2023-08-21T19:11:27.604317800, lastSuccessfullExecutionDateTime=2023-08-21T19:11:00.095557200, status=COMPLETED)
+19:11:27.625 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:11:27.626 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:11:27.626496900
+19:11:27.631 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:12:00.002 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:12:00.002707900
+19:12:00.027 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5170, startDateTime=2023-08-21T19:11:00.095557, endDateTime=2023-08-21T19:11:27.604318, lastSuccessfullExecutionDateTime=2023-08-21T19:11:00.095557, status=COMPLETED)
+19:12:00.048 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5171, startDateTime=2023-08-21T19:12:00.043737300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:12:29.284 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5171, startDateTime=2023-08-21T19:12:00.043737300, endDateTime=2023-08-21T19:12:29.279591200, lastSuccessfullExecutionDateTime=2023-08-21T19:12:00.043737300, status=COMPLETED)
+19:12:29.309 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:12:29.309 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:12:29.309422
+19:12:29.319 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:13:00.011 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:13:00.011270600
+19:13:00.061 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5171, startDateTime=2023-08-21T19:12:00.043737, endDateTime=2023-08-21T19:12:29.279591, lastSuccessfullExecutionDateTime=2023-08-21T19:12:00.043737, status=COMPLETED)
+19:13:00.091 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5172, startDateTime=2023-08-21T19:13:00.072105300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:13:27.261 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5172, startDateTime=2023-08-21T19:13:00.072105300, endDateTime=2023-08-21T19:13:27.257685600, lastSuccessfullExecutionDateTime=2023-08-21T19:13:00.072105300, status=COMPLETED)
+19:13:27.359 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:13:27.359 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:13:27.359378300
+19:13:27.371 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:14:00.002 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:14:00.001977800
+19:14:00.030 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5172, startDateTime=2023-08-21T19:13:00.072105, endDateTime=2023-08-21T19:13:27.257686, lastSuccessfullExecutionDateTime=2023-08-21T19:13:00.072105, status=COMPLETED)
+19:14:00.043 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5173, startDateTime=2023-08-21T19:14:00.039302600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:14:29.190 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5173, startDateTime=2023-08-21T19:14:00.039302600, endDateTime=2023-08-21T19:14:29.188188800, lastSuccessfullExecutionDateTime=2023-08-21T19:14:00.039302600, status=COMPLETED)
+19:14:29.223 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:14:29.223 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:14:29.223277800
+19:14:29.231 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:15:00.006 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:15:00.006213600
+19:15:00.014 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5173, startDateTime=2023-08-21T19:14:00.039303, endDateTime=2023-08-21T19:14:29.188189, lastSuccessfullExecutionDateTime=2023-08-21T19:14:00.039303, status=COMPLETED)
+19:15:00.023 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5174, startDateTime=2023-08-21T19:15:00.020936300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:15:27.616 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5174, startDateTime=2023-08-21T19:15:00.020936300, endDateTime=2023-08-21T19:15:27.614219500, lastSuccessfullExecutionDateTime=2023-08-21T19:15:00.020936300, status=COMPLETED)
+19:15:27.641 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:15:27.641 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:15:27.641531200
+19:15:27.649 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:16:00.007 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:16:00.007341800
+19:16:00.021 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5174, startDateTime=2023-08-21T19:15:00.020936, endDateTime=2023-08-21T19:15:27.614220, lastSuccessfullExecutionDateTime=2023-08-21T19:15:00.020936, status=COMPLETED)
+19:16:00.032 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5175, startDateTime=2023-08-21T19:16:00.028827700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:16:27.544 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5175, startDateTime=2023-08-21T19:16:00.028827700, endDateTime=2023-08-21T19:16:27.543448700, lastSuccessfullExecutionDateTime=2023-08-21T19:16:00.028827700, status=COMPLETED)
+19:16:27.564 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:16:27.564 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:16:27.564072900
+19:16:27.621 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:17:00.004 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:17:00.004330400
+19:17:00.030 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5175, startDateTime=2023-08-21T19:16:00.028828, endDateTime=2023-08-21T19:16:27.543449, lastSuccessfullExecutionDateTime=2023-08-21T19:16:00.028828, status=COMPLETED)
+19:17:00.105 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5176, startDateTime=2023-08-21T19:17:00.095815300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:17:28.608 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5176, startDateTime=2023-08-21T19:17:00.095815300, endDateTime=2023-08-21T19:17:28.606253900, lastSuccessfullExecutionDateTime=2023-08-21T19:17:00.095815300, status=COMPLETED)
+19:17:28.629 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:17:28.629 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:17:28.629753200
+19:17:28.635 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:18:00.016 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:18:00.015666900
+19:18:00.054 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5176, startDateTime=2023-08-21T19:17:00.095815, endDateTime=2023-08-21T19:17:28.606254, lastSuccessfullExecutionDateTime=2023-08-21T19:17:00.095815, status=COMPLETED)
+19:18:00.144 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5177, startDateTime=2023-08-21T19:18:00.134999500, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:18:29.744 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5177, startDateTime=2023-08-21T19:18:00.134999500, endDateTime=2023-08-21T19:18:29.739006200, lastSuccessfullExecutionDateTime=2023-08-21T19:18:00.134999500, status=COMPLETED)
+19:18:29.771 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:18:29.771 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:18:29.771789500
+19:18:29.784 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:19:00.005 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:19:00.005125200
+19:19:00.020 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5177, startDateTime=2023-08-21T19:18:00.135, endDateTime=2023-08-21T19:18:29.739006, lastSuccessfullExecutionDateTime=2023-08-21T19:18:00.135, status=COMPLETED)
+19:19:00.052 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5178, startDateTime=2023-08-21T19:19:00.030756400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:19:26.841 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5178, startDateTime=2023-08-21T19:19:00.030756400, endDateTime=2023-08-21T19:19:26.831329300, lastSuccessfullExecutionDateTime=2023-08-21T19:19:00.030756400, status=COMPLETED)
+19:19:26.872 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:19:26.874 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:19:26.874299600
+19:19:26.922 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:20:00.014 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:20:00.014506300
+19:20:00.043 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5178, startDateTime=2023-08-21T19:19:00.030756, endDateTime=2023-08-21T19:19:26.831329, lastSuccessfullExecutionDateTime=2023-08-21T19:19:00.030756, status=COMPLETED)
+19:20:00.076 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5179, startDateTime=2023-08-21T19:20:00.066070800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:20:27.816 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5179, startDateTime=2023-08-21T19:20:00.066070800, endDateTime=2023-08-21T19:20:27.815228600, lastSuccessfullExecutionDateTime=2023-08-21T19:20:00.066070800, status=COMPLETED)
+19:20:27.853 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:20:27.853 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:20:27.853902200
+19:20:27.860 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:21:00.015 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:21:00.014981
+19:21:00.080 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5179, startDateTime=2023-08-21T19:20:00.066071, endDateTime=2023-08-21T19:20:27.815229, lastSuccessfullExecutionDateTime=2023-08-21T19:20:00.066071, status=COMPLETED)
+19:21:00.137 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5180, startDateTime=2023-08-21T19:21:00.113840800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:21:29.448 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5180, startDateTime=2023-08-21T19:21:00.113840800, endDateTime=2023-08-21T19:21:29.445779, lastSuccessfullExecutionDateTime=2023-08-21T19:21:00.113840800, status=COMPLETED)
+19:21:29.477 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:21:29.477 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:21:29.477109600
+19:21:29.483 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:22:00.014 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:22:00.014818200
+19:22:00.023 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5180, startDateTime=2023-08-21T19:21:00.113841, endDateTime=2023-08-21T19:21:29.445779, lastSuccessfullExecutionDateTime=2023-08-21T19:21:00.113841, status=COMPLETED)
+19:22:00.034 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5181, startDateTime=2023-08-21T19:22:00.032200200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:22:27.324 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5181, startDateTime=2023-08-21T19:22:00.032200200, endDateTime=2023-08-21T19:22:27.323091600, lastSuccessfullExecutionDateTime=2023-08-21T19:22:00.032200200, status=COMPLETED)
+19:22:27.343 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:22:27.343 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:22:27.343684100
+19:22:27.347 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:23:00.012 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:23:00.012041800
+19:23:00.019 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5181, startDateTime=2023-08-21T19:22:00.032200, endDateTime=2023-08-21T19:22:27.323092, lastSuccessfullExecutionDateTime=2023-08-21T19:22:00.032200, status=COMPLETED)
+19:23:00.029 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5182, startDateTime=2023-08-21T19:23:00.026110100, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:23:28.799 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5182, startDateTime=2023-08-21T19:23:00.026110100, endDateTime=2023-08-21T19:23:28.798253500, lastSuccessfullExecutionDateTime=2023-08-21T19:23:00.026110100, status=COMPLETED)
+19:23:28.825 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:23:28.825 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:23:28.825974500
+19:23:28.833 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:24:00.016 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:24:00.016455600
+19:24:00.047 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5182, startDateTime=2023-08-21T19:23:00.026110, endDateTime=2023-08-21T19:23:28.798254, lastSuccessfullExecutionDateTime=2023-08-21T19:23:00.026110, status=COMPLETED)
+19:24:00.085 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5183, startDateTime=2023-08-21T19:24:00.077083600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:24:26.474 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5183, startDateTime=2023-08-21T19:24:00.077083600, endDateTime=2023-08-21T19:24:26.471114600, lastSuccessfullExecutionDateTime=2023-08-21T19:24:00.077083600, status=COMPLETED)
+19:24:26.500 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:24:26.500 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:24:26.500707
+19:24:26.510 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:25:00.003 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:25:00.003549700
+19:25:00.013 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5183, startDateTime=2023-08-21T19:24:00.077084, endDateTime=2023-08-21T19:24:26.471115, lastSuccessfullExecutionDateTime=2023-08-21T19:24:00.077084, status=COMPLETED)
+19:25:00.029 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5184, startDateTime=2023-08-21T19:25:00.024484200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:25:26.664 [pool-1-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5184, startDateTime=2023-08-21T19:25:00.024484200, endDateTime=2023-08-21T19:25:26.664516500, lastSuccessfullExecutionDateTime=2023-08-21T19:25:00.024484200, status=COMPLETED)
+19:25:26.681 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:25:26.682 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:25:26.682942500
+19:25:26.686 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:25:41.573 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+19:25:41.894 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+19:25:41.894 [Thread-1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+19:25:41.945 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+19:25:41.959 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+19:25:41.974 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+19:25:42.009 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+19:25:42.037 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+19:25:42.372 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 19984 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+19:25:42.372 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+19:25:42.784 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:25:42.822 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36 ms. Found 4 JPA repository interfaces.
+19:25:42.920 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+19:25:42.921 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+19:25:42.921 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+19:25:42.921 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+19:25:42.957 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:25:42.957 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 578 ms
+19:25:42.999 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:25:43.008 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+19:25:43.093 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+19:25:43.094 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+19:25:43.140 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+19:25:43.394 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:25:43.395 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:25:43.622 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19:25:43.742 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+19:25:43.753 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+19:25:43.756 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+19:25:43.763 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+19:25:43.793 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:25:43.794 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 1.476 seconds (JVM running for 1195.653)
+19:25:43.796 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+19:26:00.015 [pool-3-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:26:00.015612700
+19:26:00.046 [pool-3-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5184, startDateTime=2023-08-21T19:25:00.024484, endDateTime=2023-08-21T19:25:26.664517, lastSuccessfullExecutionDateTime=2023-08-21T19:25:00.024484, status=COMPLETED)
+19:26:00.558 [ForkJoinPool.commonPool-worker-5] INFO  c.a.identity.ClientSecretCredential - Azure Identity => getToken() result for scopes [https://graph.microsoft.com/.default]: SUCCESS
+19:26:00.626 [pool-3-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:26:28.944 [pool-3-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258300, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:26:28.994 [pool-3-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:26:28.994 [pool-3-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:26:28.994570600
+19:26:29.012 [pool-3-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:26:59.373 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+19:27:00.039 [pool-3-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:27:00.037825700
+19:27:00.253 [pool-3-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:27:00.408 [pool-3-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5186, startDateTime=2023-08-21T19:27:00.387400700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:27:00.696 [Thread-13] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+19:27:00.700 [Thread-13] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+19:27:00.799 [Thread-13] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+19:27:00.825 [Thread-13] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+19:27:00.853 [Thread-13] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+19:27:00.922 [Thread-13] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+19:27:01.003 [Thread-13] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+19:27:01.607 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 19984 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+19:27:01.608 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+19:27:01.958 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:27:02.000 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 4 JPA repository interfaces.
+19:27:02.110 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+19:27:02.111 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+19:27:02.111 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+19:27:02.111 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+19:27:02.149 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:27:02.149 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 538 ms
+19:27:02.203 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:27:02.220 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+19:27:02.356 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+19:27:02.357 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+19:27:02.403 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+19:27:02.749 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:27:02.750 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:27:02.944 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19:27:03.074 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+19:27:03.083 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+19:27:03.087 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+19:27:03.096 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+19:27:03.132 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:27:03.133 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 1.582 seconds (JVM running for 1274.992)
+19:27:03.134 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+19:27:18.269 [RMI TCP Connection(26)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+19:27:18.375 [RMI TCP Connection(26)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+19:27:18.375 [RMI TCP Connection(26)-127.0.0.1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+19:27:18.378 [RMI TCP Connection(26)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+19:27:18.380 [RMI TCP Connection(26)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+19:27:18.381 [RMI TCP Connection(26)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+19:27:18.381 [RMI TCP Connection(26)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+19:27:18.386 [RMI TCP Connection(26)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+19:27:30.736 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 20248 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+19:27:30.738 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+19:27:30.789 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\VaishnavPuthiyanampa\.m2\repository\com\oracle\database\jdbc\ojdbc8\21.5.0.0\ojdbc8-21.5.0.0.jar referenced one or more files that do not exist: file:/C:/Users/VaishnavPuthiyanampa/.m2/repository/com/oracle/database/jdbc/ojdbc8/21.5.0.0/oraclepki.jar
+19:27:30.789 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+19:27:30.789 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+19:27:31.459 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:27:31.665 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 195 ms. Found 4 JPA repository interfaces.
+19:27:32.423 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+19:27:32.434 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+19:27:32.436 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+19:27:32.437 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+19:27:32.624 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:27:32.624 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1834 ms
+19:27:32.827 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:27:32.936 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+19:27:33.166 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+19:27:33.334 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19:27:33.637 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19:27:33.672 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+19:27:34.352 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+19:27:34.779 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:27:34.794 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:27:35.544 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19:27:35.958 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+19:27:35.978 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+19:27:36.114 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+19:27:36.148 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+19:27:36.237 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:27:36.244 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 6.001 seconds (JVM running for 7.103)
+19:28:00.006 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:28:00.005561200
+19:28:00.137 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:28:00.138 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@6e4a6fb1
+19:28:00.147 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:28:00.147 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:28:00.147661400
+19:28:00.154 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:29:00.022 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:29:00.021855400
+19:29:00.153 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:29:00.159 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@13d3d081
+19:29:00.164 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:29:00.164 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:29:00.164354
+19:29:00.192 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:30:00.009 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:30:00.008475900
+19:30:00.062 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:30:00.064 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@4d2b88b3
+19:30:00.066 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:30:00.066 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:30:00.066551700
+19:30:00.095 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:31:00.004 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:31:00.004154700
+19:31:00.020 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:31:00.021 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@61845632
+19:31:00.021 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:31:00.023 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:31:00.023633800
+19:31:00.036 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:32:00.006 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:32:00.006399900
+19:32:00.018 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:32:00.020 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@6b98e2f9
+19:32:00.021 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:32:00.021 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:32:00.021118900
+19:32:00.026 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:33:00.002 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:33:00.002640200
+19:33:00.054 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:33:00.055 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@4e481ac7
+19:33:00.055 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:33:00.056 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:33:00.056230600
+19:33:00.062 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:34:00.014 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:34:00.014021300
+19:34:00.034 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:34:00.035 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@1273fb58
+19:34:00.036 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:34:00.036 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:34:00.036890200
+19:34:00.047 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:35:00.011 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:35:00.010357
+19:35:00.157 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:35:00.158 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@31fa4264
+19:35:00.159 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:35:00.160 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:35:00.160227100
+19:35:00.171 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:36:00.009 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:36:00.009210800
+19:36:00.024 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:36:00.025 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@76f7cd55
+19:36:00.026 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:36:00.026 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:36:00.026924600
+19:36:00.034 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:37:00.009 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:37:00.009528600
+19:37:00.016 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:37:00.016 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@163617e3
+19:37:00.017 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:37:00.017 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:37:00.017394900
+19:37:00.021 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:38:00.007 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:38:00.007079100
+19:38:00.290 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:38:00.290 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@51283eab
+19:38:00.290 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:38:00.291 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:38:00.291810600
+19:38:00.306 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:39:00.010 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:39:00.010598200
+19:39:00.021 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:39:00.022 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@3a06a8d3
+19:39:00.022 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:39:00.022 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:39:00.022688200
+19:39:00.027 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:40:00.148 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:40:00.133033
+19:40:00.416 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:40:00.420 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@4fc6a033
+19:40:00.426 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:40:00.426 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:40:00.426363800
+19:40:00.442 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:41:00.053 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:41:00.043674800
+19:41:00.204 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:41:00.208 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@19271112
+19:41:00.212 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:41:00.212 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:41:00.212505700
+19:41:00.248 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:42:00.022 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:42:00.018860600
+19:42:00.201 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:42:00.204 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@44dff65a
+19:42:00.206 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:42:00.206 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:42:00.206997
+19:42:00.217 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:43:00.018 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:43:00.017609800
+19:43:00.138 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:43:00.141 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@61e85a0a
+19:43:00.146 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:43:00.146 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:43:00.146179900
+19:43:00.158 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:44:00.028 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:44:00.014822400
+19:44:00.203 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:44:00.207 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@64825cba
+19:44:00.211 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:44:00.211 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:44:00.211952300
+19:44:00.226 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:45:00.013 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:45:00.011973
+19:45:00.057 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:45:00.059 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@7b76aab7
+19:45:00.061 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:45:00.061 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:45:00.061627
+19:45:00.069 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:46:00.012 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:46:00.012781300
+19:46:00.028 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:46:00.028 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@3922b7ac
+19:46:00.029 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:46:00.029 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:46:00.029187
+19:46:00.033 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:47:00.008 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:47:00.008150300
+19:47:00.032 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:47:00.033 [pool-1-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Error while batch processing [Ljava.lang.StackTraceElement;@6b8620e6
+19:47:00.033 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 500 Response Error while batch processing, Check server logs for full details
+19:47:00.033 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:47:00.033905700
+19:47:00.044 [pool-1-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:47:20.244 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+19:47:23.586 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+19:47:23.591 [Thread-1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+19:47:23.909 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+19:47:23.976 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+19:47:24.063 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+19:47:24.151 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+19:47:24.177 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+19:47:24.581 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 20248 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+19:47:24.581 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+19:47:25.714 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:47:25.929 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 212 ms. Found 4 JPA repository interfaces.
+19:47:26.466 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+19:47:26.468 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+19:47:26.468 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+19:47:26.469 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+19:47:26.516 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:47:26.516 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1919 ms
+19:47:26.575 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:47:26.590 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+19:47:26.697 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+19:47:26.698 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+19:47:26.890 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+19:47:27.183 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:47:27.184 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:47:27.447 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19:47:27.574 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+19:47:27.587 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+19:47:27.591 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+19:47:27.599 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+19:47:27.629 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:47:27.632 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 3.141 seconds (JVM running for 1198.49)
+19:47:27.634 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+19:48:00.016 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:48:00.016543700
+19:48:00.048 [pool-2-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5185, startDateTime=2023-08-21T19:26:00.621138, endDateTime=2023-08-21T19:26:28.926258, lastSuccessfullExecutionDateTime=2023-08-21T19:26:00.621138, status=COMPLETED)
+19:48:06.758 [ForkJoinPool.commonPool-worker-3] INFO  c.a.identity.ClientSecretCredential - Azure Identity => getToken() result for scopes [https://graph.microsoft.com/.default]: SUCCESS
+19:48:06.900 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5187, startDateTime=2023-08-21T19:48:06.864126100, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:48:41.147 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5187, startDateTime=2023-08-21T19:48:06.864126100, endDateTime=2023-08-21T19:48:41.127157900, lastSuccessfullExecutionDateTime=2023-08-21T19:48:06.864126100, status=COMPLETED)
+19:48:41.222 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:48:41.223 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:48:41.223400900
+19:48:41.227 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:49:00.006 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:49:00.006055800
+19:49:00.023 [pool-2-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5187, startDateTime=2023-08-21T19:48:06.864126, endDateTime=2023-08-21T19:48:41.127158, lastSuccessfullExecutionDateTime=2023-08-21T19:48:06.864126, status=COMPLETED)
+19:49:00.040 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5188, startDateTime=2023-08-21T19:49:00.037802900, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:49:39.193 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5188, startDateTime=2023-08-21T19:49:00.037802900, endDateTime=2023-08-21T19:49:39.193294700, lastSuccessfullExecutionDateTime=2023-08-21T19:49:00.037802900, status=COMPLETED)
+19:49:39.229 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:49:39.229 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:49:39.229511400
+19:49:39.233 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:50:00.002 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:50:00.002848300
+19:50:00.025 [pool-2-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5188, startDateTime=2023-08-21T19:49:00.037803, endDateTime=2023-08-21T19:49:39.193295, lastSuccessfullExecutionDateTime=2023-08-21T19:49:00.037803, status=COMPLETED)
+19:50:00.044 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5189, startDateTime=2023-08-21T19:50:00.040155, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:50:30.592 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5189, startDateTime=2023-08-21T19:50:00.040155, endDateTime=2023-08-21T19:50:30.591128, lastSuccessfullExecutionDateTime=2023-08-21T19:50:00.040155, status=COMPLETED)
+19:50:30.629 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:50:30.629 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:50:30.629864700
+19:50:30.635 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:51:00.004 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:51:00.004043200
+19:51:00.018 [pool-2-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5189, startDateTime=2023-08-21T19:50:00.040155, endDateTime=2023-08-21T19:50:30.591128, lastSuccessfullExecutionDateTime=2023-08-21T19:50:00.040155, status=COMPLETED)
+19:51:00.039 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5190, startDateTime=2023-08-21T19:51:00.034555700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:51:32.969 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5190, startDateTime=2023-08-21T19:51:00.034555700, endDateTime=2023-08-21T19:51:32.967889600, lastSuccessfullExecutionDateTime=2023-08-21T19:51:00.034555700, status=COMPLETED)
+19:51:32.995 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:51:32.995 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:51:32.995893700
+19:51:33.004 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:52:00.012 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Batch processing started at 2023-08-21T19:52:00.012011100
+19:52:00.032 [pool-2-thread-1] INFO  c.i.u.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=5190, startDateTime=2023-08-21T19:51:00.034556, endDateTime=2023-08-21T19:51:32.967890, lastSuccessfullExecutionDateTime=2023-08-21T19:51:00.034556, status=COMPLETED)
+19:52:00.052 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=5191, startDateTime=2023-08-21T19:52:00.049357200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+19:52:32.203 [pool-2-thread-1] INFO  c.i.u.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=5191, startDateTime=2023-08-21T19:52:00.049357200, endDateTime=2023-08-21T19:52:31.948930100, lastSuccessfullExecutionDateTime=2023-08-21T19:52:00.049357200, status=COMPLETED)
+19:52:34.741 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+19:52:35.112 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+19:52:35.112 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - batch processing ended at : 2023-08-21T19:52:35.112255500
+19:52:35.175 [RMI TCP Connection(27)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+19:52:35.192 [pool-2-thread-1] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:52:35.857 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+19:52:35.857 [Thread-5] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+19:52:36.276 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+19:52:36.760 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+19:52:36.788 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+19:52:36.797 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+19:52:37.065 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+19:52:37.876 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 20248 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+19:52:37.876 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+19:52:39.728 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:52:39.982 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 252 ms. Found 4 JPA repository interfaces.
+19:52:40.308 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+19:52:40.309 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+19:52:40.310 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+19:52:40.310 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+19:52:40.374 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:52:40.374 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2493 ms
+19:52:40.457 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:52:40.479 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+19:52:40.619 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+19:52:40.621 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+19:52:40.709 [restartedMain] INFO  com.ikn.ums.entity.Event - Event class no-param constructor executed
+19:52:41.023 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:52:41.023 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:52:41.370 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19:52:41.664 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+19:52:41.675 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+19:52:41.680 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+19:52:41.690 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+19:52:41.721 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+19:52:41.722 [restartedMain] INFO  com.ikn.ums.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 4.034 seconds (JVM running for 1512.581)
+19:52:41.725 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged

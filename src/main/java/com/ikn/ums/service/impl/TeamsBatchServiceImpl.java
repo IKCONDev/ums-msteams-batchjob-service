@@ -602,6 +602,8 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			this.mapper.modelMapper.map(latestBatchDetails, latestBatchDetailsDto);
 			return latestBatchDetailsDto;
 		}
+		//for the first time there will not be any latest batch process record, 
+		//so just return a dummy batch process object with status as completed.
 		latestBatchDetailsDto = new BatchDetailsDto();
 		latestBatchDetailsDto.setStatus("COMPLETED");
 		return latestBatchDetailsDto;

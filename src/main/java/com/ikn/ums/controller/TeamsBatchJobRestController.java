@@ -56,7 +56,7 @@ public class TeamsBatchJobRestController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 		catch (Exception e) {
-			log.info("Error while batch processing "+e.getStackTrace().toString());
+			log.info("Error while batch processing "+e.getStackTrace());
 			return new ResponseEntity<>("Error while batch processing, Check server logs for full details",
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
