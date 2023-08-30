@@ -27,7 +27,7 @@ public class InitializeMicrosoftGraph {
 	
 	// initialize Microsoft graph API and get access token
 		//@Override
-		public String initializeMicrosoftGraph() {
+		public AccessToken initializeMicrosoftGraph() {
 			if (clientSecretCredential == null) {
 				final String clientId = environment.getProperty("app.clientId");
 				final String clientSecret = environment.getProperty("app.clientSecret");
@@ -42,12 +42,12 @@ public class InitializeMicrosoftGraph {
 		}
 
 		// helper method
-		private String getAccessToken() {
+		private AccessToken getAccessToken() {
 			final String[] graphscopes = new String[] { "https://graph.microsoft.com/.default" };
 			final TokenRequestContext context = new TokenRequestContext();
 			context.addScopes(graphscopes);
 			final AccessToken token = this.clientSecretCredential.getToken(context).block();
-			return token.getToken();
+			return token;
 		}
 
 }

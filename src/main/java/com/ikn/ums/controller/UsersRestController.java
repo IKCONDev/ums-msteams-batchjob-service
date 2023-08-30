@@ -15,7 +15,7 @@ import com.ikn.ums.entity.UserProfile;
 import com.ikn.ums.service.IUserProfileService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/employee")
 public class UsersRestController {
 	
 	@Autowired

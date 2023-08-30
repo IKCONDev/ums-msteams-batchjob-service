@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -82,6 +83,7 @@ import com.microsoft.graph.options.QueryOption;
 import com.microsoft.graph.requests.EventCollectionPage;
 import com.microsoft.graph.requests.GraphServiceClient;
 import com.microsoft.graph.requests.UserRequestBuilder;
+import com.thoughtworks.xstream.converters.time.OffsetDateTimeConverter;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice.Return;
@@ -116,7 +118,9 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	private List<List<EventDto>> allUsersEventList;
 
 	private ObjectMapper mapper;
-
+	
+	AccessToken acToken = new AccessToken(this.accessToken,OffsetDateTime.now() );
+	
 	// constructor
 	@Autowired
 	public TeamsBatchServiceImpl(ObjectMapper mapper) {
@@ -127,9 +131,12 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	@Override
 	public void performBatchProcessing(BatchDetailsDto lastBatchDetails) throws IOException, Exception {
 
-		// get access token from MS teams server , only if it is already null
-		if (this.accessToken == null) {
-			this.accessToken = this.microsoftGraph.initializeMicrosoftGraph();
+		// get access token from MS teams server , only if existing access token  is expired
+		if (this.acToken.isExpired()) {
+			log.info("Access Token expired");
+			 this.acToken = this.microsoftGraph.initializeMicrosoftGraph();
+			 log.info("Access Token Refreshed");
+			 this.accessToken = this.acToken.getToken();
 		}
 
 		// get all users
@@ -194,7 +201,9 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				// set current batch processing details, if failed
 				retBatchDetails.setStatus("FAILED");
 				retBatchDetails.setEndDateTime(LocalDateTime.now());
-				batchDetailsRepository.save(retBatchDetails);
+				//save and flush the changes instantly in db, bcz when exception is raised , 
+				//the normal save method will not work to save changes instantly in db, within @Transactional method
+				batchDetailsRepository.saveAndFlush(retBatchDetails);
 				log.info("Current batch processing details after completion "+retBatchDetails);
 				throw e;
 			}
@@ -609,32 +618,17 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		return latestBatchDetailsDto;
 	}
 
-	/*
-	 * // get events of a single user
-	 * 
-	 * @Override public List<EventDto> getEventByUserPrincipalName(String
-	 * userPrincipalName) throws Exception {
-	 * 
-	 * List<EventDto> eventsListDto = new ArrayList<>();
-	 * 
-	 * // check whether the user exists or not int count =
-	 * eventRepository.findUserPrinicipalName(userPrincipalName);
-	 * 
-	 * if (count > 0) { // get events list if a particular user after batch
-	 * processing List<Event> eventsList =
-	 * eventRepository.findByUserPrinicipalName(userPrincipalName);
-	 * 
-	 * // create mapper object ModelMapper mapper = new ModelMapper();
-	 * mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	 * 
-	 * // loop though DTO for conversion eventsList.forEach(event -> { EventDto
-	 * eventDto = new EventDto();
-	 * 
-	 * // map DTO to entity mapper.map(event, eventDto);
-	 * eventsListDto.add(eventDto); }); } else { throw new
-	 * UserPrincipalNotFoundException("user with provided principal name " +
-	 * userPrincipalName + " does not exist to retrive their events data."); }
-	 * return eventsListDto; }
-	 */
-
-}
+	
+	 // get events of a single user
+	  
+	  @Override 
+	  public List<Event> getEventByUserPrincipalName(String
+	  userPrincipalName) throws Exception {
+	  
+	  // check whether the user exists or not int count =
+	  List<Event> eventsList = eventRepository.findUserEvents(userPrincipalName);
+	  
+	  return eventsList; 
+	 }
+	
+}//class

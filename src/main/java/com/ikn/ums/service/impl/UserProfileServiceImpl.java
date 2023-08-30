@@ -1,5 +1,6 @@
 package com.ikn.ums.service.impl;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.azure.core.credential.AccessToken;
 import com.ikn.ums.dto.UserProfileDto;
 import com.ikn.ums.entity.UserProfile;
 import com.ikn.ums.model.UserProfilesResponseWrapper;
@@ -23,7 +25,10 @@ import com.ikn.ums.service.IUserProfileService;
 import com.ikn.ums.utils.InitializeMicrosoftGraph;
 import com.ikn.ums.utils.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserProfileServiceImpl implements IUserProfileService {
 	
 	@Autowired
@@ -36,6 +41,8 @@ public class UserProfileServiceImpl implements IUserProfileService {
 	ObjectMapper mapper;
 	
 	private String accessToken = null;
+	
+	private AccessToken acToken = new AccessToken(this.accessToken,OffsetDateTime.now() );
 
 	@Transactional
 	@Override
@@ -64,9 +71,13 @@ public class UserProfileServiceImpl implements IUserProfileService {
 	@SuppressWarnings("rawtypes")
 	private List<UserProfileDto> getUsers() {
 
-		if(this.accessToken == null) {	
-			this.accessToken = this.microsoftGraph.initializeMicrosoftGraph();
-		}
+		// get access token from MS teams server , only if it is already null
+				if (this.acToken.isExpired()) {
+					log.info("Access Token expired");
+					 this.acToken = this.microsoftGraph.initializeMicrosoftGraph();
+					 log.info("Access Token Refreshed");
+					 this.accessToken = this.acToken.getToken();
+				}
 		
 		// get users
 		String userProfileUrl = "https://graph.microsoft.com/v1.0/users?$filter=accountEnabled eq true and userType eq 'Member'";
@@ -117,9 +128,13 @@ public class UserProfileServiceImpl implements IUserProfileService {
 	@SuppressWarnings("rawtypes")
 	private UserProfileDto getUser(String userPrincipalName) {
 		
-		if(this.accessToken == null) {	
-			this.accessToken = this.microsoftGraph.initializeMicrosoftGraph();
-		}
+		// get access token from MS teams server , only if it is already null
+				if (this.acToken.isExpired()) {
+					log.info("Access Token expired");
+					 this.acToken = this.microsoftGraph.initializeMicrosoftGraph();
+					 log.info("Access Token Refreshed");
+					 this.accessToken = this.acToken.getToken();
+				}
 		
 		// get users
 		String userProfileUrl = "https://graph.microsoft.com/v1.0/users/"+userPrincipalName;

@@ -8,6 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.Trigger;
@@ -16,6 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.web.client.RestTemplate;
 
 import com.ikn.ums.controller.TeamsBatchJobRestController;
 import com.ikn.ums.repo.CronRepository;
@@ -26,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableScheduling
 @ComponentScan(basePackages = "com.ikn.ums")
 @Slf4j
+@EnableDiscoveryClient
 public class TeamsBatchJobApplication extends SpringBootServletInitializer implements SchedulingConfigurer {
 	
 	@Autowired
@@ -69,6 +74,12 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
 
 	public static void main(String[] args) {
 		SpringApplication.run(TeamsBatchJobApplication.class, args);
+	}
+	
+	@Bean
+	@LoadBalanced
+	public RestTemplate createLoadBalancedRestTemplate() {
+		return new RestTemplate();
 	}
 
 }
