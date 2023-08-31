@@ -23,19 +23,18 @@ import javax.persistence.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "event_tab")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event {
 	
 	private static Logger logger = LoggerFactory.getLogger(Event.class);
-	
-	public Event() {
-		logger.info("Event class no-param constructor executed");
-	}
-	
 
 	@Id
 	@SequenceGenerator(name = "events_gen", initialValue = 1, allocationSize = 1)

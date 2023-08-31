@@ -6,11 +6,15 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "emailaddress_tab")
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmailAddress {
 	
 	@Id

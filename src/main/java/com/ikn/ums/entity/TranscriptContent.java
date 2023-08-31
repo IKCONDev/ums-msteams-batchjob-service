@@ -3,10 +3,15 @@ package com.ikn.ums.entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TranscriptContent {
 
 	@Id
