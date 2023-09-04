@@ -20,13 +20,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.ikn.ums.controller.TeamsBatchJobRestController;
-import com.ikn.ums.dto.BatchDetailsDto;
-import com.ikn.ums.entity.CronDetails;
-import com.ikn.ums.repo.CronRepository;
-import com.ikn.ums.repo.EventRepository;
-import com.ikn.ums.repo.UserProfileRepository;
-import com.ikn.ums.service.ITeamsBatchService;
+import com.ikn.ums.msteams.TeamsBatchJobApplication;
+import com.ikn.ums.msteams.controller.TeamsBatchJobRestController;
+import com.ikn.ums.msteams.dto.BatchDetailsDto;
+import com.ikn.ums.msteams.entity.CronDetails;
+import com.ikn.ums.msteams.repo.CronRepository;
+import com.ikn.ums.msteams.repo.EventRepository;
+import com.ikn.ums.msteams.repo.UserProfileRepository;
+import com.ikn.ums.msteams.service.ITeamsBatchService;
 
 
 @WebMvcTest(TeamsBatchJobRestController.class)
