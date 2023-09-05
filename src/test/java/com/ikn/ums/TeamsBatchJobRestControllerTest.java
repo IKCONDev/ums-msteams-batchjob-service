@@ -26,7 +26,6 @@ import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.CronDetails;
 import com.ikn.ums.msteams.repo.CronRepository;
 import com.ikn.ums.msteams.repo.EventRepository;
-import com.ikn.ums.msteams.repo.UserProfileRepository;
 import com.ikn.ums.msteams.service.ITeamsBatchService;
 
 
@@ -45,8 +44,8 @@ public class TeamsBatchJobRestControllerTest {
 	@MockBean
 	private EventRepository eventRepo;
 	
-	@MockBean 
-	private UserProfileRepository userProfileRepo;
+	//@MockBean 
+	//private UserProfileRepository userProfileRepo;
 	
 	@MockBean
 	private TeamsBatchJobApplication teamsBatchJobApp;

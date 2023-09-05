@@ -33,11 +33,13 @@ public class Attendee {
 	private String type;
 	private String status;
 	private String email;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "attendee_fk_id", referencedColumnName = "id", nullable = true)
-    private Set<Event> event;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JoinColumn(name = "event_fk_id", referencedColumnName = "id", nullable = true)
+    private Event event;
+	/*
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_fk_id",nullable = true)
-	private UserProfile user;
+	*/
+	private Integer userId;
 
 }

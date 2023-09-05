@@ -27,7 +27,7 @@ import com.ikn.ums.msteams.repo.CronRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
-//@EnableScheduling
+@EnableScheduling
 @ComponentScan(basePackages = "com.ikn.ums")
 @Slf4j
 @EnableDiscoveryClient

@@ -55,6 +55,8 @@ import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
+import com.ikn.ums.msteams.VO.EmployeeListVO;
+import com.ikn.ums.msteams.VO.EmployeeVO;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.dto.EventDto;
 import com.ikn.ums.msteams.dto.OnlineMeetingDto;
@@ -73,7 +75,6 @@ import com.ikn.ums.msteams.model.TranscriptsResponseWrapper;
 import com.ikn.ums.msteams.model.UserProfilesResponseWrapper;
 import com.ikn.ums.msteams.repo.BatchDetailsRepository;
 import com.ikn.ums.msteams.repo.EventRepository;
-import com.ikn.ums.msteams.repo.UserProfileRepository;
 import com.ikn.ums.msteams.service.ITeamsBatchService;
 import com.ikn.ums.msteams.service.IUserProfileService;
 import com.ikn.ums.msteams.utils.InitializeMicrosoftGraph;
@@ -108,9 +109,9 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 	@Autowired
 	private BatchDetailsRepository batchDetailsRepository;
-
+	
 	@Autowired
-	private IUserProfileService userProfileService;
+	private RestTemplate rt;
 
 	@Autowired
 	private InitializeMicrosoftGraph microsoftGraph;
@@ -122,6 +123,8 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	private ObjectMapper mapper;
 	
 	AccessToken acToken = new AccessToken(this.accessToken,OffsetDateTime.now() );
+	
+	List<EmployeeVO> userDtoList = null;
 	
 	// constructor
 	@Autowired
@@ -141,10 +144,16 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			 this.accessToken = this.acToken.getToken();
 		}
 	
-		
+		/*
 		// get all users
 		List<UserProfile> userDtoList = userProfileService.fetchAllUsers();
-
+		*/
+		
+		//get all users from employee microservice to perform batch processing of UMS users
+		
+		EmployeeListVO empListVO = rt.getForObject("http://UMS-EMPLOYEE-SERVICE/employees/get-all", EmployeeListVO.class);
+		userDtoList = empListVO.getEmployee();
+		
 		if (!userDtoList.isEmpty()) {
 
 			// set current batch processing details
@@ -177,12 +186,12 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				// iterate each user and get their events and save to UMS db
 				userDtoList.forEach(userDto -> {
 					if (!environment.getProperty("userprincipal.exclude.users")
-							.contains(userDto.getUserPrincipalName())) {
+							.contains(userDto.getEmail())) {
 
-						String userId = userDto.getUserId();
+						String userId = userDto.getTeamsUserId();
 						// get userprincipalName and pass it to calendarView method to fetch the
 						// calendar events if the user
-						String userPrincipalName = userDto.getUserPrincipalName();
+						String userPrincipalName = userDto.getEmail();
 						System.out.println(userId + " " + userPrincipalName);
 
 						// get users calendar view of events using principal name
@@ -215,7 +224,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		}
 	}
 
-	private List<EventDto> getUserCalendarView(UserProfile userDto, LocalDateTime lastSuccessfulBatchStartTime) {
+	private List<EventDto> getUserCalendarView(EmployeeVO userDto, LocalDateTime lastSuccessfulBatchStartTime) {
 		// Get the current date in the system's default time zone
 		LocalDateTime currentStartDateTime = LocalDateTime.now();
 
@@ -253,11 +262,11 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		StringBuilder calendarViewBaseUrl = null;
 		if (lastSuccessfulBatchStartTime == null) {
 			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/"
-					+ userDto.getUserPrincipalName() + "/calendarView?startDateTime=" + dateTimeOneHourAgoUTC
+					+ userDto.getEmail() + "/calendarView?startDateTime=" + dateTimeOneHourAgoUTC
 					+ "&endDateTime=" + currentEndDateTimeUTC);
 		} else {
 			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/"
-					+ userDto.getUserPrincipalName() + "/calendarView?startDateTime=" + batchStartTimeUTC
+					+ userDto.getEmail() + "/calendarView?startDateTime=" + batchStartTimeUTC
 					+ "&endDateTime=" + currentEndDateTimeUTC);
 		}
 		// String select =
@@ -331,7 +340,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 
 	// attach online meeting to event, so that event will now contain its online
 	// meeting details
-	private EventDto attachOnlineMeetingDetailsToEvent(EventDto eventDto, UserProfile user) {
+	private EventDto attachOnlineMeetingDetailsToEvent(EventDto eventDto, EmployeeVO user) {
 
 		// if joinurl is not null, then the event is an online meeting, proceed to get
 		// and insert online meeting object
@@ -339,7 +348,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			String meetingJoinUrl = eventDto.getOnlineMeeting().getJoinUrl();
 
 			// get online meeting objects of the user one by one and attach to event
-			OnlineMeetingDto onlineMeeting = getOnlineMeeting(meetingJoinUrl, user.getUserId());
+			OnlineMeetingDto onlineMeeting = getOnlineMeeting(meetingJoinUrl, user.getTeamsUserId());
 			if (onlineMeeting != null) {
 				eventDto.getOnlineMeeting().setOnlineMeetingId(onlineMeeting.getOnlineMeetingId());
 				eventDto.getOnlineMeeting().setSubject(onlineMeeting.getSubject());
@@ -353,7 +362,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	}
 
 	// attach transcripts to respective online meetings
-	private EventDto attachTranscriptsToOnlineMeeting(EventDto eventDto, UserProfile user) {
+	private EventDto attachTranscriptsToOnlineMeeting(EventDto eventDto, EmployeeVO user) {
 
 //		if (eventDto.getOnlineMeeting() != null) {
 //			eventDto.getOnlineMeeting().setOccurrenceId(eventDto.getOccurrenceId());
@@ -362,7 +371,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		// Retrieve transcripts of particular instance of the recurring meeting and
 		// insert into db
 		if (eventDto.getOccurrenceId() != null) {
-			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getUserId(),
+			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getTeamsUserId(),
 					eventDto.getOnlineMeeting().getOnlineMeetingId());
 			List<TranscriptDto> actualMeetingTranscriptsListDto = new ArrayList<>();
 			transcriptsListDto.forEach(transcriptDetail -> {
@@ -419,7 +428,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		else {
 
 			// Retrieve transcripts of single instance meeting and insert into db
-			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getUserId(),
+			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getTeamsUserId(),
 					eventDto.getOnlineMeeting().getOnlineMeetingId());
 			if (transcriptsListDto != null) {
 				// eventDto.getOnlineMeeting().setMeetingTranscripts(transcriptsListDto);
@@ -459,7 +468,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	}
 
 	// map all event dto's to event entities to save into db
-	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto, UserProfile user) {
+	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto, EmployeeVO user) {
 		eventsListDto.forEach(eventDto -> {
 			// iterate through event objects and get the online meeting object from each
 			// event object one by one
@@ -479,7 +488,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			event.setOrganizerEmailId(eventDto.getOrganizer().getEmailAddress().getAddress());
 			event.setOrganizerName(eventDto.getOrganizer().getEmailAddress().getName());
 			event.setJoinUrl(eventDto.getOnlineMeeting().getJoinUrl());
-			event.setUser(user);
+			event.setUserId(user.getId());
 			List<TranscriptDto> retrivedTranscriptDtos = eventDto.getOnlineMeeting().getMeetingTranscripts();
 			List<Transcript> transcripts = new ArrayList<>();
 			if (retrivedTranscriptDtos != null) {
@@ -502,6 +511,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				// manually map the unmatched field
 				attendee.setEmail(attendeeEmailAddress);
 				attendee.setStatus(attendeeDto.getStatus().getResponse());
+				//attendee mail ids list
 				mailIds.add(attendeeEmailAddress);
 				attendeesList.add(attendee);
 				// set event to attendee
@@ -509,12 +519,19 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			});
 
 			// set user profile for each attendee
-			List<UserProfile> userProfilesList = userProfileService.getUsersByMailIds(mailIds);
+			List<EmployeeVO> userProfilesList = this.userDtoList;
 			attendeesList.forEach(attendee -> {
 				for (int i = 0; i < userProfilesList.size(); i++) {
-					if (attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getMail())) {
-						attendee.setUser(userProfilesList.get(i));
+					if (attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getEmail())) {
+						//attendee.setUser(userProfilesList.get(i));
+						attendee.setUserId(userProfilesList.get(i).getId());					
 					}
+					/*
+					if(event.getOrganizerEmailId().equalsIgnoreCase(userProfilesList.get(i).getEmail())) {
+						Attendee attendee = new Atte
+						attendee.setUserId(userProfilesList.get(i).getId());
+					}
+					*/
 				}
 			});
 
@@ -586,6 +603,26 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			return meetingTranscriptsList;
 		}
 	}
+	
+	@Override
+	public BatchDetailsDto getLatestBatchProcessingRecordDetails() {
+		Optional<BatchDetails> optBatchDetails = batchDetailsRepository.getLatestBatchProcessingRecord();
+		BatchDetails latestBatchDetails = null;
+		BatchDetailsDto latestBatchDetailsDto = null;
+		if (optBatchDetails.isPresent()) {
+			latestBatchDetails = optBatchDetails.get();
+			latestBatchDetailsDto = new BatchDetailsDto();
+
+			// map entity to dto
+			this.mapper.modelMapper.map(latestBatchDetails, latestBatchDetailsDto);
+			return latestBatchDetailsDto;
+		}
+		//for the first time there will not be any latest batch process record, 
+		//so just return a dummy batch process object with status as completed.
+		latestBatchDetailsDto = new BatchDetailsDto();
+		latestBatchDetailsDto.setStatus("COMPLETED");
+		return latestBatchDetailsDto;
+	}
 
 	// will pass the transcript content URL to this method from the transcript
 	// details object.
@@ -610,64 +647,5 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		return rentity.getBody();
 	}
 
-	@Override
-	public BatchDetailsDto getLatestBatchProcessingRecordDetails() {
-		Optional<BatchDetails> optBatchDetails = batchDetailsRepository.getLatestBatchProcessingRecord();
-		BatchDetails latestBatchDetails = null;
-		BatchDetailsDto latestBatchDetailsDto = null;
-		if (optBatchDetails.isPresent()) {
-			latestBatchDetails = optBatchDetails.get();
-			latestBatchDetailsDto = new BatchDetailsDto();
-
-			// map entity to dto
-			this.mapper.modelMapper.map(latestBatchDetails, latestBatchDetailsDto);
-			return latestBatchDetailsDto;
-		}
-		//for the first time there will not be any latest batch process record, 
-		//so just return a dummy batch process object with status as completed.
-		latestBatchDetailsDto = new BatchDetailsDto();
-		latestBatchDetailsDto.setStatus("COMPLETED");
-		return latestBatchDetailsDto;
-	}
-
-	
-	 // get events of a single user
-	  
-	  @Override 
-	  public List<Event> getEventByUserPrincipalName(String
-	  userPrincipalName) throws Exception {
-	  
-	  // check whether the user exists or not int count =
-	  List<Event> dbEventsList = eventRepository.findUserEvents(userPrincipalName);
-	  /*
-	  dbEventsList.forEach(dbEvent -> {
-		  dbEvent.getMeetingTranscripts().forEach(transcript->{
-			  String transcriptContentByteArrayString = transcript.getTranscriptContent();			  
-			  byte[] bytes = org.apache.commons.codec.binary.Base64.decodeBase64(transcriptContentByteArrayString);
-			  transcript.setTranscriptContent(new String(bytes));
-			  
-		  });	   
-	  });
-	  */
-	  return dbEventsList; 
-	 }
-
-	@Override
-	public List<Event> getUserAttendedEvents(String username) {
-		//List<Event> userAttendedEvents = null;
-		List<Event> dbUserAttendedEvents = eventRepository.findUserAttendedEvents(username);
-//		if(dbUserAttendedEvents.size()<0) {
-//			userAttendedEvents = new ArrayList<>();
-//			return userAttendedEvents;
-//		}
-		return dbUserAttendedEvents;
-	}
-
-	@Override
-	public Long getUserOrganizedEmailCount(String email) {
-		// TODO Auto-generated method stub
-		long l = 100;
-		return l;
-	}
 	
 }//class

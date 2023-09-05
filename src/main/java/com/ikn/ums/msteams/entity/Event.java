@@ -104,8 +104,6 @@ public class Event {
     
     private String insertedDate = LocalDateTime.now().toString();
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name = "UserFkId", referencedColumnName = "userId", nullable = false) 
-    private UserProfile user;
+    private Integer userId;
 
 }
