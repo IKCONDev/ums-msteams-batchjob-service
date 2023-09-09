@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ikn.ums.msteams.VO.ActionsItemsVO;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.Event;
@@ -138,6 +139,28 @@ public class TeamsBatchJobRestController {
 	public ResponseEntity<?> getUserOragnizedEventCount(@PathVariable String email) {
 		Integer count = eventService.getUserOrganizedEventCount(email);
 		return new ResponseEntity<>(count, HttpStatus.OK);
+	}
+	
+	/**
+	 * 
+	 * @param eventId
+	 * @return
+	 */
+	@GetMapping("/events/actionitems/{eventId}")
+	public ResponseEntity<?> getActionItemsOfEvent(@PathVariable Integer eventId){
+		List<ActionsItemsVO> actionItemsList = eventService.getActionItemsOfEvent(eventId);
+		return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	@GetMapping("/events/actionitems")
+	public ResponseEntity<?> getActionItemsOfEvent(){
+		List<ActionsItemsVO> actionItemsList = eventService.getActionItems();
+		return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 	}
 
 }

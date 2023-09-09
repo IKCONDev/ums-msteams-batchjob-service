@@ -27,8 +27,8 @@ import com.ikn.ums.msteams.repo.CronRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
-@EnableScheduling
-@ComponentScan(basePackages = "com.ikn.ums")
+//@EnableScheduling
+@ComponentScan(basePackages = "com.ikn.ums.msteams")
 @Slf4j
 @EnableDiscoveryClient
 public class TeamsBatchJobApplication extends SpringBootServletInitializer implements SchedulingConfigurer {

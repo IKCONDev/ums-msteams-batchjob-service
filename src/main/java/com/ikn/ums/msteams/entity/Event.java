@@ -75,7 +75,7 @@ public class Event {
 	private String location;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
-	@JoinColumn(name = "event_fk_id", referencedColumnName = "id", nullable = true)
+	@JoinColumn(name = "event_id", referencedColumnName = "id", nullable = true)
     private Set<Attendee> attendees;
     
     private String organizerEmailId;
