@@ -14,8 +14,9 @@ import com.ikn.ums.msteams.VO.ActionsItemsVO;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.Event;
+import com.ikn.ums.msteams.exception.BusinessException;
+import com.ikn.ums.msteams.exception.ControllerException;
 import com.ikn.ums.msteams.exception.UserPrincipalNotFoundException;
-import com.ikn.ums.msteams.exception.UsersNotFoundException;
 import com.ikn.ums.msteams.service.EventService;
 import com.ikn.ums.msteams.service.ITeamsBatchService;
 
@@ -65,15 +66,16 @@ public class TeamsBatchJobRestController {
 				// log.info("An instance of batch process is already running");
 				return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
 			}
-		} catch (UsersNotFoundException e) {
-			e.printStackTrace();
-			log.info("Users not found for batch processing");
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (BusinessException ube) {
+			// e.printStackTrace();
+			ControllerException umsCE = new ControllerException("<code>", ube.getMessage());
+			log.info("UMS Controller Exception raised " + umsCE);
+			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.info("Error while batch processing " + e.getStackTrace());
-			return new ResponseEntity<>("Error while batch processing, Check server logs for full details",
-					HttpStatus.INTERNAL_SERVER_ERROR);
+			ControllerException umsCE = new ControllerException("<code>", e.getStackTrace().toString());
+			// e.printStackTrace();
+			log.info("Error while batch processing " + umsCE);
+			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -140,25 +142,24 @@ public class TeamsBatchJobRestController {
 		Integer count = eventService.getUserOrganizedEventCount(email);
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 
 	 * @param eventId
 	 * @return
 	 */
 	@GetMapping("/events/actionitems/{eventId}")
-	public ResponseEntity<?> getActionItemsOfEvent(@PathVariable Integer eventId){
+	public ResponseEntity<?> getActionItemsOfEvent(@PathVariable Integer eventId) {
 		List<ActionsItemsVO> actionItemsList = eventService.getActionItemsOfEvent(eventId);
 		return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return
 	 */
 	@GetMapping("/events/actionitems")
-	public ResponseEntity<?> getActionItemsOfEvent(){
+	public ResponseEntity<?> getActionItemsOfEvent() {
 		List<ActionsItemsVO> actionItemsList = eventService.getActionItems();
 		return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 	}

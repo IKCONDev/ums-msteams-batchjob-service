@@ -67,6 +67,7 @@ import com.ikn.ums.msteams.entity.BatchDetails;
 import com.ikn.ums.msteams.entity.Event;
 import com.ikn.ums.msteams.entity.Transcript;
 import com.ikn.ums.msteams.entity.UserProfile;
+import com.ikn.ums.msteams.exception.BusinessException;
 import com.ikn.ums.msteams.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.msteams.exception.UsersNotFoundException;
 import com.ikn.ums.msteams.model.CalendarViewResponseWrapper;
@@ -217,10 +218,15 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				//the normal save method will not work to save changes instantly in db, within @Transactional method
 				batchDetailsRepository.saveAndFlush(retBatchDetails);
 				log.info("Current batch processing details after completion "+retBatchDetails);
-				throw e;
+				BusinessException umsBusinessException = new BusinessException("1001", e.getStackTrace().toString());
+				throw umsBusinessException;
 			}
 		} else {
-			throw new UsersNotFoundException("Users not available for batch processing");
+			try {
+			  throw new UsersNotFoundException("Users not available for batch processing");
+			}catch (UsersNotFoundException unfe) {
+				throw new BusinessException("<code>", unfe.getMessage());
+			}
 		}
 	}
 

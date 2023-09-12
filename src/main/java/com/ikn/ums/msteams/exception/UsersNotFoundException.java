@@ -11,8 +11,8 @@ public class UsersNotFoundException extends RuntimeException {
 		super();
 	}
 	
-	public UsersNotFoundException(String errorMessage) {
-		super(errorMessage);
+	public UsersNotFoundException(String message) {
+		super(message);
 	}
-
+	
 }

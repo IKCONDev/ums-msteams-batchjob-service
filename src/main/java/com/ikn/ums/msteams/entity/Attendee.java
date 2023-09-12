@@ -34,7 +34,7 @@ public class Attendee {
 	private String status;
 	private String email;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	//@JoinColumn(name = "event_fk_id", referencedColumnName = "id", nullable = true)
+	@JoinColumn(name = "event_id", referencedColumnName = "id", nullable = true)
     private Event event;
 	/*
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

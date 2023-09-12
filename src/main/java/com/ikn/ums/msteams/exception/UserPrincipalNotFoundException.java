@@ -1,6 +1,6 @@
 package com.ikn.ums.msteams.exception;
 
-public class UserPrincipalNotFoundException extends RuntimeException {
+public class UserPrincipalNotFoundException extends RuntimeException{
 	
 	/**
 	 * 
@@ -11,8 +11,8 @@ public class UserPrincipalNotFoundException extends RuntimeException {
 		super();
 	}
 	
-	public UserPrincipalNotFoundException(String errorMessage) {
-		super(errorMessage);
+	public UserPrincipalNotFoundException(String message) {
+		super(message);
 	}
 
 }
