@@ -235,7 +235,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		LocalDateTime currentStartDateTime = LocalDateTime.now();
 
 		// Set the datetime to 1 hour ago for the first time execution of batch process
-		LocalDateTime dateTimeOneHourAgo = currentStartDateTime.minus(1, ChronoUnit.HOURS);
+		LocalDateTime dateTimeOneHourAgo = currentStartDateTime.minus(3, ChronoUnit.HOURS);
 
 		// Convert to UTC
 		ZonedDateTime zonedStartDateTime = dateTimeOneHourAgo.atZone(ZoneId.systemDefault());

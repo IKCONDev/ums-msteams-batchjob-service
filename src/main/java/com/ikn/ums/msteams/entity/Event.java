@@ -74,8 +74,8 @@ public class Event {
 		
 	private String location;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
-	//@JoinColumn(name = "event_id", referencedColumnName = "id", nullable = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "evt_id" ,referencedColumnName = "id", nullable = true)
     private Set<Attendee> attendees;
     
     private String organizerEmailId;
@@ -105,5 +105,8 @@ public class Event {
     private String insertedDate = LocalDateTime.now().toString();
     
     private Integer userId;
+    
+    @Column(name = "action_items_generated",nullable = true)
+    private boolean isActionItemsGenerated = false;
 
 }

@@ -11,7 +11,7 @@ public interface EventService {
 	List<Event> getEventByUserPrincipalName(String username) throws Exception;
 	Integer getUserAttendedEventsCount(Integer userId);
 	Integer getUserOrganizedEventCount(String email);
-	List<Attendee> getUserAttendedEvents(Integer userId);
+	List<Event> getUserAttendedEvents(String email);
 	List<ActionsItemsVO> getActionItemsOfEvent(Integer eventId);
 	List<ActionsItemsVO> getActionItems();
 	

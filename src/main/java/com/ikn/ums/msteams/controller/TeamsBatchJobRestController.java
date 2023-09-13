@@ -66,12 +66,8 @@ public class TeamsBatchJobRestController {
 				// log.info("An instance of batch process is already running");
 				return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
 			}
-		} catch (BusinessException ube) {
-			// e.printStackTrace();
-			ControllerException umsCE = new ControllerException("<code>", ube.getMessage());
-			log.info("UMS Controller Exception raised " + umsCE);
-			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
+			log.info("Exception while performing batch processing "+e.getStackTrace());
 			ControllerException umsCE = new ControllerException("<code>", e.getStackTrace().toString());
 			// e.printStackTrace();
 			log.info("Error while batch processing " + umsCE);
@@ -106,10 +102,10 @@ public class TeamsBatchJobRestController {
 	 * @param userId
 	 * @return
 	 */
-	@GetMapping(path = "/events/attended/{userId}")
-	public ResponseEntity<?> getUserAttendedEvents(@PathVariable Integer userId) {
+	@GetMapping(path = "/events/attended/{email}")
+	public ResponseEntity<?> getUserAttendedEvents(@PathVariable String email) {
 		try {
-			List<Attendee> userEventsList = eventService.getUserAttendedEvents(userId);
+			List<Event> userEventsList = eventService.getUserAttendedEvents(email);
 			System.out.println(userEventsList);
 			return new ResponseEntity<>(userEventsList, HttpStatus.OK);
 		} catch (Exception e) {
