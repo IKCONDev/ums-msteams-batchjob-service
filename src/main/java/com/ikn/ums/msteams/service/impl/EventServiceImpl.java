@@ -113,8 +113,10 @@ public class EventServiceImpl implements EventService {
 		@Transactional
 		@Override
 		public Integer updateActionItemStatusOfEvent(boolean isActionItemsGenerated, List<Integer> eventIds) {
-			// TODO Auto-generated method stub
-			return null;
+			System.out.println("EventServiceImpl.updateActionItemStatusOfEvent()");
+			int count = eventRepository.updateStatusOfActionItem(isActionItemsGenerated, eventIds);
+			return count;
+			
 		}
 		
 }
