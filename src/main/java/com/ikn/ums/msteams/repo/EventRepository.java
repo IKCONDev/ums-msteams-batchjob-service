@@ -3,6 +3,7 @@ package com.ikn.ums.msteams.repo;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,15 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	//@Query("SELECT COUNT(*) FROM Event e JOIN e.user u Where e.user.mail=:email")
 	//Long findUserOrganizedMeetingsCount(String email);
 	
-	@Query("SELECT COUNT(*) FROM Attendee WHERE userId=:userId")
-	Integer findUserAttendedEventCount(Integer userId);
+	@Query("SELECT COUNT(*) FROM Attendee WHERE email=:userId")
+	Integer findUserAttendedEventCount(String userId);
+	
+	//used by NLP
+	@Query("FROM Event e WHERE e.isActionItemsGenerated=:isActionItemsGenerated")
+	List<Event> findAllEvents(boolean isActionItemsGenerated);
+	
+	@Modifying
+	@Query("UPDATE Event e SET e.isActionItemsGenerated=:isActionItemsGenerated WHERE e.id IN (:eventIds)")
+	Integer updateStatusOfActionItem(boolean isActionItemsGenerated, List<Integer> eventIds);
 
 }

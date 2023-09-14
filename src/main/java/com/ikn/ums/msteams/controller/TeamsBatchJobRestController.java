@@ -1,11 +1,15 @@
 package com.ikn.ums.msteams.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -121,9 +125,9 @@ public class TeamsBatchJobRestController {
 	 * @param userId
 	 * @return count of attended events
 	 */
-	@GetMapping(path = "/events/attended-count/{userId}")
-	public ResponseEntity<?> getUserAttendedEventCount(@PathVariable Integer userId) {
-		Integer count = eventService.getUserAttendedEventsCount(userId);
+	@GetMapping(path = "/events/attended-count/{emailId}")
+	public ResponseEntity<?> getUserAttendedEventCount(@PathVariable String emailId) {
+		Integer count = eventService.getUserAttendedEventsCount(emailId);
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
 
@@ -158,6 +162,39 @@ public class TeamsBatchJobRestController {
 	public ResponseEntity<?> getActionItemsOfEvent() {
 		List<ActionsItemsVO> actionItemsList = eventService.getActionItems();
 		return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
+	}
+	
+	/**
+	 * 
+	 */
+	@GetMapping("/events")
+	public ResponseEntity<?> getAllEvents(){
+		boolean isActionItemsGeneratedForEvent = false;
+		List<Event> eventsList = eventService.getAllEvents(isActionItemsGeneratedForEvent);
+		return new ResponseEntity<>(eventsList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/events/status/{eventids}/{isGenerated}")
+	public ResponseEntity<?> updateActionItemGeneratedStatus(@PathVariable boolean isGenerated, 
+			@PathVariable String eventIds){
+		try {
+			List<Integer> actualEventids = null;
+			String[] actualEventIds = eventIds.split(",");
+			List<String> idsList =  Arrays.asList(actualEventIds);
+			
+			//convert string of ids to Integer ids
+			actualEventids = idsList.stream()
+	                 .map(s -> Integer.parseInt(s))
+	                 .collect(Collectors.toList());
+			
+			//update the status of events
+			int status = eventService.updateActionItemStatusOfEvent(isGenerated, actualEventids);
+			return new ResponseEntity<>(status,HttpStatus.PARTIAL_CONTENT);
+			
+		}catch (Exception e) {
+			ControllerException umsCE = new ControllerException("<errorcode>", "Error occured in controller "+e.getStackTrace().toString());
+			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

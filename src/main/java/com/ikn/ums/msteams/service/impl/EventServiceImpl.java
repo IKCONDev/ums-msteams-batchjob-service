@@ -3,6 +3,8 @@ package com.ikn.ums.msteams.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -40,12 +42,12 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public Integer getUserAttendedEventsCount(Integer userId) {
+	public Integer getUserAttendedEventsCount(String emailId) {
 		try {
-			if(userId < 0 ) {
-				throw new BusinessException("error code", "Invalid user id : "+userId);
+			if(emailId.equalsIgnoreCase("")) {
+				throw new BusinessException("error code", "Invalid user email id");
 			}
-			Integer dbAttendedMeetingsCount = eventRepository.findUserAttendedEventCount(userId);
+			Integer dbAttendedMeetingsCount = eventRepository.findUserAttendedEventCount(emailId);
 			return dbAttendedMeetingsCount;
 		}catch (Exception e) {
 			throw new BusinessException("error code", e.getStackTrace().toString());
@@ -61,6 +63,7 @@ public class EventServiceImpl implements EventService {
 	  //check whether the user exists or not int count =
 	  List<Event> dbEventsList = eventRepository.findUserEvents(userPrincipalName);
 	  
+	  /*
 	  dbEventsList.forEach(dbEvent -> {
 		  dbEvent.getMeetingTranscripts().forEach(transcript->{
 			  String transcriptContentByteArrayString = transcript.getTranscriptContent();			  
@@ -69,6 +72,7 @@ public class EventServiceImpl implements EventService {
 			  
 		  });	   
 	  });
+	  */
 	  return dbEventsList; 
 	 }
 	  
@@ -98,6 +102,19 @@ public class EventServiceImpl implements EventService {
 					,ActionItemsListVO.class);
 			List<ActionsItemsVO> actionItemsListOfEvent = response.getActionItems(); 
 			return actionItemsListOfEvent;
+		}
+
+		@Override
+		public List<Event> getAllEvents(boolean isActionItemsGenerated) {
+			List<Event> eventList = eventRepository.findAllEvents(isActionItemsGenerated);
+			return eventList;
+		}
+
+		@Transactional
+		@Override
+		public Integer updateActionItemStatusOfEvent(boolean isActionItemsGenerated, List<Integer> eventIds) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 		
 }
