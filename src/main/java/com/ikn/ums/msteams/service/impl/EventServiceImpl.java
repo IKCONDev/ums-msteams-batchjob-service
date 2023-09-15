@@ -105,8 +105,8 @@ public class EventServiceImpl implements EventService {
 		}
 
 		@Override
-		public List<Event> getAllEvents(boolean isActionItemsGenerated) {
-			List<Event> eventList = eventRepository.findAllEvents(isActionItemsGenerated);
+		public List<Event> getAllEvents(String email, boolean isActionItemsGenerated) {
+			List<Event> eventList = eventRepository.findAllEvents(email, isActionItemsGenerated);
 			return eventList;
 		}
 

@@ -27,6 +27,8 @@ public class ActionsItemsVO {
 	private LocalDateTime startDate;
 	
 	private LocalDateTime endDate;
+	
+	private String userId;
 
 	
 

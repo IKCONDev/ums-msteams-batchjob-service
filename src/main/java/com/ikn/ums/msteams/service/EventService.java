@@ -14,7 +14,7 @@ public interface EventService {
 	List<Event> getUserAttendedEvents(String email);
 	List<ActionsItemsVO> getActionItemsOfEvent(Integer eventId);
 	List<ActionsItemsVO> getActionItems();
-	List<Event> getAllEvents(boolean isActionItemsGenerated);
+	List<Event> getAllEvents(String email, boolean isActionItemsGenerated);
 	Integer updateActionItemStatusOfEvent(boolean isActionItemsGenerated, List<Integer> eventId);
 	
 

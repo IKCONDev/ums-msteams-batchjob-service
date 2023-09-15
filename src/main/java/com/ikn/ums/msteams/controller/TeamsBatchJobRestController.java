@@ -59,6 +59,7 @@ public class TeamsBatchJobRestController {
 	 */
 	@GetMapping(path = "/batch-process")
 	public ResponseEntity<?> meetingDataBatchProcessing() {
+		System.out.println("TeamsBatchJobRestController.meetingDataBatchProcessing() Entered");
 		try {
 			BatchDetailsDto existingBatchProcess = teamsBatchService.getLatestBatchProcessingRecordDetails();
 			log.info("Last batch processing details " + existingBatchProcess.toString());
@@ -67,16 +68,16 @@ public class TeamsBatchJobRestController {
 				return new ResponseEntity<>("An instance of batch process is already running",
 						HttpStatus.ALREADY_REPORTED);
 			} else {
+				log.info("TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...");
 				// perform batch processing
 				teamsBatchService.performBatchProcessing(existingBatchProcess);
 				// log.info("An instance of batch process is already running");
 				return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
 			}
 		} catch (Exception e) {
-			log.info("Exception while performing batch processing " + e.getStackTrace());
 			ControllerException umsCE = new ControllerException("<code>", e.getStackTrace().toString());
 			// e.printStackTrace();
-			log.info("Error while batch processing " + umsCE);
+			System.out.println("TeamsBatchJobRestController.meetingDataBatchProcessing() exited with exception "+umsCE);
 			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -169,10 +170,10 @@ public class TeamsBatchJobRestController {
 	/**
 	 * 
 	 */
-	@GetMapping("/events")
-	public ResponseEntity<?> getAllEvents() {
+	@GetMapping("/events/{email}")
+	public ResponseEntity<?> getAllEvents(@PathVariable String email) {
 		boolean isActionItemsGeneratedForEvent = false;
-		List<Event> eventsList = eventService.getAllEvents(isActionItemsGeneratedForEvent);
+		List<Event> eventsList = eventService.getAllEvents(email,isActionItemsGeneratedForEvent);
 		return new ResponseEntity<>(eventsList, HttpStatus.OK);
 	}
 

@@ -29,8 +29,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	Integer findUserAttendedEventCount(String userId);
 	
 	//used by NLP
-	@Query("FROM Event e WHERE e.isActionItemsGenerated=:isActionItemsGenerated")
-	List<Event> findAllEvents(boolean isActionItemsGenerated);
+	@Query("FROM Event e WHERE e.organizerEmailId=:email AND e.isActionItemsGenerated=:isActionItemsGenerated")
+	List<Event> findAllEvents(String email, boolean isActionItemsGenerated);
 	
 	@Modifying
 	@Query("UPDATE Event e SET e.isActionItemsGenerated=:isActionItemsGenerated WHERE e.id IN (:eventIds)")
