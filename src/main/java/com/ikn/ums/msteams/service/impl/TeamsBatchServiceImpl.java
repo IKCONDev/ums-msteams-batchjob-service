@@ -68,6 +68,7 @@ import com.ikn.ums.msteams.entity.Event;
 import com.ikn.ums.msteams.entity.Transcript;
 import com.ikn.ums.msteams.entity.UserProfile;
 import com.ikn.ums.msteams.exception.BusinessException;
+import com.ikn.ums.msteams.exception.ErrorCodeMessages;
 import com.ikn.ums.msteams.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.msteams.exception.UsersNotFoundException;
 import com.ikn.ums.msteams.model.CalendarViewResponseWrapper;
@@ -174,8 +175,8 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 			this.mapper.modelMapper.map(currentBatchDetailsDto, batchDetails);
 
 			// save current batch object
-			BatchDetails retBatchDetails = batchDetailsRepository.save(batchDetails);
-			log.info("Current batch processing details "+retBatchDetails.toString());
+			BatchDetails currentDbBatchDetails = batchDetailsRepository.save(batchDetails);
+			log.info("Current batch processing details "+currentDbBatchDetails.toString());
 			
 
 			// get last batch processing time
@@ -205,28 +206,26 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 					}
 				});
 				// set current batch processing details, if passed
-				retBatchDetails.setStatus("COMPLETED");
-				retBatchDetails.setEndDateTime(LocalDateTime.now());
-				retBatchDetails.setLastSuccessfullExecutionDateTime(currentbatchStartTime);
-				batchDetailsRepository.save(retBatchDetails);
-				log.info("Current batch processing details after completion "+retBatchDetails);
+				currentDbBatchDetails.setStatus("COMPLETED");
+				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
+				currentDbBatchDetails.setLastSuccessfullExecutionDateTime(currentbatchStartTime);
+				batchDetailsRepository.save(currentDbBatchDetails);
+				log.info("Current batch processing details after completion "+currentDbBatchDetails);
 			} catch (Exception e) {
 				// set current batch processing details, if failed
-				retBatchDetails.setStatus("FAILED");
-				retBatchDetails.setEndDateTime(LocalDateTime.now());
+				currentDbBatchDetails.setStatus("FAILED");
+				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
 				//save and flush the changes instantly in db, bcz when exception is raised , 
 				//the normal save method will not work to save changes instantly in db, within @Transactional method
-				batchDetailsRepository.saveAndFlush(retBatchDetails);
-				log.info("Current batch processing details after completion "+retBatchDetails);
-				BusinessException umsBusinessException = new BusinessException("1001", e.getStackTrace().toString());
+				batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
+				log.info("Current batch processing details after completion "+currentDbBatchDetails);
+				BusinessException umsBusinessException = new BusinessException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
+						ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG+" "+e.getStackTrace().toString());
 				throw umsBusinessException;
 			}
 		} else {
-			try {
-			  throw new UsersNotFoundException("Users not available for batch processing");
-			}catch (UsersNotFoundException unfe) {
-				throw new BusinessException("<code>", unfe.getMessage());
-			}
+			  throw new UsersNotFoundException(ErrorCodeMessages.ERR_EMPLOYEES_NOT_FOUND_BATCH_CODE, 
+					  ErrorCodeMessages.ERR_EMPLOYEES_NOT_FOUND__BATCH_MSG);
 		}
 	}
 

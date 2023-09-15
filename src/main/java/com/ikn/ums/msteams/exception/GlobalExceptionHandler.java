@@ -26,7 +26,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException entityNotFoundException) {
 		log.info("GlobalExceptionHandler.handleEntityNotFoundException() ENTERED" + entityNotFoundException.getMessage());
-		return new ResponseEntity<String>("Entity Object is NUll.", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>("Entity Object is Null.", HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UsersNotFoundException.class)
+	public ResponseEntity<String> handleUsersNotFoundException(UsersNotFoundException usersNotFoundException) {
+		log.info("GlobalExceptionHandler.handleEntityNotFoundException() ENTERED" + usersNotFoundException.getMessage());
+		return new ResponseEntity<String>("Business Exception", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	/**

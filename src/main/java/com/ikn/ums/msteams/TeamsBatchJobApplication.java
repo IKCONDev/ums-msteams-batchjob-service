@@ -27,7 +27,7 @@ import com.ikn.ums.msteams.repo.CronRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 @ComponentScan(basePackages = "com.ikn.ums.msteams")
 @Slf4j
 @EnableDiscoveryClient
@@ -41,6 +41,7 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
 	
 	@Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+		log.info("TeamsBatchJobApplication.configureTasks() Entered");
         taskRegistrar.addTriggerTask(new Runnable() {
             @Override
             public void run() {
@@ -58,7 +59,6 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
             	//get cron time from db
               	String cronTime = cronRepository.getCronTime(1).getCronTime();
                 CronTrigger trigger = new CronTrigger(cronTime);
-                System.out.println("Next Cron Time : "+cronTime);
                 log.info("Next Cron Time : "+cronTime);
                 Date nextExec = trigger.nextExecutionTime(triggerContext);  
                 return nextExec;

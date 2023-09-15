@@ -34,6 +34,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	
 	@Modifying
 	@Query("UPDATE Event e SET e.isActionItemsGenerated=:isActionItemsGenerated WHERE e.id IN (:eventIds)")
+	//@Query("UPDATE Event e SET e.isActionItemsGenerated=:isActionItemsGenerated WHERE e.id=:eventId")
 	Integer updateStatusOfActionItem(boolean isActionItemsGenerated, List<Integer> eventIds);
 
 }

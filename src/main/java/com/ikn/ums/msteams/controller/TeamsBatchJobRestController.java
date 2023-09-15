@@ -21,6 +21,7 @@ import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.Event;
 import com.ikn.ums.msteams.exception.BusinessException;
 import com.ikn.ums.msteams.exception.ControllerException;
+import com.ikn.ums.msteams.exception.ErrorCodeMessages;
 import com.ikn.ums.msteams.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.msteams.service.EventService;
 import com.ikn.ums.msteams.service.ITeamsBatchService;
@@ -178,32 +179,38 @@ public class TeamsBatchJobRestController {
 	@GetMapping("/events/status/{eventIds}/{isGenerated}")
 	public ResponseEntity<?> updateActionItemGeneratedStatus(@PathVariable String eventIds,
 			@PathVariable boolean isGenerated) {
-		System.out.println("TeamsBatchJobRestController.updateActionItemGeneratedStatus() Entered " + eventIds + " "
+		log.info("TeamsBatchJobRestController.updateActionItemGeneratedStatus() Entered " + eventIds + " "
 				+ isGenerated);
 		try {
-//			List<Integer> actualEventids = null;
-//			if (eventIds.contains(",")) {
-//				String[] actualEventIds = eventIds.split(",");
-//				List<String> idsList = Arrays.asList(actualEventIds);
-//
-//				// convert string of ids to Integer ids
-//				actualEventids = idsList.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
-//			} else {
-//				List<String> idsList = Arrays.asList(eventIds);
-//
-//				// convert string of ids to Integer ids
-//				actualEventids = idsList.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
-//			}
-
-			System.out.println("TeamsBatchJobRestController.updateActionItemGeneratedStatus() under execution");
+			log.info("TeamsBatchJobRestController.updateActionItemGeneratedStatus() under execution");
 			// update the status of events
-			Integer status = eventService.updateActionItemStatusOfEvent(isGenerated, Arrays.asList(5));
-			System.out.println("TeamsBatchJobRestController.updateActionItemGeneratedStatus() Going to Exit");
+			List<Integer> actualEventIds = new ArrayList<>();
+			String newEventIds = eventIds.replace("[", "");
+			String orginalEventIds = newEventIds.replace("]", "");
+			//List<String> eventIdsList = List.of(orginalEventIds);
+			System.out.println(orginalEventIds);
+			if(orginalEventIds.contains(",")) {
+				String [] eventids = orginalEventIds.split(",");
+				List<String> eventidsString = Arrays.asList(eventids);
+				eventidsString.forEach(eventId ->{
+					actualEventIds.add(Integer.parseInt(eventId.trim()));
+				});
+				System.out.println(actualEventIds);
+			}else {
+				List<String> eventIdsList = List.of(orginalEventIds);
+				eventIdsList.forEach(id ->{
+					System.out.println(id);
+					actualEventIds.add(Integer.parseInt(id));
+				});
+				System.out.println(actualEventIds);
+			}
+			Integer status = eventService.updateActionItemStatusOfEvent(isGenerated, actualEventIds);
+			log.info("TeamsBatchJobRestController.updateActionItemGeneratedStatus() Going to Exit");
 			return new ResponseEntity<>(status, HttpStatus.OK);
 
 		} catch (Exception e) {
-			ControllerException umsCE = new ControllerException("<errorcode>",
-					"Error occured in controller " + e.getStackTrace().toString());
+			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
+					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG+" "+ e.getStackTrace().toString());
 			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
