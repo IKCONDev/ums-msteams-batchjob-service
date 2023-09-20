@@ -77,8 +77,8 @@ import com.ikn.ums.msteams.model.TranscriptsResponseWrapper;
 import com.ikn.ums.msteams.model.UserProfilesResponseWrapper;
 import com.ikn.ums.msteams.repo.BatchDetailsRepository;
 import com.ikn.ums.msteams.repo.EventRepository;
-import com.ikn.ums.msteams.service.ITeamsBatchService;
-import com.ikn.ums.msteams.service.IUserProfileService;
+import com.ikn.ums.msteams.service.TeamsRawDataBatchProcessService;
+import com.ikn.ums.msteams.service.UserProfileService;
 import com.ikn.ums.msteams.utils.InitializeMicrosoftGraph;
 import com.ikn.ums.msteams.utils.ObjectMapper;
 import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
@@ -99,7 +99,7 @@ import okhttp3.Request;
 @SuppressWarnings("unused")
 @Service
 @Slf4j
-public class TeamsBatchServiceImpl implements ITeamsBatchService {
+public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchProcessService {
 
 	@Autowired
 	private Environment environment;
@@ -130,7 +130,7 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 	
 	// constructor
 	@Autowired
-	public TeamsBatchServiceImpl(ObjectMapper mapper) {
+	public TeamsRawDataBatchProcessServiceImpl(ObjectMapper mapper) {
 		this.mapper = mapper;
 	}
 
@@ -151,13 +151,16 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 		List<UserProfile> userDtoList = userProfileService.fetchAllUsers();
 		*/
 		
-		//get all users from employee microservice to perform batch processing of UMS users
+		//get all employees data from employee microservice to perform batch processing
 		
+		//TODO: later the code will be changed to get the active user from UMS Database
 		EmployeeListVO empListVO = rt.getForObject("http://UMS-EMPLOYEE-SERVICE/employees/get-all", EmployeeListVO.class);
+		
 		userDtoList = empListVO.getEmployee();
 		
 		if (!userDtoList.isEmpty()) {
 
+			//start batch process
 			// set current batch processing details
 			BatchDetailsDto currentBatchDetailsDto = new BatchDetailsDto();
 			BatchDetails batchDetails = new BatchDetails();
@@ -218,14 +221,16 @@ public class TeamsBatchServiceImpl implements ITeamsBatchService {
 				//save and flush the changes instantly in db, bcz when exception is raised , 
 				//the normal save method will not work to save changes instantly in db, within @Transactional method
 				batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
-				log.info("Current batch processing details after completion "+currentDbBatchDetails);
+				log.info("Current batch processing details after exception "+currentDbBatchDetails);
+				log.info("Exception occured while batch processing in Business layer "+e.getMessage());
 				BusinessException umsBusinessException = new BusinessException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
-						ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG+" "+e.getStackTrace().toString());
+						ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG+" "+e.getMessage());
 				throw umsBusinessException;
 			}
 		} else {
-			  throw new UsersNotFoundException(ErrorCodeMessages.ERR_EMPLOYEES_NOT_FOUND_BATCH_CODE, 
-					  ErrorCodeMessages.ERR_EMPLOYEES_NOT_FOUND__BATCH_MSG);
+			//TODO: chnage to empoloyees not found exception
+			  throw new UsersNotFoundException(ErrorCodeMessages.ERR_EVENTS_NOT_FOUND_BATCH_CODE, 
+					  ErrorCodeMessages.ERR_EVENTS_NOT_FOUND_BATCH_MSG);
 		}
 	}
 

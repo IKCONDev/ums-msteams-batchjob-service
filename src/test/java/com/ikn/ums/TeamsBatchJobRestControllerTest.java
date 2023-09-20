@@ -26,7 +26,7 @@ import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.CronDetails;
 import com.ikn.ums.msteams.repo.CronRepository;
 import com.ikn.ums.msteams.repo.EventRepository;
-import com.ikn.ums.msteams.service.ITeamsBatchService;
+import com.ikn.ums.msteams.service.TeamsRawDataBatchProcessService;
 
 
 @WebMvcTest(TeamsBatchJobRestController.class)
@@ -39,7 +39,7 @@ public class TeamsBatchJobRestControllerTest {
 	private TeamsBatchJobRestController teamsRestController;
 	
 	@MockBean
-	private ITeamsBatchService batchService;
+	private TeamsRawDataBatchProcessService batchService;
        
 	@MockBean
 	private EventRepository eventRepo;
