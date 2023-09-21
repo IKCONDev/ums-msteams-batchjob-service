@@ -90,17 +90,17 @@ public class EventServiceImpl implements EventService {
 
 		@Override
 		public List<ActionsItemsVO> getActionItemsOfEvent(Integer eventId) {
-			ActionItemsListVO response = restTemplate.getForObject("http://UMS-ACTIONITEMS-SERVICE/api/actions/ac-items/"+eventId
+			ActionItemsListVO response = restTemplate.getForObject("http://UMS-MEETING-SERVICE/api/actions/ac-items/"+eventId
 					,ActionItemsListVO.class);
-			List<ActionsItemsVO> actionItemsListOfEvent = response.getActionItems(); 
+			List<ActionsItemsVO> actionItemsListOfEvent = response.getActionItemList(); 
 			return actionItemsListOfEvent;
 		}
 		
 		@Override
 		public List<ActionsItemsVO> getActionItems() {
-			ActionItemsListVO response = restTemplate.getForObject("http://UMS-ACTIONITEMS-SERVICE/api/actions/ac-items/"
+			ActionItemsListVO response = restTemplate.getForObject("http://UMS-MEETING-SERVICE/api/actions/ac-items/"
 					,ActionItemsListVO.class);
-			List<ActionsItemsVO> actionItemsListOfEvent = response.getActionItems(); 
+			List<ActionsItemsVO> actionItemsListOfEvent = response.getActionItemList(); 
 			return actionItemsListOfEvent;
 		}
 
