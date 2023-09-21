@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ActionItemsListVO {
 	
-	private List<ActionsItemsVO> actionItems;
+	private List<ActionsItemsVO> actionItemList;
 
 }
