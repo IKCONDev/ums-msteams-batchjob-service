@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "transcripts_tab")
+@Table(name = "transcripts_rawdata_tab")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transcript {

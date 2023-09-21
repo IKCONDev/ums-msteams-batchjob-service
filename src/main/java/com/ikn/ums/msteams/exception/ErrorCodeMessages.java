@@ -23,8 +23,8 @@ public class ErrorCodeMessages {
 	 public static final String ERR_EVENT_GET_ATT_COUNT_UNSUCCESS_CODE = "EVENTS_ATTENDED_COUNT_RETRIVE_CODE-1007";
 	 public static final String ERR_EVENT_GET_ATT_COUNT_UNSUCCESS_MSG = "Error Occured While Retrieving total attended events count !";
 	 
-	 public static final String ERR_EVENT_BATCHPROCESS_UNSUCCESS_CODE = "EVENTS_BATCHPROCESS_CODE-1008";
-	 public static final String ERR_EVENT_BATCHPROCESS_UNSUCCESS_MSG = "Error Occured While batch processing !";
+	 public static final String MSTEAMS_BATCHPROCESS_UNSUCCESS_CODE = "EVENTS_BATCHPROCESS_CODE-1008";
+	 public static final String MSTEAMS_BATCHPROCESS_UNSUCCESS_MSG = "Error Occured While batch processing !";
 	 
 	 public static final String ERR_EVENT_GET_ORG_COUNT_UNSUCCESS_CODE = "EVENTS_COUNT_RETRIVE_CODE-1009";
 	 public static final String ERR_EVENT_GET_ORG_COUNT_UNSUCCESS_MSG = "Error Occured While Retrieving total organized events count !";
@@ -37,4 +37,8 @@ public class ErrorCodeMessages {
 	 
 	 public static final String ERR_EVENTS_GET_ALL_UNSUCCESS_CODE = "EVENTS_INVALID_EVENTID_CODE-1010";
 	 public static final String ERR_EVENTS_GET_ALL_UNSUCCESS_MSG = "Error occured while retrieving all events for user!";
+	 
+	 public static final String MSTEAMS_BATCH_PROCESS_SUCCESS_CODE = "MSTEAMS_BATCH_PROCESS_SUCESS_CODE-1011";
+	 public static final String MSTEAMS_BATCH_PROCESS_SUCCESS_MSG = "Raw Data Batch processing is Successfull !";
+
 }

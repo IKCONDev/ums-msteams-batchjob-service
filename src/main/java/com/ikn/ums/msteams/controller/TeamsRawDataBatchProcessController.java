@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/teams")
 @Slf4j
-public class TeamsBatchJobRestController {
+public class TeamsRawDataBatchProcessController {
 
 	@Autowired
 	private TeamsRawDataBatchProcessService teamsRawDataBatchProcessService;
@@ -60,29 +60,29 @@ public class TeamsBatchJobRestController {
 	 * @return
 	 */
 	@GetMapping(path = "/batch-process")
-	public ResponseEntity<?> meetingDataBatchProcessing() {
-		log.info("TeamsBatchJobRestController.meetingDataBatchProcessing() Entered with no args");
+	public ResponseEntity<?> rawDataBatchProcessing() {
+		log.info("TeamsRawDataBatchProcessController.rawDataBatchProcessing() Entered with no args");
 		try {
-			BatchDetailsDto existingBatchProcess = teamsRawDataBatchProcessService.getLatestBatchProcessingRecordDetails();
+			BatchDetailsDto existingBatchProcess = teamsRawDataBatchProcessService
+					.getLatestRawDataBatchProcessingRecordDetails();
 			log.info("Last batch processing details " + existingBatchProcess.toString());
 			if (existingBatchProcess.getStatus().equalsIgnoreCase("RUNNING")) {
 				log.info("An instance of batch process is already running...");
-				return new ResponseEntity<>("An instance of batch process is already running",
-						HttpStatus.ALREADY_REPORTED);
+				return new ResponseEntity<>("An instance of raw data batch process is already running",
+						HttpStatus.PROCESSING);
 			} else {
-				log.info("TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...");
+				log.info("TeamsRawDataBatchProcessController.rawDataBatchProcessing() is started its processing raw data...");
 				// perform batch processing
-				teamsRawDataBatchProcessService.performBatchProcessing(existingBatchProcess);
-				log.info("TeamsBatchJobRestController.meetingDataBatchProcessing() executed sucessfully");
-				return new ResponseEntity<>("Batch processing successfull", HttpStatus.OK);
+				teamsRawDataBatchProcessService.performRawDataBatchProcessing(existingBatchProcess);
+				log.info("TeamsRawDataBatchProcessController.rawDataBatchProcessing() executed sucessfully");
+				return new ResponseEntity<>(ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_SUCCESS_MSG, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.meetingDataBatchProcessing() : Exception occured in controller while batch processing "+e.getMessage());
-			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_EVENT_BATCHPROCESS_UNSUCCESS_CODE,
-					ErrorCodeMessages.ERR_EVENT_BATCHPROCESS_UNSUCCESS_MSG);
-			// e.printStackTrace();
-			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
+					"TeamsRawDataBatchProcessController.rawDataBatchProcessing() : Exception occured while executing raw data batch process : "
+							+ e.getMessage());
+			throw new ControllerException(ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_CODE,
+					ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_MSG);
 		}
 	}
 
@@ -94,20 +94,20 @@ public class TeamsBatchJobRestController {
 	 */
 	@GetMapping(path = "/events/organized/{userEmailId}")
 	public ResponseEntity<?> getUserEvents(@PathVariable String userEmailId) {
-		log.info("TeamsBatchJobRestController.getUserEvents() entered with args : userEmailId : " + userEmailId);
+		log.info("TeamsRawDataBatchProcessController.getUserEvents() entered with args : userEmailId : " + userEmailId);
 		if (userEmailId.equals("")) {
-			log.info("TeamsBatchJobRestController.getUserEvents() : useremailId is empty");
+			log.info("TeamsRawDataBatchProcessController.getUserEvents() : useremailId is empty");
 			throw new EmptyInputException(ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_CODE,
 					ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_MSG);
 		}
 		try {
 			List<Event> userEventsList = eventService.getEventByUserPrincipalName(userEmailId);
-			log.info("TeamsBatchJobRestController.getUserEvents() exited sucessfully");
+			log.info("TeamsRawDataBatchProcessController.getUserEvents() exited sucessfully");
 			return new ResponseEntity<>(userEventsList, HttpStatus.OK);
 
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.getUserEvents() exited with exception : Exception occured while getting user organized events "
+					"TeamsRawDataBatchProcessController.getUserEvents() exited with exception : Exception occured while getting user organized events "
 							+ e.fillInStackTrace());
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_GET_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_GET_UNSUCCESS_MSG);
@@ -118,19 +118,19 @@ public class TeamsBatchJobRestController {
 	@GetMapping(path = "/events/attended/{userEmailId}")
 	public ResponseEntity<?> getUserAttendedEvents(@PathVariable String userEmailId) {
 		log.info(
-				"TeamsBatchJobRestController.getUserAttendedEvents() entered with args : userEmailId : " + userEmailId);
+				"TeamsRawDataBatchProcessController.getUserAttendedEvents() entered with args : userEmailId : " + userEmailId);
 		if (userEmailId.equals("")) {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_CODE,
 					ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_MSG);
 		}
 		try {
-			log.info("TeamsBatchJobRestController.getUserAttendedEvents() is under execution");
+			log.info("TeamsRawDataBatchProcessController.getUserAttendedEvents() is under execution");
 			List<Event> userEventsList = eventService.getUserAttendedEvents(userEmailId);
-			log.info("TeamsBatchJobRestController.getUserAttendedEvents() exiting sucessfully");
+			log.info("TeamsRawDataBatchProcessController.getUserAttendedEvents() exiting sucessfully");
 			return new ResponseEntity<>(userEventsList, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.getUserAttendedEvents() : Exception occured while getting user attended events "
+					"TeamsRawDataBatchProcessController.getUserAttendedEvents() : Exception occured while getting user attended events "
 							+ e.fillInStackTrace());
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_GET_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_GET_UNSUCCESS_MSG);
@@ -146,21 +146,21 @@ public class TeamsBatchJobRestController {
 	 */
 	@GetMapping(path = "/events/attended-count/{userEmailId}")
 	public ResponseEntity<?> getUserAttendedEventCount(@PathVariable String userEmailId) {
-		log.info("TeamsBatchJobRestController.getUserAttendedEventCount() entered with args : " + userEmailId);
+		log.info("TeamsRawDataBatchProcessController.getUserAttendedEventCount() entered with args : " + userEmailId);
 		if (userEmailId.equalsIgnoreCase("") || userEmailId == null) {
-			log.info("TeamsBatchJobRestController.getUserAttendedEventCount() userEmailId is empty or null");
+			log.info("TeamsRawDataBatchProcessController.getUserAttendedEventCount() userEmailId is empty or null");
 			throw new EmptyInputException(ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_CODE,
 					ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_MSG);
 		}
 		try {
-			log.info("TeamsBatchJobRestController.getUserAttendedEventCount() is under execution ");
+			log.info("TeamsRawDataBatchProcessController.getUserAttendedEventCount() is under execution ");
 			Integer count = eventService.getUserAttendedEventsCount(userEmailId);
-			log.info("TeamsBatchJobRestController.getUserAttendedEventCount() exited sucessfully by retruning count : "
+			log.info("TeamsRawDataBatchProcessController.getUserAttendedEventCount() exited sucessfully by retruning count : "
 					+ count);
 			return new ResponseEntity<>(count, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.getUserAttendedEventCount() exited with exception : Exception occured while getting user attended evebts count "
+					"TeamsRawDataBatchProcessController.getUserAttendedEventCount() exited with exception : Exception occured while getting user attended evebts count "
 							+ e.fillInStackTrace());
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_GET_ATT_COUNT_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_GET_ATT_COUNT_UNSUCCESS_MSG);
@@ -175,24 +175,24 @@ public class TeamsBatchJobRestController {
 	 */
 	@GetMapping(path = "/events/count/{userEmailId}")
 	public ResponseEntity<?> getUserOragnizedEventCount(@PathVariable String userEmailId) {
-		log.info("TeamsBatchJobRestController.getUserOragnizedEventCount() entered with args : userEmailId : "
+		log.info("TeamsRawDataBatchProcessController.getUserOragnizedEventCount() entered with args : userEmailId : "
 				+ userEmailId);
 		if (userEmailId.equalsIgnoreCase("") || userEmailId == null) {
 			log.info(
-					"TeamsBatchJobRestController.getUserOragnizedEventCount() exited with exception : userEmailid is empty or null");
+					"TeamsRawDataBatchProcessController.getUserOragnizedEventCount() exited with exception : userEmailid is empty or null");
 			throw new EmptyInputException(ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_CODE,
 					ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_MSG);
 		}
 		try {
-			log.info("TeamsBatchJobRestController.getUserOragnizedEventCount() is under execution");
+			log.info("TeamsRawDataBatchProcessController.getUserOragnizedEventCount() is under execution");
 			Integer count = eventService.getUserOrganizedEventCount(userEmailId);
 			log.info(
-					"TeamsBatchJobRestController.getUserOragnizedEventCount() exited succesfully by returning organizedEventsCount : "
+					"TeamsRawDataBatchProcessController.getUserOragnizedEventCount() exited succesfully by returning organizedEventsCount : "
 							+ count);
 			return new ResponseEntity<>(count, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.getUserOragnizedEventCount() exited with exeception : Exception occured while getting organizedEventsCount "
+					"TeamsRawDataBatchProcessController.getUserOragnizedEventCount() exited with exeception : Exception occured while getting organizedEventsCount "
 							+ e.fillInStackTrace());
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_GET_ORG_COUNT_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_GET_ORG_COUNT_UNSUCCESS_MSG);
@@ -206,22 +206,22 @@ public class TeamsBatchJobRestController {
 	 */
 	@GetMapping("/events/actionitems/{eventId}")
 	public ResponseEntity<?> getActionItemsOfEvent(@PathVariable Integer eventId) {
-		log.info("TeamsBatchJobRestController.getActionItemsOfEvent() entered with args : eventId : " + eventId);
+		log.info("TeamsRawDataBatchProcessController.getActionItemsOfEvent() entered with args : eventId : " + eventId);
 		if (eventId < 1) {
 			log.info(
-					"TeamsBatchJobRestController.getActionItemsOfEvent() is exited with exception : Invalid event id : "
+					"TeamsRawDataBatchProcessController.getActionItemsOfEvent() is exited with exception : Invalid event id : "
 							+ eventId);
 			throw new InvalidInputException(ErrorCodeMessages.ERR_EVENT_INVALID_EVENTID_CODE,
 					ErrorCodeMessages.ERR_EVENT_INVALID_EVENTID_MSG);
 		}
 		try {
-			log.info("TeamsBatchJobRestController.getActionItemsOfEvent() is under execution");
+			log.info("TeamsRawDataBatchProcessController.getActionItemsOfEvent() is under execution");
 			List<ActionsItemsVO> actionItemsList = eventService.getActionItemsOfEvent(eventId);
-			log.info("TeamsBatchJobRestController.getActionItemsOfEvent() exited sucessfully");
+			log.info("TeamsRawDataBatchProcessController.getActionItemsOfEvent() exited sucessfully");
 			return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.getActionItemsOfEvent() exited with exception : exception occured while getting action items of an event "
+					"TeamsRawDataBatchProcessController.getActionItemsOfEvent() exited with exception : exception occured while getting action items of an event "
 							+ e.fillInStackTrace());
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_MSG);
@@ -235,15 +235,15 @@ public class TeamsBatchJobRestController {
 	 */
 	@GetMapping("/events/actionitems")
 	public ResponseEntity<?> getActionItemsOfAllEvents() {
-		log.info("TeamsBatchJobRestController.getActionItemsOfAllEvents() entered");
+		log.info("TeamsRawDataBatchProcessController.getActionItemsOfAllEvents() entered");
 		try {
-			log.info("TeamsBatchJobRestController.getActionItemsOfAllEvents() is under execution");
+			log.info("TeamsRawDataBatchProcessController.getActionItemsOfAllEvents() is under execution");
 			List<ActionsItemsVO> actionItemsList = eventService.getActionItems();
-			log.info("TeamsBatchJobRestController.getActionItemsOfAllEvents() exiting succesfully");
+			log.info("TeamsRawDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully");
 			return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.getActionItemsOfAllEvents() exiting with exception : Exception occurred while fetching action items of all events");
+					"TeamsRawDataBatchProcessController.getActionItemsOfAllEvents() exiting with exception : Exception occurred while fetching action items of all events");
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_MSG);
 		}
@@ -254,21 +254,21 @@ public class TeamsBatchJobRestController {
 	 */
 	@GetMapping("/events/{userEmailId}")
 	public ResponseEntity<?> getAllEvents(@PathVariable String userEmailId) {
-		log.info("TeamsBatchJobRestController.getAllEvents() entered with args : userEmailId : " + userEmailId);
+		log.info("TeamsRawDataBatchProcessController.getAllEvents() entered with args : userEmailId : " + userEmailId);
 		if (userEmailId.equalsIgnoreCase("") || userEmailId == null) {
-			log.info("TeamsBatchJobRestController.getAllEvents() exited with exception : userEmailid is empty or null");
+			log.info("TeamsRawDataBatchProcessController.getAllEvents() exited with exception : userEmailid is empty or null");
 			throw new EmptyInputException(ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_CODE,
 					ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_MSG);
 		}
-		log.info("TeamsBatchJobRestController.getAllEvents() is under execution");
+		log.info("TeamsRawDataBatchProcessController.getAllEvents() is under execution");
 		boolean isActionItemsGeneratedForEvent = false;
 		try {
 			List<Event> eventsList = eventService.getAllEvents(userEmailId, isActionItemsGeneratedForEvent);
-			log.info("TeamsBatchJobRestController.getAllEvents() is exited sucessfully");
+			log.info("TeamsRawDataBatchProcessController.getAllEvents() is exited sucessfully");
 			return new ResponseEntity<>(eventsList, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.getAllEvents() exited with exception : exception occurred while fetching events of user "
+					"TeamsRawDataBatchProcessController.getAllEvents() exited with exception : exception occurred while fetching events of user "
 							+ e.fillInStackTrace());
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENTS_GET_ALL_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENTS_GET_ALL_UNSUCCESS_MSG);
@@ -278,10 +278,10 @@ public class TeamsBatchJobRestController {
 	@GetMapping("/events/status/{eventIds}/{isActionItemGenerated}")
 	public ResponseEntity<?> updateActionItemGeneratedStatus(@PathVariable String eventIds,
 			@PathVariable boolean isActionItemGenerated) {
-		log.info("TeamsBatchJobRestController.updateActionItemGeneratedStatus() Entered with args : eventIds" + eventIds
+		log.info("TeamsRawDataBatchProcessController.updateActionItemGeneratedStatus() Entered with args : eventIds" + eventIds
 				+ ", isActionItemsGenerated " + isActionItemGenerated);
 		try {
-			log.info("TeamsBatchJobRestController.updateActionItemGeneratedStatus() under execution");
+			log.info("TeamsRawDataBatchProcessController.updateActionItemGeneratedStatus() under execution");
 			// update the status of events
 			List<Integer> actualEventIds = new ArrayList<>();
 			String newEventIds = eventIds.replace("[", "");
@@ -304,12 +304,12 @@ public class TeamsBatchJobRestController {
 				System.out.println(actualEventIds);
 			}
 			Integer status = eventService.updateActionItemStatusOfEvent(isActionItemGenerated, actualEventIds);
-			log.info("TeamsBatchJobRestController.updateActionItemGeneratedStatus() exiting sucessfully");
+			log.info("TeamsRawDataBatchProcessController.updateActionItemGeneratedStatus() exiting sucessfully");
 			return new ResponseEntity<>(status, HttpStatus.OK);
 
 		} catch (Exception e) {
 			log.info(
-					"TeamsBatchJobRestController.updateActionItemGeneratedStatus() exiting with exception : Exception occured while updating action items generation status for events  "
+					"TeamsRawDataBatchProcessController.updateActionItemGeneratedStatus() exiting with exception : Exception occured while updating action items generation status for events  "
 							+ e.fillInStackTrace());
 			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
 					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG + " " + e.getStackTrace().toString());

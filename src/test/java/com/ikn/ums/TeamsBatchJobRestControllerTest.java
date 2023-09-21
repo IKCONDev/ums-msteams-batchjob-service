@@ -20,8 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.ikn.ums.msteams.TeamsBatchJobApplication;
-import com.ikn.ums.msteams.controller.TeamsBatchJobRestController;
+import com.ikn.ums.msteams.TeamsRawDataBatchProcessApplication;
+import com.ikn.ums.msteams.controller.TeamsRawDataBatchProcessController;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.CronDetails;
 import com.ikn.ums.msteams.repo.CronRepository;
@@ -29,14 +29,14 @@ import com.ikn.ums.msteams.repo.EventRepository;
 import com.ikn.ums.msteams.service.TeamsRawDataBatchProcessService;
 
 
-@WebMvcTest(TeamsBatchJobRestController.class)
+@WebMvcTest(TeamsRawDataBatchProcessController.class)
 public class TeamsBatchJobRestControllerTest {
 	
 	@Autowired
     private MockMvc mockMvc;
 	
 	@InjectMocks
-	private TeamsBatchJobRestController teamsRestController;
+	private TeamsRawDataBatchProcessController teamsRestController;
 	
 	@MockBean
 	private TeamsRawDataBatchProcessService batchService;
@@ -48,7 +48,7 @@ public class TeamsBatchJobRestControllerTest {
 	//private UserProfileRepository userProfileRepo;
 	
 	@MockBean
-	private TeamsBatchJobApplication teamsBatchJobApp;
+	private TeamsRawDataBatchProcessApplication teamsBatchJobApp;
 	
 	
 	@Test
@@ -60,8 +60,8 @@ public class TeamsBatchJobRestControllerTest {
 	    batchDetailsDto.setStatus("COMPLETED");
 	    
 	    // Mock the behavior of teamsBatchService
-	    OngoingStubbing<BatchDetailsDto> stub = when(batchService.getLatestBatchProcessingRecordDetails()).thenReturn(batchDetailsDto);
-	    doNothing().when(batchService).performBatchProcessing(batchDetailsDto);
+	    OngoingStubbing<BatchDetailsDto> stub = when(batchService.getLatestRawDataBatchProcessingRecordDetails()).thenReturn(batchDetailsDto);
+	    doNothing().when(batchService).performRawDataBatchProcessing(batchDetailsDto);
 	    
 	    // Perform the request and verify the response
 	    mockMvc.perform(MockMvcRequestBuilders
@@ -80,7 +80,7 @@ public class TeamsBatchJobRestControllerTest {
     	batchDetailsDto.setStartDateTime(LocalDateTime.now());
     	
         // Mock the behavior of teamsBatchService
-        doThrow(new Exception()).when(batchService).performBatchProcessing(batchDetailsDto);
+        doThrow(new Exception()).when(batchService).performRawDataBatchProcessing(batchDetailsDto);
         
         // Perform the request and verify the response 
         // Expecting a 500 Internal Server Error for the failed scenario

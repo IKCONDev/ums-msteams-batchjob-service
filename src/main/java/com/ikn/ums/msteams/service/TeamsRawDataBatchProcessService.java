@@ -5,7 +5,7 @@ import com.ikn.ums.msteams.dto.BatchDetailsDto;
 
 public interface TeamsRawDataBatchProcessService {
 	
-	void performBatchProcessing(BatchDetailsDto batchDetails) throws Exception;
-	BatchDetailsDto getLatestBatchProcessingRecordDetails();
+	void performRawDataBatchProcessing(BatchDetailsDto batchDetails) throws Exception;
+	BatchDetailsDto getLatestRawDataBatchProcessingRecordDetails();
 }
 

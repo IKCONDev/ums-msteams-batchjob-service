@@ -21,7 +21,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.client.RestTemplate;
 
-import com.ikn.ums.msteams.controller.TeamsBatchJobRestController;
+import com.ikn.ums.msteams.controller.TeamsRawDataBatchProcessController;
 import com.ikn.ums.msteams.repo.CronRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,23 +31,23 @@ import lombok.extern.slf4j.Slf4j;
 @ComponentScan(basePackages = "com.ikn.ums.msteams")
 @Slf4j
 @EnableDiscoveryClient
-public class TeamsBatchJobApplication extends SpringBootServletInitializer implements SchedulingConfigurer {
+public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitializer implements SchedulingConfigurer {
 	
 	@Autowired
-	private TeamsBatchJobRestController batchJobController;
+	private TeamsRawDataBatchProcessController batchJobController;
 	
 	@Autowired
 	private CronRepository cronRepository;
 	
 	@Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		log.info("TeamsBatchJobApplication.configureTasks() Entered");
+		log.info("TeamsRawDataBatchProcessApplication.configureTasks() Entered");
         taskRegistrar.addTriggerTask(new Runnable() {
             @Override
             public void run() {
             	//run batch processing
             	log.info("Batch processing started at "+LocalDateTime.now());
-            	ResponseEntity<?> response = batchJobController.meetingDataBatchProcessing();
+            	ResponseEntity<?> response = batchJobController.rawDataBatchProcessing();
     			System.out.println("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
     			log.info("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
     			log.info("batch processing ended at : "+LocalDateTime.now());
@@ -69,11 +69,11 @@ public class TeamsBatchJobApplication extends SpringBootServletInitializer imple
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		// TODO Auto-generated method stub
-		return builder.sources(TeamsBatchJobApplication.class);
+		return builder.sources(TeamsRawDataBatchProcessApplication.class);
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(TeamsBatchJobApplication.class, args);
+		SpringApplication.run(TeamsRawDataBatchProcessApplication.class, args);
 	}
 	
 	@Bean

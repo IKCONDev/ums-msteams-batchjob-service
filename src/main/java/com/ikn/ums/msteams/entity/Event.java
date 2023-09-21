@@ -29,13 +29,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "event_tab")
+@Table(name = "event_rawdata_tab")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Event {
 	
-	private static Logger logger = LoggerFactory.getLogger(Event.class);
-
 	@Id
 	@SequenceGenerator(name = "events_gen", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(generator = "events_gen")

@@ -136,7 +136,7 @@ public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchPro
 
 	@Transactional
 	@Override
-	public void performBatchProcessing(BatchDetailsDto lastBatchDetails) throws IOException, Exception {
+	public void performRawDataBatchProcessing(BatchDetailsDto lastBatchDetails) throws IOException, Exception {
 
 		// get access token from MS teams server , only if existing access token  is expired
 		if (this.acToken.isExpired()) {
@@ -146,13 +146,7 @@ public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchPro
 			 this.accessToken = this.acToken.getToken();
 		}
 	
-		/*
-		// get all users
-		List<UserProfile> userDtoList = userProfileService.fetchAllUsers();
-		*/
-		
 		//get all employees data from employee microservice to perform batch processing
-		
 		//TODO: later the code will be changed to get the active user from UMS Database
 		EmployeeListVO empListVO = rt.getForObject("http://UMS-EMPLOYEE-SERVICE/employees/get-all", EmployeeListVO.class);
 		
@@ -333,7 +327,7 @@ public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchPro
 			EventDto updatedEventWithOnlineMeeting = null;
 			EventDto updatedEventWithOnlineMeetingAndTranscript = null;
 			
-			//get an event's online meeting and transcript, only if the event is an online Meeting
+			//get an event's online meeting and transcript, only if the event is an online Event
 			if(eventDto.getOnlineMeeting() != null) {
 				updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
 				updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
@@ -615,7 +609,7 @@ public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchPro
 	}
 	
 	@Override
-	public BatchDetailsDto getLatestBatchProcessingRecordDetails() {
+	public BatchDetailsDto getLatestRawDataBatchProcessingRecordDetails() {
 		Optional<BatchDetails> optBatchDetails = batchDetailsRepository.getLatestBatchProcessingRecord();
 		BatchDetails latestBatchDetails = null;
 		BatchDetailsDto latestBatchDetailsDto = null;
