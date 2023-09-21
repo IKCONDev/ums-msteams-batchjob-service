@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "event_rawdata_tab")
+@Table(name = "event_sourcedata_tab")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Event {

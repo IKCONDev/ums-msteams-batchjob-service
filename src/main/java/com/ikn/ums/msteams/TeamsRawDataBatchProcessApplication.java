@@ -21,7 +21,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.client.RestTemplate;
 
-import com.ikn.ums.msteams.controller.TeamsRawDataBatchProcessController;
+import com.ikn.ums.msteams.controller.TeamsSourceDataBatchProcessController;
 import com.ikn.ums.msteams.repo.CronRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitializer implements SchedulingConfigurer {
 	
 	@Autowired
-	private TeamsRawDataBatchProcessController batchJobController;
+	private TeamsSourceDataBatchProcessController batchJobController;
 	
 	@Autowired
 	private CronRepository cronRepository;

@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "attendee_rawdata_tab")
+@Table(name = "attendee_sourcedata_tab")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Attendee {

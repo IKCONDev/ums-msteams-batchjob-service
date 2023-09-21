@@ -3,103 +3,61 @@ package com.ikn.ums.msteams.service.impl;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.http.util.ByteArrayBuffer;
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties.MatchingStrategy;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.azure.core.credential.AccessToken;
-import com.azure.core.credential.TokenRequestContext;
-import com.azure.identity.ClientSecretCredential;
-import com.azure.identity.ClientSecretCredentialBuilder;
 import com.ikn.ums.msteams.VO.EmployeeListVO;
 import com.ikn.ums.msteams.VO.EmployeeVO;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.dto.EventDto;
 import com.ikn.ums.msteams.dto.OnlineMeetingDto;
 import com.ikn.ums.msteams.dto.TranscriptDto;
-import com.ikn.ums.msteams.dto.UserProfileDto;
 import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.BatchDetails;
 import com.ikn.ums.msteams.entity.Event;
 import com.ikn.ums.msteams.entity.Transcript;
-import com.ikn.ums.msteams.entity.UserProfile;
 import com.ikn.ums.msteams.exception.BusinessException;
 import com.ikn.ums.msteams.exception.ErrorCodeMessages;
-import com.ikn.ums.msteams.exception.UserPrincipalNotFoundException;
 import com.ikn.ums.msteams.exception.UsersNotFoundException;
 import com.ikn.ums.msteams.model.CalendarViewResponseWrapper;
 import com.ikn.ums.msteams.model.OnlineMeetingResponseWrapper;
 import com.ikn.ums.msteams.model.TranscriptsResponseWrapper;
-import com.ikn.ums.msteams.model.UserProfilesResponseWrapper;
 import com.ikn.ums.msteams.repo.BatchDetailsRepository;
 import com.ikn.ums.msteams.repo.EventRepository;
-import com.ikn.ums.msteams.service.TeamsRawDataBatchProcessService;
-import com.ikn.ums.msteams.service.UserProfileService;
+import com.ikn.ums.msteams.service.TeamsSourceDataBatchProcessService;
 import com.ikn.ums.msteams.utils.InitializeMicrosoftGraph;
 import com.ikn.ums.msteams.utils.ObjectMapper;
-import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
-import com.microsoft.graph.models.User;
-import com.microsoft.graph.options.Option;
-import com.microsoft.graph.options.QueryOption;
-import com.microsoft.graph.requests.EventCollectionPage;
-import com.microsoft.graph.requests.GraphServiceClient;
-import com.microsoft.graph.requests.UserRequestBuilder;
-import com.thoughtworks.xstream.converters.time.OffsetDateTimeConverter;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice.Return;
-
-import javax.transaction.Transactional;
-import okhttp3.Request;
 
 @SuppressWarnings("unused")
 @Service
 @Slf4j
-public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchProcessService {
+public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBatchProcessService {
 
 	@Autowired
 	private Environment environment;
@@ -130,13 +88,13 @@ public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchPro
 	
 	// constructor
 	@Autowired
-	public TeamsRawDataBatchProcessServiceImpl(ObjectMapper mapper) {
+	public TeamsSourceDataBatchProcessServiceImpl(ObjectMapper mapper) {
 		this.mapper = mapper;
 	}
 
 	@Transactional
 	@Override
-	public void performRawDataBatchProcessing(BatchDetailsDto lastBatchDetails) throws IOException, Exception {
+	public void performSourceDataBatchProcessing(BatchDetailsDto lastBatchDetails) throws IOException, Exception {
 
 		// get access token from MS teams server , only if existing access token  is expired
 		if (this.acToken.isExpired()) {
@@ -609,7 +567,7 @@ public class TeamsRawDataBatchProcessServiceImpl implements TeamsRawDataBatchPro
 	}
 	
 	@Override
-	public BatchDetailsDto getLatestRawDataBatchProcessingRecordDetails() {
+	public BatchDetailsDto getLatestSourceDataBatchProcessingRecordDetails() {
 		Optional<BatchDetails> optBatchDetails = batchDetailsRepository.getLatestBatchProcessingRecord();
 		BatchDetails latestBatchDetails = null;
 		BatchDetailsDto latestBatchDetailsDto = null;
