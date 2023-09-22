@@ -156,7 +156,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 								lastBatchProcessingStartTime);
 
 						// save user events
-						saveAllUsersCalendarEvents(calendarEventsDtolist, userDto);
+						saveAllUsersCalendarEvents(calendarEventsDtolist, userDto, currentDbBatchDetails.getId());
 
 					}
 				});
@@ -430,7 +430,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	}
 
 	// map all event dto's to event entities to save into db
-	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto, EmployeeVO user) {
+	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto, EmployeeVO user, Integer currentBatchProcessId) {
 		eventsListDto.forEach(eventDto -> {
 			// iterate through event objects and get the online meeting object from each
 			// event object one by one
@@ -498,6 +498,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			});
 
 			event.setAttendees(attendeesList);
+			event.setBatchId(currentBatchProcessId);
 			// logic for isOnlinemeeting based on join url (optional)
 			eventEntities.add(event);
 

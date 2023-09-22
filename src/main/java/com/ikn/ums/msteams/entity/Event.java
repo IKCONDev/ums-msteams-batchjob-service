@@ -107,4 +107,6 @@ public class Event {
     @Column(name = "action_items_generated",nullable = true)
     private boolean isActionItemsGenerated = false;
 
+    @Column(name = "batch_id")
+    private Integer batchId;
 }

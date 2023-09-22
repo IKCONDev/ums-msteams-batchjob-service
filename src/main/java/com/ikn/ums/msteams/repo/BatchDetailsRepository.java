@@ -13,6 +13,5 @@ public interface BatchDetailsRepository extends JpaRepository<BatchDetails, Inte
 	
 	@Query("SELECT bd FROM BatchDetails bd WHERE bd.startDateTime = (SELECT MAX(bd2.startDateTime) FROM BatchDetails bd2)")
 	Optional<BatchDetails> getLatestBatchProcessingRecord();
-
-
+	
 }
