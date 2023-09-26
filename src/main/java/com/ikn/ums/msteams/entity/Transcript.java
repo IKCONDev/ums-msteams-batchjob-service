@@ -42,7 +42,7 @@ public class Transcript {
 	@Column(name = "transcriptFilePath")
 	private String transcriptFilePath;
 	
-	@Column(name = "transcriptContent",length = 2147483647) //sets column to varchar(max)
+	@Column(name = "transcriptContent",length = 10485760) //sets column to varchar(max)
 	private String transcriptContent;
 	
 }
