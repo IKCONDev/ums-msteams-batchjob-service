@@ -3,6 +3,7 @@ package com.ikn.ums.msteams.entity;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,19 +29,29 @@ import lombok.NoArgsConstructor;
 public class Attendee {
 	
 	@Id
-	@SequenceGenerator(name = "attendess_gen", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(generator = "attendess_gen")
-	private Integer id;
+	@SequenceGenerator(name = "attendeeId_gen", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "attendeeId_gen")
+	@Column(name = "attendeeId")
+	private Long attendeeId;
+	
+	@Column(name = "type")
 	private String type;
+	
+	@Column(name = "status")
 	private String status;
+	
+	@Column(name = "attendeeEmail")
 	private String email;
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "event_id", referencedColumnName = "id", nullable = true)
+	@JoinColumn(name = "meet_id", referencedColumnName = "meetingId", nullable = true)
     private Event event;
 	/*
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_fk_id",nullable = true)
 	*/
-	private Integer userId;
-
+	
+	@Column(name = "user_id")
+	private String emailId;
+ 
 }

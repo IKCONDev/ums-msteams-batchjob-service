@@ -35,53 +35,61 @@ import lombok.NoArgsConstructor;
 public class Event {
 	
 	@Id
-	@SequenceGenerator(name = "events_gen", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(generator = "events_gen")
-	@Column(name = "Id", nullable = false)
-	private Integer id;
+	@SequenceGenerator(name = "eventId_gen", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "eventId_gen")
+	@Column(name = "meetingId", nullable = false)
+	private Long meetingId;
 	
-	@Column(name = "EventId", nullable = false)
+	@Column(name = "eventId", nullable = false)
 	private String eventId;
 	
-	@Column(name = "CreatedDateTime", nullable = false)
+	@Column(name = "createdDateTime", nullable = false)
 	private String createdDateTime;
 	
-	@Column(name = "OriginalStartTimeZone")
+	@Column(name = "originalStartTimeZone")
 	private String originalStartTimeZone;
 	
-	@Column(name = "OriginalEndTimeZone")
+	@Column(name = "originalEndTimeZone")
 	private String originalEndTimeZone;
 	
-	@Column(name = "Subject")
+	@Column(name = "subject")
 	private String subject;
 	
-	@Column(name = "Type")
+	@Column(name = "type")
 	private String type;
 	
-	@Column(name = "OccurrenceId")
+	@Column(name = "occurrenceId")
 	private String occurrenceId;
 	
-	@Column(name = "StartDateTime")
+	@Column(name = "startDateTime")
 	private LocalDateTime startDateTime;
 	
+	@Column(name = "endDateTime")
 	private LocalDateTime endDateTime;
 	
+	@Column(name = "startTimeZone")
 	private String startTimeZone;
 	
+	@Column(name = "endTimeZone")
 	private String endTimeZone;
 		
+	@Column(name = "location")
 	private String location;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "evt_id" ,referencedColumnName = "id", nullable = true)
+	@JoinColumn(name = "meeting_id" ,referencedColumnName = "meetingId", nullable = true)
     private Set<Attendee> attendees;
     
+	@Column(name = "organizerEmailId")
     private String organizerEmailId;
     
+	@Column(name = "organizerName")
     private String organizerName;
     
+	@Column(name = "onlineMeetingId")
 	private String onlineMeetingId;
     
+	@Column(name = "onlineMeetingProvider")
 	private String onlineMeetingProvider;
 	
 	/*
@@ -90,23 +98,31 @@ public class Event {
 	private Recurrence recurrence;
 	*/
 	
+	@Column(name = "seriesMasterId")
 	private String seriesMasterId;
 	
+	@Column(name = "joinUrl")
 	private String joinUrl;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JoinColumn(name = "event_fk_id",nullable = true)
 	private List<Transcript> meetingTranscripts;
-	                 
+	   
+	@Column(name = "insertedBy")
 	private String insertedBy = "IKCON UMS";
     
+	@Column(name = "insertedDate")
     private String insertedDate = LocalDateTime.now().toString();
     
-    private Integer userId;
+	@Column(name = "user_id")
+    private String emailId;
     
-    @Column(name = "action_items_generated",nullable = true)
+    @Column(name = "isActionItemsGenerated",nullable = true)
     private boolean isActionItemsGenerated = false;
 
-    @Column(name = "batch_id")
-    private Integer batchId;
+    @Column(name = "batchId")
+    private Long batchId;
+    
+    //@Column(name = "isSubmitted")
+    //private boolean isSubmitted;
 }

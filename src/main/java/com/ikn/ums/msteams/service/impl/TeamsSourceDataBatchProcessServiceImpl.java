@@ -156,7 +156,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 								lastBatchProcessingStartTime);
 
 						// save user events
-						saveAllUsersCalendarEvents(calendarEventsDtolist, userDto, currentDbBatchDetails.getId());
+						saveAllUsersCalendarEvents(calendarEventsDtolist, userDto, currentDbBatchDetails.getBatchId());
 
 					}
 				});
@@ -430,7 +430,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	}
 
 	// map all event dto's to event entities to save into db
-	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto, EmployeeVO user, Integer currentBatchProcessId) {
+	private void saveAllUsersCalendarEvents(List<EventDto> eventsListDto, EmployeeVO user, Long currentBatchProcessId) {
 		eventsListDto.forEach(eventDto -> {
 			// iterate through event objects and get the online meeting object from each
 			// event object one by one
@@ -450,7 +450,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			event.setOrganizerEmailId(eventDto.getOrganizer().getEmailAddress().getAddress());
 			event.setOrganizerName(eventDto.getOrganizer().getEmailAddress().getName());
 			event.setJoinUrl(eventDto.getOnlineMeeting().getJoinUrl());
-			event.setUserId(user.getId());
+			event.setEmailId(user.getEmail());
 			List<TranscriptDto> retrivedTranscriptDtos = eventDto.getOnlineMeeting().getMeetingTranscripts();
 			List<Transcript> transcripts = new ArrayList<>();
 			if (retrivedTranscriptDtos != null) {
@@ -486,7 +486,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				for (int i = 0; i < userProfilesList.size(); i++) {
 					if (attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getEmail())) {
 						//attendee.setUser(userProfilesList.get(i));
-						attendee.setUserId(userProfilesList.get(i).getId());					
+						attendee.setEmailId(userProfilesList.get(i).getEmail());					
 					}
 					/*
 					if(event.getOrganizerEmailId().equalsIgnoreCase(userProfilesList.get(i).getEmail())) {

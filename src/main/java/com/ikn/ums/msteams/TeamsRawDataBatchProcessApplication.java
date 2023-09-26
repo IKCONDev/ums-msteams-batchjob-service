@@ -46,11 +46,10 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
             @Override
             public void run() {
             	//run batch processing
-            	log.info("Batch processing started at "+LocalDateTime.now());
+            	log.info("Batch processing scheduler started at "+LocalDateTime.now());
             	ResponseEntity<?> response = batchJobController.rawDataBatchProcessing();
-    			System.out.println("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
     			log.info("Status "+response.getStatusCodeValue()+" Response "+response.getBody());
-    			log.info("batch processing ended at : "+LocalDateTime.now());
+    			log.info("batch processing scheduler stopped at : "+LocalDateTime.now());
             }
         }, new Trigger() {
             @Override
@@ -59,7 +58,7 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
             	//get cron time from db
               	String cronTime = cronRepository.getCronTime(1).getCronTime();
                 CronTrigger trigger = new CronTrigger(cronTime);
-                log.info("Next Cron Time : "+cronTime);
+                log.info("The scheduler is scheduled for next cron time : "+cronTime);
                 Date nextExec = trigger.nextExecutionTime(triggerContext);  
                 return nextExec;
             }
@@ -73,12 +72,14 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
 	}
 
 	public static void main(String[] args) {
+		System.out.println("TeamsRawDataBatchProcessApplication.main()");
 		SpringApplication.run(TeamsRawDataBatchProcessApplication.class, args);
 	}
 	
 	@Bean
 	@LoadBalanced
 	public RestTemplate createLoadBalancedRestTemplate() {
+		log.info("Rest template bean created");
 		return new RestTemplate();
 	}
 

@@ -1,5 +1,6 @@
 package com.ikn.ums.msteams.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,9 +19,11 @@ import lombok.NoArgsConstructor;
 public class CronDetails {
 	
 	@Id
-	@SequenceGenerator(name = "cron_gen", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(generator = "cron_gen")
-	private Integer id;
+	@SequenceGenerator(name = "cronId_gen", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "cronId_gen")
+	@Column(name = "cronId")
+	private Integer cronId;
+	@Column(name = "cronTime")
 	private String cronTime;
 
 }

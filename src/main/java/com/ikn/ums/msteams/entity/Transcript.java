@@ -19,17 +19,30 @@ import lombok.NoArgsConstructor;
 public class Transcript {
 	
 	@Id
-	@SequenceGenerator(name = "transcripts_gen", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(generator = "transcripts_gen")
-	private Integer id;
+	@SequenceGenerator(name = "transcriptId_gen", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "transcriptId_gen")
+	@Column(name = "transcriptId")
+	private Long Id;
+	
+	@Column(name = "meetingTranscriptId")
 	private String transcriptId;
+	
+	@Column(name = "onlineMeetingId")
 	private String meetingId;
+	
+	@Column(name = "meetingOrganizerId")
 	private String meetingOrganizerId;
-	@Column(length = 500)
+	
+	@Column(name = "transcriptContentUrl",length = 500)
 	private String transcriptContentUrl;
+	
+	@Column(name = "createdDateTime")
 	private String createdDateTime;
+	
+	@Column(name = "transcriptFilePath")
 	private String transcriptFilePath;
-	@Column(length = 6000)
+	
+	@Column(name = "transcriptContent",length = 2147483647) //sets column to varchar(max)
 	private String transcriptContent;
 	
 }

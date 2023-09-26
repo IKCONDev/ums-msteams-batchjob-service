@@ -1,0 +1,268 @@
+11:08:57.574 [restartedMain] INFO  c.i.u.m.TeamsRawDataBatchProcessApplication - Starting TeamsRawDataBatchProcessApplication using Java 11.0.18 on IKCON1049 with PID 19224 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+11:08:57.578 [restartedMain] INFO  c.i.u.m.TeamsRawDataBatchProcessApplication - No active profile set, falling back to 1 default profile: "default"
+11:08:57.701 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\VaishnavPuthiyanampa\.m2\repository\com\oracle\database\jdbc\ojdbc8\21.5.0.0\ojdbc8-21.5.0.0.jar referenced one or more files that do not exist: file:/C:/Users/VaishnavPuthiyanampa/.m2/repository/com/oracle/database/jdbc/ojdbc8/21.5.0.0/oraclepki.jar
+11:08:57.702 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+11:08:57.703 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+11:09:00.470 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+11:09:00.951 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 461 ms. Found 3 JPA repository interfaces.
+11:09:01.506 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=7222e071-6275-3a59-80ad-da99dd44e97e
+11:09:03.470 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+11:09:03.489 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-1"]
+11:09:03.493 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:09:03.493 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+11:09:03.832 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:09:03.833 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6128 ms
+11:09:04.095 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+11:09:04.156 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+11:09:04.363 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+11:09:04.549 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+11:09:05.012 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+11:09:05.049 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+11:09:06.679 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+11:09:06.692 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+11:09:07.346 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+11:09:07.786 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+11:09:08.127 [restartedMain] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
+11:09:08.578 [restartedMain] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+11:09:08.636 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-1"]
+11:09:08.707 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 54499 (http) with context path ''
+11:09:08.711 [restartedMain] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 54499
+11:09:08.725 [restartedMain] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+11:09:08.769 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+11:09:08.775 [restartedMain] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:09:08.801 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+11:09:08.801 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+11:09:08.801 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+11:09:08.801 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+11:09:08.801 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+11:09:08.801 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+11:09:08.801 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+11:09:09.120 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+11:09:09.124 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+11:09:09.127 [restartedMain] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+11:09:09.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1695361149132 with initial instances count: 5
+11:09:09.135 [restartedMain] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application UMS-BATCH-SERVICE with eureka with status UP
+11:09:09.136 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695361149136, current=UP, previous=STARTING]
+11:09:09.140 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+11:09:09.188 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+11:09:09.405 [restartedMain] INFO  c.i.u.m.TeamsRawDataBatchProcessApplication - Started TeamsRawDataBatchProcessApplication in 14.17 seconds (JVM running for 17.311)
+11:10:43.853 [http-nio-auto-1-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+11:10:43.856 [http-nio-auto-1-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+11:10:43.887 [http-nio-auto-1-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 31 ms
+11:10:44.166 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEventCount() entered with args : Vaishnav.P@ikcontech.com
+11:10:44.166 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserOragnizedEventCount() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:10:44.167 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEventCount() is under execution 
+11:10:44.167 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserOragnizedEventCount() is under execution
+11:10:44.405 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserOragnizedEventCount() exited succesfully by returning organizedEventsCount : 2
+11:10:44.405 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEventCount() exited sucessfully by retruning count : 3
+11:10:48.305 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:10:48.452 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:10:48.827 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:10:48.827 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:10:48.845 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:10:51.132 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:10:51.132 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEvents() is under execution
+11:10:51.155 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEvents() exiting sucessfully
+11:10:59.581 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:10:59.592 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:11:01.285 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:01.285 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEvents() is under execution
+11:11:01.303 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEvents() exiting sucessfully
+11:11:03.186 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:03.197 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:11:08.717 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:11:08.718 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:11:09.942 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:11:11.731 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:11.732 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:11:11.733 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:11.739 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:11:11.787 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:11:12.658 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:11:12.659 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:11:12.679 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:11:15.384 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:11:15.384 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:11:15.398 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:11:16.299 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:11:16.299 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:11:16.312 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:11:17.151 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:11:17.151 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:11:17.165 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:11:50.326 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:50.332 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:50.332 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:11:50.335 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:11:50.348 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:11:59.019 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:59.020 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:11:59.026 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:11:59.034 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:11:59.037 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:12:49.944 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:12:49.948 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:12:49.948 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:12:49.959 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:12:49.960 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:13:49.223 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:13:49.224 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:13:49.227 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:13:49.236 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:13:49.240 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:13:55.990 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:13:55.990 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:13:55.991 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:13:56.001 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:13:56.001 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:14:08.838 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:14:55.286 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:14:55.287 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:14:55.287 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:14:55.304 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:14:55.360 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:15:40.192 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:15:40.192 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:15:40.194 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:15:40.202 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:15:40.207 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:15:49.449 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:15:49.449 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:15:49.450 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:15:49.456 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:15:49.456 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:15:55.223 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:15:55.224 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:15:55.225 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:15:55.234 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:15:55.235 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:18:11.832 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:18:11.844 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:18:11.856 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:18:11.856 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:18:11.866 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:18:53.339 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:18:53.340 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:18:53.345 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:18:53.385 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:18:53.385 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:19:06.065 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:19:06.066 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:19:06.075 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:19:06.088 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:19:06.095 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:19:08.870 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:19:42.762 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:19:42.763 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:19:42.764 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:19:42.770 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:19:42.770 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:19:56.364 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:19:56.372 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:19:56.407 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:19:56.408 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:19:56.417 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:19:59.136 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserOragnizedEventCount() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:19:59.136 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEventCount() entered with args : Vaishnav.P@ikcontech.com
+11:19:59.136 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserOragnizedEventCount() is under execution
+11:19:59.136 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEventCount() is under execution 
+11:19:59.152 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserOragnizedEventCount() exited succesfully by returning organizedEventsCount : 2
+11:19:59.153 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserAttendedEventCount() exited sucessfully by retruning count : 3
+11:20:06.382 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:20:06.385 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:20:06.385 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:20:06.390 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:20:06.393 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:20:08.788 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:20:08.788 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:20:08.943 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:20:10.176 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:20:10.176 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:20:10.192 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:20:11.727 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:20:11.728 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:20:11.741 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:20:22.288 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:20:22.288 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:20:22.301 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:20:31.799 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:20:31.799 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:20:31.801 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:20:31.808 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:20:31.811 [http-nio-auto-1-exec-7] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:20:40.497 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:20:40.497 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:20:40.516 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:20:42.945 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:20:42.946 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:20:42.957 [http-nio-auto-1-exec-8] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:21:02.390 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:21:02.390 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:21:02.414 [http-nio-auto-1-exec-1] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:21:04.569 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:21:04.572 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:21:04.573 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:21:04.581 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:21:04.582 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:21:06.243 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:21:06.244 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:21:06.256 [http-nio-auto-1-exec-3] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:21:07.948 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:21:07.948 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:21:07.980 [http-nio-auto-1-exec-5] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:21:09.818 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:21:09.818 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:21:09.831 [http-nio-auto-1-exec-4] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:21:11.344 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered
+11:21:11.344 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution
+11:21:11.358 [http-nio-auto-1-exec-6] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully
+11:23:30.807 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:23:30.808 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : Vaishnav.P@ikcontech.com
+11:23:30.808 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is under execution
+11:23:30.814 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getUserEvents() exited sucessfully
+11:23:30.816 [http-nio-auto-1-exec-10] INFO  c.i.u.m.c.TeamsSourceDataBatchProcessController - TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully
+11:24:08.890 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:29:08.898 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:34:08.915 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:39:08.937 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:44:08.946 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:49:08.947 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:54:09.994 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:59:10.020 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:04:10.031 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:09:08.611 [RMI TCP Connection(63)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+12:09:08.611 [RMI TCP Connection(66)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+12:09:08.611 [RMI TCP Connection(67)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+12:09:08.677 [RMI TCP Connection(66)-127.0.0.1] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application UMS-BATCH-SERVICE with eureka with status DOWN
+12:09:08.679 [RMI TCP Connection(66)-127.0.0.1] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695364748679, current=DOWN, previous=UP]
+12:09:08.679 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+12:09:08.788 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+12:09:08.924 [RMI TCP Connection(68)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+12:09:09.021 [RMI TCP Connection(66)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-auto-1"]
+12:09:09.023 [RMI TCP Connection(66)-127.0.0.1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+12:09:09.061 [RMI TCP Connection(69)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+12:09:09.078 [RMI TCP Connection(66)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+12:09:09.147 [RMI TCP Connection(66)-127.0.0.1] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [boundedElastic-evictor-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+ java.base@11.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+ java.base@11.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@11.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.18/java.lang.Thread.run(Thread.java:834)
+12:09:09.149 [RMI TCP Connection(66)-127.0.0.1] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [pool-10-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.18/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1170)
+ java.base@11.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.18/java.lang.Thread.run(Thread.java:834)
+12:09:09.165 [RMI TCP Connection(66)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-auto-1"]
+12:09:09.295 [RMI TCP Connection(66)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+12:09:09.370 [RMI TCP Connection(66)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+12:09:09.386 [RMI TCP Connection(66)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

@@ -1,0 +1,728 @@
+10:39:53.661 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 9768 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+10:39:53.663 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+10:39:53.739 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\VaishnavPuthiyanampa\.m2\repository\com\oracle\database\jdbc\ojdbc8\21.5.0.0\ojdbc8-21.5.0.0.jar referenced one or more files that do not exist: file:/C:/Users/VaishnavPuthiyanampa/.m2/repository/com/oracle/database/jdbc/ojdbc8/21.5.0.0/oraclepki.jar
+10:39:53.740 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+10:39:53.740 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+10:39:55.947 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+10:39:56.368 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 400 ms. Found 3 JPA repository interfaces.
+10:39:56.899 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=a222429d-1e3f-3823-b2ff-bfe6e03c822c
+10:39:58.206 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+10:39:58.238 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-1"]
+10:39:58.242 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:39:58.242 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+10:39:58.822 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:39:58.822 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5081 ms
+10:39:59.186 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+10:39:59.271 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+10:39:59.497 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+10:39:59.649 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+10:40:00.080 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+10:40:00.104 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+10:40:02.015 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+10:40:02.034 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10:40:03.039 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+10:40:03.707 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+10:40:04.278 [restartedMain] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
+10:40:04.898 [restartedMain] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+10:40:04.988 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-1"]
+10:40:05.026 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 59586 (http) with context path ''
+10:40:05.029 [restartedMain] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 59586
+10:40:05.041 [restartedMain] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+10:40:05.096 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+10:40:05.103 [restartedMain] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10:40:05.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+10:40:05.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+10:40:05.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+10:40:05.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+10:40:05.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+10:40:05.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+10:40:05.133 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+10:40:05.541 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+10:40:05.544 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+10:40:05.547 [restartedMain] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+10:40:05.553 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1695100205552 with initial instances count: 8
+10:40:05.556 [restartedMain] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application UMS-BATCH-SERVICE with eureka with status UP
+10:40:05.557 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695100205557, current=UP, previous=STARTING]
+10:40:05.562 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+10:40:05.625 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+10:40:06.000 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - TeamsBatchJobApplication.configureTasks() Entered
+10:40:06.006 [restartedMain] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+10:40:06.169 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:40:06.181 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 14.232 seconds (JVM running for 18.653)
+10:41:00.007 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:41:00.007035700
+10:41:00.123 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=83, startDateTime=2023-09-15T20:03:00.039171, endDateTime=2023-09-15T20:03:44.095473, lastSuccessfullExecutionDateTime=2023-09-15T20:03:00.039171, status=COMPLETED)
+10:41:00.123 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:41:00.133 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Access Token expired
+10:41:03.027 [ForkJoinPool.commonPool-worker-3] INFO  c.a.identity.ClientSecretCredential - Azure Identity => getToken() result for scopes [https://graph.microsoft.com/.default]: SUCCESS
+10:41:03.028 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Access Token Refreshed
+10:41:03.600 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=85, startDateTime=2023-09-19T10:41:03.528064800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:43:12.416 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=85, startDateTime=2023-09-19T10:41:03.528064800, endDateTime=2023-09-19T10:43:12.403554300, lastSuccessfullExecutionDateTime=2023-09-19T10:41:03.528064800, status=COMPLETED)
+10:43:12.699 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:43:12.700 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:43:12.700928500
+10:43:12.702 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:44:00.013 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:44:00.013557400
+10:44:00.019 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=85, startDateTime=2023-09-19T10:41:03.528065, endDateTime=2023-09-19T10:43:12.403554, lastSuccessfullExecutionDateTime=2023-09-19T10:41:03.528065, status=COMPLETED)
+10:44:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:44:00.107 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=234, startDateTime=2023-09-19T10:44:00.105460200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:44:03.134 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+10:44:03.134 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+10:44:03.146 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+10:44:31.589 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=234, startDateTime=2023-09-19T10:44:00.105460200, endDateTime=2023-09-19T10:44:31.587758100, lastSuccessfullExecutionDateTime=2023-09-19T10:44:00.105460200, status=COMPLETED)
+10:44:31.595 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:44:31.596 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:44:31.596758300
+10:44:31.600 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:45:00.009 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:45:00.009269200
+10:45:00.014 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=234, startDateTime=2023-09-19T10:44:00.105460, endDateTime=2023-09-19T10:44:31.587758, lastSuccessfullExecutionDateTime=2023-09-19T10:44:00.105460, status=COMPLETED)
+10:45:00.014 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:45:00.058 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=235, startDateTime=2023-09-19T10:45:00.056337100, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:45:05.148 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10:45:28.734 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=235, startDateTime=2023-09-19T10:45:00.056337100, endDateTime=2023-09-19T10:45:28.733866800, lastSuccessfullExecutionDateTime=2023-09-19T10:45:00.056337100, status=COMPLETED)
+10:45:28.742 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:45:28.742 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:45:28.742643800
+10:45:28.746 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:46:00.008 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:46:00.008613900
+10:46:00.014 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=235, startDateTime=2023-09-19T10:45:00.056337, endDateTime=2023-09-19T10:45:28.733867, lastSuccessfullExecutionDateTime=2023-09-19T10:45:00.056337, status=COMPLETED)
+10:46:00.014 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:46:00.053 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=236, startDateTime=2023-09-19T10:46:00.051663300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:46:30.622 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=236, startDateTime=2023-09-19T10:46:00.051663300, endDateTime=2023-09-19T10:46:30.620717500, lastSuccessfullExecutionDateTime=2023-09-19T10:46:00.051663300, status=COMPLETED)
+10:46:30.625 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:46:30.625 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:46:30.625846300
+10:46:30.627 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:47:00.014 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:47:00.014295600
+10:47:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=236, startDateTime=2023-09-19T10:46:00.051663, endDateTime=2023-09-19T10:46:30.620718, lastSuccessfullExecutionDateTime=2023-09-19T10:46:00.051663, status=COMPLETED)
+10:47:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:47:00.056 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=237, startDateTime=2023-09-19T10:47:00.054911800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:47:08.486 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.updateActionItemGeneratedStatus() Entered [5] true
+10:47:08.487 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.updateActionItemGeneratedStatus() under execution
+10:47:08.553 [http-nio-auto-1-exec-9] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.updateActionItemGeneratedStatus() Going to Exit
+10:47:31.539 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=237, startDateTime=2023-09-19T10:47:00.054911800, endDateTime=2023-09-19T10:47:31.539718300, lastSuccessfullExecutionDateTime=2023-09-19T10:47:00.054911800, status=COMPLETED)
+10:47:31.544 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:47:31.544 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:47:31.544028800
+10:47:31.545 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:48:00.009 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:48:00.009072600
+10:48:00.023 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=237, startDateTime=2023-09-19T10:47:00.054912, endDateTime=2023-09-19T10:47:31.539718, lastSuccessfullExecutionDateTime=2023-09-19T10:47:00.054912, status=COMPLETED)
+10:48:00.024 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:48:00.063 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=238, startDateTime=2023-09-19T10:48:00.061443400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:48:32.878 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=238, startDateTime=2023-09-19T10:48:00.061443400, endDateTime=2023-09-19T10:48:32.877610200, lastSuccessfullExecutionDateTime=2023-09-19T10:48:00.061443400, status=COMPLETED)
+10:48:32.884 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:48:32.885 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:48:32.885684100
+10:48:32.888 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:49:00.004 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:49:00.004253500
+10:49:00.010 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=238, startDateTime=2023-09-19T10:48:00.061443, endDateTime=2023-09-19T10:48:32.877610, lastSuccessfullExecutionDateTime=2023-09-19T10:48:00.061443, status=COMPLETED)
+10:49:00.011 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:49:00.094 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=239, startDateTime=2023-09-19T10:49:00.092238, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:49:31.245 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=239, startDateTime=2023-09-19T10:49:00.092238, endDateTime=2023-09-19T10:49:31.244875600, lastSuccessfullExecutionDateTime=2023-09-19T10:49:00.092238, status=COMPLETED)
+10:49:31.249 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:49:31.249 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:49:31.249891200
+10:49:31.251 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:50:00.008 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:50:00.008272200
+10:50:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=239, startDateTime=2023-09-19T10:49:00.092238, endDateTime=2023-09-19T10:49:31.244876, lastSuccessfullExecutionDateTime=2023-09-19T10:49:00.092238, status=COMPLETED)
+10:50:00.016 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:50:00.047 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=240, startDateTime=2023-09-19T10:50:00.040238800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:50:05.164 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10:50:33.100 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=240, startDateTime=2023-09-19T10:50:00.040238800, endDateTime=2023-09-19T10:50:33.093957400, lastSuccessfullExecutionDateTime=2023-09-19T10:50:00.040238800, status=COMPLETED)
+10:50:33.104 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:50:33.105 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:50:33.105249600
+10:50:33.109 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:51:00.012 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:51:00.012294400
+10:51:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=240, startDateTime=2023-09-19T10:50:00.040239, endDateTime=2023-09-19T10:50:33.093957, lastSuccessfullExecutionDateTime=2023-09-19T10:50:00.040239, status=COMPLETED)
+10:51:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:51:00.035 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=241, startDateTime=2023-09-19T10:51:00.032946100, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:51:33.612 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=241, startDateTime=2023-09-19T10:51:00.032946100, endDateTime=2023-09-19T10:51:33.611093900, lastSuccessfullExecutionDateTime=2023-09-19T10:51:00.032946100, status=COMPLETED)
+10:51:33.626 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:51:33.627 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:51:33.627280800
+10:51:33.630 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:52:00.011 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:52:00.011240300
+10:52:00.014 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=241, startDateTime=2023-09-19T10:51:00.032946, endDateTime=2023-09-19T10:51:33.611094, lastSuccessfullExecutionDateTime=2023-09-19T10:51:00.032946, status=COMPLETED)
+10:52:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:52:00.033 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=242, startDateTime=2023-09-19T10:52:00.031730600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:52:31.179 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=242, startDateTime=2023-09-19T10:52:00.031730600, endDateTime=2023-09-19T10:52:31.178315100, lastSuccessfullExecutionDateTime=2023-09-19T10:52:00.031730600, status=COMPLETED)
+10:52:31.207 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:52:31.207 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:52:31.207181900
+10:52:31.209 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:53:00.016 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:53:00.016252500
+10:53:00.021 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=242, startDateTime=2023-09-19T10:52:00.031731, endDateTime=2023-09-19T10:52:31.178315, lastSuccessfullExecutionDateTime=2023-09-19T10:52:00.031731, status=COMPLETED)
+10:53:00.021 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:53:00.042 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=243, startDateTime=2023-09-19T10:53:00.041529, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:53:29.221 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=243, startDateTime=2023-09-19T10:53:00.041529, endDateTime=2023-09-19T10:53:29.220183400, lastSuccessfullExecutionDateTime=2023-09-19T10:53:00.041529, status=COMPLETED)
+10:53:29.229 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:53:29.229 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:53:29.229258200
+10:53:29.232 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:54:00.003 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:54:00.003854400
+10:54:00.008 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=243, startDateTime=2023-09-19T10:53:00.041529, endDateTime=2023-09-19T10:53:29.220183, lastSuccessfullExecutionDateTime=2023-09-19T10:53:00.041529, status=COMPLETED)
+10:54:00.008 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:54:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=244, startDateTime=2023-09-19T10:54:00.035428500, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:54:58.615 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=244, startDateTime=2023-09-19T10:54:00.035428500, endDateTime=2023-09-19T10:54:58.615785400, lastSuccessfullExecutionDateTime=2023-09-19T10:54:00.035428500, status=COMPLETED)
+10:54:58.620 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:54:58.620 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:54:58.620955700
+10:54:58.627 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:55:00.014 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:55:00.014501300
+10:55:00.017 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=244, startDateTime=2023-09-19T10:54:00.035429, endDateTime=2023-09-19T10:54:58.615785, lastSuccessfullExecutionDateTime=2023-09-19T10:54:00.035429, status=COMPLETED)
+10:55:00.017 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:55:00.041 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=245, startDateTime=2023-09-19T10:55:00.040361700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:55:05.175 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10:55:29.954 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=245, startDateTime=2023-09-19T10:55:00.040361700, endDateTime=2023-09-19T10:55:29.953377, lastSuccessfullExecutionDateTime=2023-09-19T10:55:00.040361700, status=COMPLETED)
+10:55:29.958 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:55:29.958 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:55:29.958265400
+10:55:29.960 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:56:00.004 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:56:00.004204
+10:56:00.007 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=245, startDateTime=2023-09-19T10:55:00.040362, endDateTime=2023-09-19T10:55:29.953377, lastSuccessfullExecutionDateTime=2023-09-19T10:55:00.040362, status=COMPLETED)
+10:56:00.008 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:56:00.036 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=246, startDateTime=2023-09-19T10:56:00.034900600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:56:15.167 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.updateActionItemGeneratedStatus() Entered [5] true
+10:56:15.167 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.updateActionItemGeneratedStatus() under execution
+10:56:15.205 [http-nio-auto-1-exec-2] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.updateActionItemGeneratedStatus() Going to Exit
+10:56:30.268 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=246, startDateTime=2023-09-19T10:56:00.034900600, endDateTime=2023-09-19T10:56:30.268714200, lastSuccessfullExecutionDateTime=2023-09-19T10:56:00.034900600, status=COMPLETED)
+10:56:30.274 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:56:30.274 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:56:30.274717200
+10:56:30.280 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:57:00.014 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:57:00.014505200
+10:57:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=246, startDateTime=2023-09-19T10:56:00.034901, endDateTime=2023-09-19T10:56:30.268714, lastSuccessfullExecutionDateTime=2023-09-19T10:56:00.034901, status=COMPLETED)
+10:57:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:57:00.045 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=247, startDateTime=2023-09-19T10:57:00.043378500, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:57:30.374 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=247, startDateTime=2023-09-19T10:57:00.043378500, endDateTime=2023-09-19T10:57:30.373043800, lastSuccessfullExecutionDateTime=2023-09-19T10:57:00.043378500, status=COMPLETED)
+10:57:30.377 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:57:30.377 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:57:30.377746500
+10:57:30.381 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:58:00.008 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:58:00.008901700
+10:58:00.031 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=247, startDateTime=2023-09-19T10:57:00.043379, endDateTime=2023-09-19T10:57:30.373044, lastSuccessfullExecutionDateTime=2023-09-19T10:57:00.043379, status=COMPLETED)
+10:58:00.032 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:58:00.080 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=248, startDateTime=2023-09-19T10:58:00.070256300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:58:30.076 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=248, startDateTime=2023-09-19T10:58:00.070256300, endDateTime=2023-09-19T10:58:30.072656300, lastSuccessfullExecutionDateTime=2023-09-19T10:58:00.070256300, status=COMPLETED)
+10:58:30.083 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:58:30.083 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:58:30.083020
+10:58:30.085 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+10:59:00.010 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T10:59:00.010412100
+10:59:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=248, startDateTime=2023-09-19T10:58:00.070256, endDateTime=2023-09-19T10:58:30.072656, lastSuccessfullExecutionDateTime=2023-09-19T10:58:00.070256, status=COMPLETED)
+10:59:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+10:59:00.041 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=249, startDateTime=2023-09-19T10:59:00.039465200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+10:59:32.536 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=249, startDateTime=2023-09-19T10:59:00.039465200, endDateTime=2023-09-19T10:59:32.534011700, lastSuccessfullExecutionDateTime=2023-09-19T10:59:00.039465200, status=COMPLETED)
+10:59:32.542 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+10:59:32.542 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T10:59:32.542009900
+10:59:32.546 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:00:00.010 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:00:00.010618300
+11:00:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=249, startDateTime=2023-09-19T10:59:00.039465, endDateTime=2023-09-19T10:59:32.534012, lastSuccessfullExecutionDateTime=2023-09-19T10:59:00.039465, status=COMPLETED)
+11:00:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:00:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=250, startDateTime=2023-09-19T11:00:00.035351700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:00:05.189 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:00:31.927 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=250, startDateTime=2023-09-19T11:00:00.035351700, endDateTime=2023-09-19T11:00:31.926855900, lastSuccessfullExecutionDateTime=2023-09-19T11:00:00.035351700, status=COMPLETED)
+11:00:31.932 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:00:31.932 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:00:31.932855900
+11:00:31.934 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:01:00.012 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:01:00.012616500
+11:01:00.016 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=250, startDateTime=2023-09-19T11:00:00.035352, endDateTime=2023-09-19T11:00:31.926856, lastSuccessfullExecutionDateTime=2023-09-19T11:00:00.035352, status=COMPLETED)
+11:01:00.016 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:01:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=251, startDateTime=2023-09-19T11:01:00.036072200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:01:30.192 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=251, startDateTime=2023-09-19T11:01:00.036072200, endDateTime=2023-09-19T11:01:30.190993300, lastSuccessfullExecutionDateTime=2023-09-19T11:01:00.036072200, status=COMPLETED)
+11:01:30.197 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:01:30.197 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:01:30.197002800
+11:01:30.199 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:02:00.015 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:02:00.015193500
+11:02:00.017 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=251, startDateTime=2023-09-19T11:01:00.036072, endDateTime=2023-09-19T11:01:30.190993, lastSuccessfullExecutionDateTime=2023-09-19T11:01:00.036072, status=COMPLETED)
+11:02:00.018 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:02:00.044 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=252, startDateTime=2023-09-19T11:02:00.042281200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:02:33.066 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=252, startDateTime=2023-09-19T11:02:00.042281200, endDateTime=2023-09-19T11:02:33.065421900, lastSuccessfullExecutionDateTime=2023-09-19T11:02:00.042281200, status=COMPLETED)
+11:02:33.069 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:02:33.069 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:02:33.069807100
+11:02:33.072 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:03:00.007 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:03:00.007453500
+11:03:00.013 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=252, startDateTime=2023-09-19T11:02:00.042281, endDateTime=2023-09-19T11:02:33.065422, lastSuccessfullExecutionDateTime=2023-09-19T11:02:00.042281, status=COMPLETED)
+11:03:00.013 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:03:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=253, startDateTime=2023-09-19T11:03:00.036532300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:03:31.434 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=253, startDateTime=2023-09-19T11:03:00.036532300, endDateTime=2023-09-19T11:03:31.433150800, lastSuccessfullExecutionDateTime=2023-09-19T11:03:00.036532300, status=COMPLETED)
+11:03:31.450 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:03:31.450 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:03:31.450741700
+11:03:31.452 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:04:00.008 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:04:00.008366600
+11:04:00.013 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=253, startDateTime=2023-09-19T11:03:00.036532, endDateTime=2023-09-19T11:03:31.433151, lastSuccessfullExecutionDateTime=2023-09-19T11:03:00.036532, status=COMPLETED)
+11:04:00.014 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:04:00.033 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=254, startDateTime=2023-09-19T11:04:00.032736900, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:04:31.132 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=254, startDateTime=2023-09-19T11:04:00.032736900, endDateTime=2023-09-19T11:04:31.131261200, lastSuccessfullExecutionDateTime=2023-09-19T11:04:00.032736900, status=COMPLETED)
+11:04:31.137 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:04:31.137 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:04:31.137293300
+11:04:31.139 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:05:00.017 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:05:00.017294900
+11:05:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=254, startDateTime=2023-09-19T11:04:00.032737, endDateTime=2023-09-19T11:04:31.131261, lastSuccessfullExecutionDateTime=2023-09-19T11:04:00.032737, status=COMPLETED)
+11:05:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:05:00.045 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=255, startDateTime=2023-09-19T11:05:00.043507900, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:05:05.194 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:05:29.910 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=255, startDateTime=2023-09-19T11:05:00.043507900, endDateTime=2023-09-19T11:05:29.909538700, lastSuccessfullExecutionDateTime=2023-09-19T11:05:00.043507900, status=COMPLETED)
+11:05:29.926 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:05:29.926 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:05:29.926480700
+11:05:29.928 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:06:00.011 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:06:00.011425300
+11:06:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=255, startDateTime=2023-09-19T11:05:00.043508, endDateTime=2023-09-19T11:05:29.909539, lastSuccessfullExecutionDateTime=2023-09-19T11:05:00.043508, status=COMPLETED)
+11:06:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:06:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=256, startDateTime=2023-09-19T11:06:00.036366600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:06:30.531 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=256, startDateTime=2023-09-19T11:06:00.036366600, endDateTime=2023-09-19T11:06:30.530150800, lastSuccessfullExecutionDateTime=2023-09-19T11:06:00.036366600, status=COMPLETED)
+11:06:30.547 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:06:30.547 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:06:30.547165
+11:06:30.549 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:07:00.013 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:07:00.013371700
+11:07:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=256, startDateTime=2023-09-19T11:06:00.036367, endDateTime=2023-09-19T11:06:30.530151, lastSuccessfullExecutionDateTime=2023-09-19T11:06:00.036367, status=COMPLETED)
+11:07:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:07:00.029 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=257, startDateTime=2023-09-19T11:07:00.027009200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:07:29.409 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=257, startDateTime=2023-09-19T11:07:00.027009200, endDateTime=2023-09-19T11:07:29.408689100, lastSuccessfullExecutionDateTime=2023-09-19T11:07:00.027009200, status=COMPLETED)
+11:07:29.412 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:07:29.413 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:07:29.413719500
+11:07:29.415 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:08:00.009 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:08:00.009054400
+11:08:00.010 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=257, startDateTime=2023-09-19T11:07:00.027009, endDateTime=2023-09-19T11:07:29.408689, lastSuccessfullExecutionDateTime=2023-09-19T11:07:00.027009, status=COMPLETED)
+11:08:00.011 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:08:00.021 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=258, startDateTime=2023-09-19T11:08:00.020261600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:08:31.769 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=258, startDateTime=2023-09-19T11:08:00.020261600, endDateTime=2023-09-19T11:08:31.769754500, lastSuccessfullExecutionDateTime=2023-09-19T11:08:00.020261600, status=COMPLETED)
+11:08:31.773 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:08:31.773 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:08:31.773758500
+11:08:31.775 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:09:00.004 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:09:00.003943900
+11:09:00.007 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=258, startDateTime=2023-09-19T11:08:00.020262, endDateTime=2023-09-19T11:08:31.769755, lastSuccessfullExecutionDateTime=2023-09-19T11:08:00.020262, status=COMPLETED)
+11:09:00.007 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:09:00.025 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=259, startDateTime=2023-09-19T11:09:00.024109500, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:09:31.881 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=259, startDateTime=2023-09-19T11:09:00.024109500, endDateTime=2023-09-19T11:09:31.880286500, lastSuccessfullExecutionDateTime=2023-09-19T11:09:00.024109500, status=COMPLETED)
+11:09:31.894 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:09:31.895 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:09:31.895425100
+11:09:31.898 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:10:00.014 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:10:00.014135500
+11:10:00.057 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=259, startDateTime=2023-09-19T11:09:00.024110, endDateTime=2023-09-19T11:09:31.880287, lastSuccessfullExecutionDateTime=2023-09-19T11:09:00.024110, status=COMPLETED)
+11:10:00.057 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:10:00.088 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=260, startDateTime=2023-09-19T11:10:00.084109800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:10:05.204 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:10:32.603 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=260, startDateTime=2023-09-19T11:10:00.084109800, endDateTime=2023-09-19T11:10:32.602782300, lastSuccessfullExecutionDateTime=2023-09-19T11:10:00.084109800, status=COMPLETED)
+11:10:32.638 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:10:32.638 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:10:32.638632200
+11:10:32.657 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:11:00.015 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:11:00.015072200
+11:11:00.024 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=260, startDateTime=2023-09-19T11:10:00.084110, endDateTime=2023-09-19T11:10:32.602782, lastSuccessfullExecutionDateTime=2023-09-19T11:10:00.084110, status=COMPLETED)
+11:11:00.024 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:11:00.052 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=261, startDateTime=2023-09-19T11:11:00.050247400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:11:31.175 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=261, startDateTime=2023-09-19T11:11:00.050247400, endDateTime=2023-09-19T11:11:31.174821700, lastSuccessfullExecutionDateTime=2023-09-19T11:11:00.050247400, status=COMPLETED)
+11:11:31.205 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:11:31.205 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:11:31.205549200
+11:11:31.208 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:12:00.009 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:12:00.009376900
+11:12:00.013 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=261, startDateTime=2023-09-19T11:11:00.050247, endDateTime=2023-09-19T11:11:31.174822, lastSuccessfullExecutionDateTime=2023-09-19T11:11:00.050247, status=COMPLETED)
+11:12:00.013 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:12:00.031 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=262, startDateTime=2023-09-19T11:12:00.030008700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:12:30.874 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=262, startDateTime=2023-09-19T11:12:00.030008700, endDateTime=2023-09-19T11:12:30.873110900, lastSuccessfullExecutionDateTime=2023-09-19T11:12:00.030008700, status=COMPLETED)
+11:12:30.879 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:12:30.879 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:12:30.879035600
+11:12:30.881 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:13:00.003 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:13:00.003299800
+11:13:00.008 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=262, startDateTime=2023-09-19T11:12:00.030009, endDateTime=2023-09-19T11:12:30.873111, lastSuccessfullExecutionDateTime=2023-09-19T11:12:00.030009, status=COMPLETED)
+11:13:00.008 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:13:00.031 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=263, startDateTime=2023-09-19T11:13:00.029837900, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:13:30.470 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=263, startDateTime=2023-09-19T11:13:00.029837900, endDateTime=2023-09-19T11:13:30.470493900, lastSuccessfullExecutionDateTime=2023-09-19T11:13:00.029837900, status=COMPLETED)
+11:13:30.487 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:13:30.487 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:13:30.487170800
+11:13:30.489 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:14:00.012 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:14:00.012414400
+11:14:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=263, startDateTime=2023-09-19T11:13:00.029838, endDateTime=2023-09-19T11:13:30.470494, lastSuccessfullExecutionDateTime=2023-09-19T11:13:00.029838, status=COMPLETED)
+11:14:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:14:00.031 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=264, startDateTime=2023-09-19T11:14:00.030800700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:14:30.990 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=264, startDateTime=2023-09-19T11:14:00.030800700, endDateTime=2023-09-19T11:14:30.989758900, lastSuccessfullExecutionDateTime=2023-09-19T11:14:00.030800700, status=COMPLETED)
+11:14:30.999 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:14:30.999 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:14:30.999356200
+11:14:31.003 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:15:00.011 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:15:00.011724900
+11:15:00.016 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=264, startDateTime=2023-09-19T11:14:00.030801, endDateTime=2023-09-19T11:14:30.989759, lastSuccessfullExecutionDateTime=2023-09-19T11:14:00.030801, status=COMPLETED)
+11:15:00.016 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:15:00.042 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=265, startDateTime=2023-09-19T11:15:00.040760800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:15:05.207 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:15:30.073 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=265, startDateTime=2023-09-19T11:15:00.040760800, endDateTime=2023-09-19T11:15:30.072675900, lastSuccessfullExecutionDateTime=2023-09-19T11:15:00.040760800, status=COMPLETED)
+11:15:30.081 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:15:30.082 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:15:30.082158
+11:15:30.087 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:16:00.005 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:16:00.005693900
+11:16:00.009 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=265, startDateTime=2023-09-19T11:15:00.040761, endDateTime=2023-09-19T11:15:30.072676, lastSuccessfullExecutionDateTime=2023-09-19T11:15:00.040761, status=COMPLETED)
+11:16:00.009 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:16:00.036 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=266, startDateTime=2023-09-19T11:16:00.035695300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:16:31.231 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=266, startDateTime=2023-09-19T11:16:00.035695300, endDateTime=2023-09-19T11:16:31.230115200, lastSuccessfullExecutionDateTime=2023-09-19T11:16:00.035695300, status=COMPLETED)
+11:16:31.247 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:16:31.247 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:16:31.247244100
+11:16:31.250 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:17:00.006 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:17:00.006585700
+11:17:00.009 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=266, startDateTime=2023-09-19T11:16:00.035695, endDateTime=2023-09-19T11:16:31.230115, lastSuccessfullExecutionDateTime=2023-09-19T11:16:00.035695, status=COMPLETED)
+11:17:00.010 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:17:00.032 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=267, startDateTime=2023-09-19T11:17:00.030586500, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:17:30.700 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=267, startDateTime=2023-09-19T11:17:00.030586500, endDateTime=2023-09-19T11:17:30.699489300, lastSuccessfullExecutionDateTime=2023-09-19T11:17:00.030586500, status=COMPLETED)
+11:17:30.704 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:17:30.704 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:17:30.704496300
+11:17:30.707 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:18:00.016 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:18:00.016318700
+11:18:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=267, startDateTime=2023-09-19T11:17:00.030587, endDateTime=2023-09-19T11:17:30.699489, lastSuccessfullExecutionDateTime=2023-09-19T11:17:00.030587, status=COMPLETED)
+11:18:00.020 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:18:00.046 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=268, startDateTime=2023-09-19T11:18:00.044727600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:18:41.151 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=268, startDateTime=2023-09-19T11:18:00.044727600, endDateTime=2023-09-19T11:18:41.151883600, lastSuccessfullExecutionDateTime=2023-09-19T11:18:00.044727600, status=COMPLETED)
+11:18:41.167 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:18:41.167 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:18:41.167228
+11:18:41.170 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:19:00.015 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:19:00.015367800
+11:19:00.019 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=268, startDateTime=2023-09-19T11:18:00.044728, endDateTime=2023-09-19T11:18:41.151884, lastSuccessfullExecutionDateTime=2023-09-19T11:18:00.044728, status=COMPLETED)
+11:19:00.019 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:19:00.043 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=269, startDateTime=2023-09-19T11:19:00.041674400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:19:31.428 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=269, startDateTime=2023-09-19T11:19:00.041674400, endDateTime=2023-09-19T11:19:31.428635, lastSuccessfullExecutionDateTime=2023-09-19T11:19:00.041674400, status=COMPLETED)
+11:19:31.432 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:19:31.432 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:19:31.432631200
+11:19:31.435 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:20:00.002 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:20:00.002370400
+11:20:00.009 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=269, startDateTime=2023-09-19T11:19:00.041674, endDateTime=2023-09-19T11:19:31.428635, lastSuccessfullExecutionDateTime=2023-09-19T11:19:00.041674, status=COMPLETED)
+11:20:00.009 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:20:00.030 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=270, startDateTime=2023-09-19T11:20:00.029961600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:20:05.216 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:20:36.108 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=270, startDateTime=2023-09-19T11:20:00.029961600, endDateTime=2023-09-19T11:20:36.108121900, lastSuccessfullExecutionDateTime=2023-09-19T11:20:00.029961600, status=COMPLETED)
+11:20:36.149 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:20:36.149 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:20:36.149180300
+11:20:36.151 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:21:00.009 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:21:00.009740100
+11:21:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=270, startDateTime=2023-09-19T11:20:00.029962, endDateTime=2023-09-19T11:20:36.108122, lastSuccessfullExecutionDateTime=2023-09-19T11:20:00.029962, status=COMPLETED)
+11:21:00.015 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:21:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=271, startDateTime=2023-09-19T11:21:00.035898800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:21:32.992 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=271, startDateTime=2023-09-19T11:21:00.035898800, endDateTime=2023-09-19T11:21:32.992542600, lastSuccessfullExecutionDateTime=2023-09-19T11:21:00.035898800, status=COMPLETED)
+11:21:33.026 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:21:33.026 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:21:33.026540800
+11:21:33.029 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:22:00.015 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:22:00.015035700
+11:22:00.019 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=271, startDateTime=2023-09-19T11:21:00.035899, endDateTime=2023-09-19T11:21:32.992543, lastSuccessfullExecutionDateTime=2023-09-19T11:21:00.035899, status=COMPLETED)
+11:22:00.019 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:22:00.048 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=272, startDateTime=2023-09-19T11:22:00.047294600, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:22:30.228 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=272, startDateTime=2023-09-19T11:22:00.047294600, endDateTime=2023-09-19T11:22:30.227193900, lastSuccessfullExecutionDateTime=2023-09-19T11:22:00.047294600, status=COMPLETED)
+11:22:30.234 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:22:30.234 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:22:30.234194100
+11:22:30.237 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:23:00.002 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:23:00.002682
+11:23:00.006 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=272, startDateTime=2023-09-19T11:22:00.047295, endDateTime=2023-09-19T11:22:30.227194, lastSuccessfullExecutionDateTime=2023-09-19T11:22:00.047295, status=COMPLETED)
+11:23:00.006 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:23:00.022 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=273, startDateTime=2023-09-19T11:23:00.021194200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:23:29.202 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=273, startDateTime=2023-09-19T11:23:00.021194200, endDateTime=2023-09-19T11:23:29.201787200, lastSuccessfullExecutionDateTime=2023-09-19T11:23:00.021194200, status=COMPLETED)
+11:23:29.218 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:23:29.218 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:23:29.218103500
+11:23:29.221 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:24:00.011 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:24:00.011610200
+11:24:00.016 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=273, startDateTime=2023-09-19T11:23:00.021194, endDateTime=2023-09-19T11:23:29.201787, lastSuccessfullExecutionDateTime=2023-09-19T11:23:00.021194, status=COMPLETED)
+11:24:00.017 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:24:00.039 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=274, startDateTime=2023-09-19T11:24:00.038413500, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:24:33.997 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=274, startDateTime=2023-09-19T11:24:00.038413500, endDateTime=2023-09-19T11:24:33.996391400, lastSuccessfullExecutionDateTime=2023-09-19T11:24:00.038413500, status=COMPLETED)
+11:24:34.004 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:24:34.005 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:24:34.005321300
+11:24:34.010 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:25:00.015 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:25:00.015588700
+11:25:00.021 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=274, startDateTime=2023-09-19T11:24:00.038414, endDateTime=2023-09-19T11:24:33.996391, lastSuccessfullExecutionDateTime=2023-09-19T11:24:00.038414, status=COMPLETED)
+11:25:00.021 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:25:00.050 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=275, startDateTime=2023-09-19T11:25:00.049016, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:25:05.226 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:25:28.808 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=275, startDateTime=2023-09-19T11:25:00.049016, endDateTime=2023-09-19T11:25:28.808898800, lastSuccessfullExecutionDateTime=2023-09-19T11:25:00.049016, status=COMPLETED)
+11:25:28.812 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:25:28.812 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:25:28.812899700
+11:25:28.816 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:26:00.013 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:26:00.013973600
+11:26:00.017 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=275, startDateTime=2023-09-19T11:25:00.049016, endDateTime=2023-09-19T11:25:28.808899, lastSuccessfullExecutionDateTime=2023-09-19T11:25:00.049016, status=COMPLETED)
+11:26:00.017 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:26:00.136 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=276, startDateTime=2023-09-19T11:26:00.135437, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:26:30.135 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=276, startDateTime=2023-09-19T11:26:00.135437, endDateTime=2023-09-19T11:26:30.134697700, lastSuccessfullExecutionDateTime=2023-09-19T11:26:00.135437, status=COMPLETED)
+11:26:30.140 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:26:30.140 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:26:30.140214700
+11:26:30.142 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:27:00.024 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:27:00.024251900
+11:27:00.029 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=276, startDateTime=2023-09-19T11:26:00.135437, endDateTime=2023-09-19T11:26:30.134698, lastSuccessfullExecutionDateTime=2023-09-19T11:26:00.135437, status=COMPLETED)
+11:27:00.030 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:27:00.069 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=277, startDateTime=2023-09-19T11:27:00.068684700, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:27:31.376 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=277, startDateTime=2023-09-19T11:27:00.068684700, endDateTime=2023-09-19T11:27:31.376704600, lastSuccessfullExecutionDateTime=2023-09-19T11:27:00.068684700, status=COMPLETED)
+11:27:31.380 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:27:31.381 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:27:31.381348500
+11:27:31.383 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:28:00.015 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:28:00.015439900
+11:28:00.018 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=277, startDateTime=2023-09-19T11:27:00.068685, endDateTime=2023-09-19T11:27:31.376705, lastSuccessfullExecutionDateTime=2023-09-19T11:27:00.068685, status=COMPLETED)
+11:28:00.018 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:28:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=278, startDateTime=2023-09-19T11:28:00.036470400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:28:30.361 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=278, startDateTime=2023-09-19T11:28:00.036470400, endDateTime=2023-09-19T11:28:30.361293500, lastSuccessfullExecutionDateTime=2023-09-19T11:28:00.036470400, status=COMPLETED)
+11:28:30.363 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:28:30.363 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:28:30.363897200
+11:28:30.365 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:29:00.005 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:29:00.005248
+11:29:00.010 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=278, startDateTime=2023-09-19T11:28:00.036470, endDateTime=2023-09-19T11:28:30.361294, lastSuccessfullExecutionDateTime=2023-09-19T11:28:00.036470, status=COMPLETED)
+11:29:00.010 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:29:00.038 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=279, startDateTime=2023-09-19T11:29:00.036333300, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:29:30.877 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=279, startDateTime=2023-09-19T11:29:00.036333300, endDateTime=2023-09-19T11:29:30.876294, lastSuccessfullExecutionDateTime=2023-09-19T11:29:00.036333300, status=COMPLETED)
+11:29:30.880 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:29:30.880 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:29:30.880671800
+11:29:30.884 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:30:00.007 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:30:00.007551100
+11:30:00.010 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=279, startDateTime=2023-09-19T11:29:00.036333, endDateTime=2023-09-19T11:29:30.876294, lastSuccessfullExecutionDateTime=2023-09-19T11:29:00.036333, status=COMPLETED)
+11:30:00.010 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:30:00.033 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=280, startDateTime=2023-09-19T11:30:00.032257500, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:30:05.237 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:30:31.701 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=280, startDateTime=2023-09-19T11:30:00.032257500, endDateTime=2023-09-19T11:30:31.700627300, lastSuccessfullExecutionDateTime=2023-09-19T11:30:00.032257500, status=COMPLETED)
+11:30:31.705 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:30:31.706 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:30:31.706764600
+11:30:31.708 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:31:00.004 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:31:00.004770200
+11:31:00.018 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=280, startDateTime=2023-09-19T11:30:00.032258, endDateTime=2023-09-19T11:30:31.700627, lastSuccessfullExecutionDateTime=2023-09-19T11:30:00.032258, status=COMPLETED)
+11:31:00.018 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:31:00.048 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=281, startDateTime=2023-09-19T11:31:00.047582, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:31:38.364 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=281, startDateTime=2023-09-19T11:31:00.047582, endDateTime=2023-09-19T11:31:38.363037300, lastSuccessfullExecutionDateTime=2023-09-19T11:31:00.047582, status=COMPLETED)
+11:31:38.369 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:31:38.369 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:31:38.369136
+11:31:38.372 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:32:00.005 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:32:00.005094100
+11:32:00.008 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=281, startDateTime=2023-09-19T11:31:00.047582, endDateTime=2023-09-19T11:31:38.363037, lastSuccessfullExecutionDateTime=2023-09-19T11:31:00.047582, status=COMPLETED)
+11:32:00.008 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:32:00.043 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=282, startDateTime=2023-09-19T11:32:00.041193100, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:32:28.574 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=282, startDateTime=2023-09-19T11:32:00.041193100, endDateTime=2023-09-19T11:32:28.574184500, lastSuccessfullExecutionDateTime=2023-09-19T11:32:00.041193100, status=COMPLETED)
+11:32:28.578 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:32:28.579 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:32:28.579217300
+11:32:28.581 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:33:00.016 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:33:00.016214900
+11:33:00.019 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=282, startDateTime=2023-09-19T11:32:00.041193, endDateTime=2023-09-19T11:32:28.574185, lastSuccessfullExecutionDateTime=2023-09-19T11:32:00.041193, status=COMPLETED)
+11:33:00.019 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:33:00.044 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=283, startDateTime=2023-09-19T11:33:00.043521200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:33:25.704 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=283, startDateTime=2023-09-19T11:33:00.043521200, endDateTime=2023-09-19T11:33:25.704119200, lastSuccessfullExecutionDateTime=2023-09-19T11:33:00.043521200, status=COMPLETED)
+11:33:25.710 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:33:25.710 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:33:25.710120
+11:33:25.712 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:34:00.015 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:34:00.015722200
+11:34:00.018 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=283, startDateTime=2023-09-19T11:33:00.043521, endDateTime=2023-09-19T11:33:25.704119, lastSuccessfullExecutionDateTime=2023-09-19T11:33:00.043521, status=COMPLETED)
+11:34:00.018 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:34:00.038 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=284, startDateTime=2023-09-19T11:34:00.037799200, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:34:27.016 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=284, startDateTime=2023-09-19T11:34:00.037799200, endDateTime=2023-09-19T11:34:27.015493100, lastSuccessfullExecutionDateTime=2023-09-19T11:34:00.037799200, status=COMPLETED)
+11:34:27.020 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:34:27.021 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:34:27.021861600
+11:34:27.025 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:35:00.005 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:35:00.005187600
+11:35:00.011 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=284, startDateTime=2023-09-19T11:34:00.037799, endDateTime=2023-09-19T11:34:27.015493, lastSuccessfullExecutionDateTime=2023-09-19T11:34:00.037799, status=COMPLETED)
+11:35:00.011 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:35:00.037 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=285, startDateTime=2023-09-19T11:35:00.036529, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:35:05.251 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:35:28.972 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=285, startDateTime=2023-09-19T11:35:00.036529, endDateTime=2023-09-19T11:35:28.970957900, lastSuccessfullExecutionDateTime=2023-09-19T11:35:00.036529, status=COMPLETED)
+11:35:28.994 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:35:28.994 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:35:28.994628500
+11:35:29.001 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:36:00.001 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:36:00.001423100
+11:36:00.006 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=285, startDateTime=2023-09-19T11:35:00.036529, endDateTime=2023-09-19T11:35:28.970958, lastSuccessfullExecutionDateTime=2023-09-19T11:35:00.036529, status=COMPLETED)
+11:36:00.007 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:36:00.031 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=286, startDateTime=2023-09-19T11:36:00.030510400, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:36:25.792 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=286, startDateTime=2023-09-19T11:36:00.030510400, endDateTime=2023-09-19T11:36:25.790371900, lastSuccessfullExecutionDateTime=2023-09-19T11:36:00.030510400, status=COMPLETED)
+11:36:25.801 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:36:25.802 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:36:25.802557800
+11:36:25.810 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:37:00.002 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:37:00.002594600
+11:37:00.034 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=286, startDateTime=2023-09-19T11:36:00.030510, endDateTime=2023-09-19T11:36:25.790372, lastSuccessfullExecutionDateTime=2023-09-19T11:36:00.030510, status=COMPLETED)
+11:37:00.034 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:37:00.141 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=287, startDateTime=2023-09-19T11:37:00.140403800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:37:26.183 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=287, startDateTime=2023-09-19T11:37:00.140403800, endDateTime=2023-09-19T11:37:26.180881300, lastSuccessfullExecutionDateTime=2023-09-19T11:37:00.140403800, status=COMPLETED)
+11:37:26.201 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:37:26.202 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:37:26.202056700
+11:37:26.217 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:38:00.005 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Batch processing started at 2023-09-19T11:38:00.005778
+11:38:00.011 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - Last batch processing details BatchDetailsDto(id=287, startDateTime=2023-09-19T11:37:00.140404, endDateTime=2023-09-19T11:37:26.180881, lastSuccessfullExecutionDateTime=2023-09-19T11:37:00.140404, status=COMPLETED)
+11:38:00.012 [pool-7-thread-1] INFO  c.i.u.m.c.TeamsBatchJobRestController - TeamsBatchJobRestController.meetingDataBatchProcessing() is under execution...
+11:38:00.045 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details BatchDetails(id=288, startDateTime=2023-09-19T11:38:00.044778800, endDateTime=null, lastSuccessfullExecutionDateTime=null, status=RUNNING)
+11:38:27.397 [pool-7-thread-1] INFO  c.i.u.m.s.impl.TeamsBatchServiceImpl - Current batch processing details after completion BatchDetails(id=288, startDateTime=2023-09-19T11:38:00.044778800, endDateTime=2023-09-19T11:38:27.397737300, lastSuccessfullExecutionDateTime=2023-09-19T11:38:00.044778800, status=COMPLETED)
+11:38:27.401 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Status 200 Response Batch processing successfull
+11:38:27.402 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - batch processing ended at : 2023-09-19T11:38:27.402739400
+11:38:27.404 [pool-7-thread-1] INFO  c.i.u.m.TeamsBatchJobApplication - Next Cron Time : 0 */1 * * * *
+11:38:40.882 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
+11:38:40.930 [Thread-1] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application UMS-BATCH-SERVICE with eureka with status DOWN
+11:38:40.932 [Thread-1] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695103720931, current=DOWN, previous=UP]
+11:38:40.934 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+11:38:41.101 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+11:38:41.396 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-auto-1"]
+11:38:41.399 [Thread-1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+11:38:41.438 [Thread-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+11:38:41.513 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-auto-1"]
+11:38:41.624 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-auto-1"]
+11:38:41.746 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+11:38:41.843 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+11:38:41.925 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+11:38:41.964 [Thread-1] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+11:38:44.991 [Thread-1] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
+11:38:45.026 [Thread-1] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - deregister  status: 200
+11:38:45.051 [Thread-1] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+11:38:46.319 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 9768 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+11:38:46.320 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+11:38:47.192 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+11:38:47.318 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 125 ms. Found 3 JPA repository interfaces.
+11:38:47.463 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=3c411458-7095-339b-b79d-2d9ea68f2487
+11:38:47.665 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+11:38:47.666 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-2"]
+11:38:47.667 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:38:47.667 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+11:38:47.773 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:38:47.774 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1447 ms
+11:38:47.842 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+11:38:47.858 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+11:38:48.095 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+11:38:48.097 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+11:38:48.556 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+11:38:48.557 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+11:38:48.890 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+11:38:49.060 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+11:38:49.371 [restartedMain] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
+11:38:49.679 [restartedMain] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+11:38:49.702 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-2"]
+11:38:49.706 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 62385 (http) with context path ''
+11:38:49.706 [restartedMain] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 62385
+11:38:49.707 [restartedMain] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+11:38:49.710 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+11:38:49.710 [restartedMain] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:38:49.712 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+11:38:49.712 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+11:38:49.712 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+11:38:49.712 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+11:38:49.712 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+11:38:49.712 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+11:38:49.712 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+11:38:49.738 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+11:38:49.739 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+11:38:49.741 [restartedMain] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+11:38:49.742 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1695103729742 with initial instances count: 10
+11:38:49.745 [restartedMain] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application UMS-BATCH-SERVICE with eureka with status UP
+11:38:49.745 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695103729745, current=UP, previous=STARTING]
+11:38:49.745 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+11:38:49.760 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+11:38:50.142 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 4.428 seconds (JVM running for 3542.615)
+11:38:50.187 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   TaskSchedulingAutoConfiguration#scheduledBeanLazyInitializationExcludeFilter:
+      Did not match:
+         - @ConditionalOnBean (names: org.springframework.context.annotation.internalScheduledAnnotationProcessor; SearchStrategy: all) did not find any beans named org.springframework.context.annotation.internalScheduledAnnotationProcessor (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+11:38:50.581 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
+11:38:50.582 [Thread-15] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application UMS-BATCH-SERVICE with eureka with status DOWN
+11:38:50.583 [Thread-15] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695103730583, current=DOWN, previous=UP]
+11:38:50.583 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+11:38:50.595 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+11:38:50.864 [Thread-15] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-auto-2"]
+11:38:50.865 [Thread-15] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+11:38:50.871 [Thread-15] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-auto-2"]
+11:38:50.874 [Thread-15] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-auto-2"]
+11:38:50.878 [Thread-15] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+11:38:50.879 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+11:38:50.883 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+11:38:50.884 [Thread-15] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+11:38:53.898 [Thread-15] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
+11:38:53.914 [Thread-15] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - deregister  status: 200
+11:38:53.919 [Thread-15] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+11:38:54.374 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - Starting TeamsBatchJobApplication using Java 11.0.18 on IKCON1049 with PID 9768 (C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3\target\classes started by VaishnavPuthiyanampa in C:\STS-4\IKCON\Products\UMS\msteams-batchjob-service3)
+11:38:54.375 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - No active profile set, falling back to 1 default profile: "default"
+11:38:54.932 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+11:38:55.006 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 73 ms. Found 3 JPA repository interfaces.
+11:38:55.180 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=3c411458-7095-339b-b79d-2d9ea68f2487
+11:38:55.286 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+11:38:55.287 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-3"]
+11:38:55.287 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:38:55.287 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.78]
+11:38:55.407 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:38:55.408 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1026 ms
+11:38:55.496 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+11:38:55.514 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+11:38:55.771 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+11:38:55.772 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+11:38:56.109 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+11:38:56.110 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+11:38:56.363 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+11:38:56.506 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+11:38:56.863 [restartedMain] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
+11:38:57.246 [restartedMain] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+11:38:57.266 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-3"]
+11:38:57.269 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 62418 (http) with context path ''
+11:38:57.269 [restartedMain] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 62418
+11:38:57.271 [restartedMain] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+11:38:57.273 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+11:38:57.273 [restartedMain] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:38:57.274 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+11:38:57.274 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+11:38:57.274 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+11:38:57.274 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+11:38:57.274 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+11:38:57.274 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+11:38:57.274 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+11:38:57.288 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+11:38:57.289 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+11:38:57.289 [restartedMain] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+11:38:57.290 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1695103737290 with initial instances count: 10
+11:38:57.292 [restartedMain] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application UMS-BATCH-SERVICE with eureka with status UP
+11:38:57.293 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695103737293, current=UP, previous=STARTING]
+11:38:57.294 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+11:38:57.308 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+11:38:57.565 [restartedMain] INFO  c.i.u.m.TeamsBatchJobApplication - Started TeamsBatchJobApplication in 3.547 seconds (JVM running for 3550.037)
+11:38:57.567 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+11:43:57.308 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:48:57.336 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:49:46.490 [http-nio-auto-3-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+11:49:46.492 [http-nio-auto-3-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+11:49:46.840 [http-nio-auto-3-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 347 ms
+11:53:57.351 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+11:58:57.372 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:03:57.407 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:08:57.431 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:13:57.448 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:18:57.462 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:23:57.466 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:28:57.470 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:33:57.483 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:38:57.509 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:43:57.518 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:48:57.561 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:53:57.586 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+12:58:57.624 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+13:03:57.636 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+13:08:57.650 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+13:13:57.691 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+13:16:19.729 [RMI TCP Connection(161)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+13:16:19.729 [RMI TCP Connection(162)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+13:16:19.729 [RMI TCP Connection(163)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+13:16:19.803 [RMI TCP Connection(162)-127.0.0.1] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application UMS-BATCH-SERVICE with eureka with status DOWN
+13:16:19.806 [RMI TCP Connection(162)-127.0.0.1] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1695109579806, current=DOWN, previous=UP]
+13:16:19.809 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0: registering service...
+13:16:19.886 [RMI TCP Connection(164)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+13:16:19.934 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_UMS-BATCH-SERVICE/IKCON1049:UMS-BATCH-SERVICE:0 - registration status: 204
+13:16:20.046 [RMI TCP Connection(165)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+13:16:20.092 [RMI TCP Connection(162)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-auto-3"]
+13:16:20.092 [RMI TCP Connection(162)-127.0.0.1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+13:16:20.106 [RMI TCP Connection(162)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+13:16:20.176 [RMI TCP Connection(166)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+13:16:20.186 [RMI TCP Connection(162)-127.0.0.1] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [pool-25-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.18/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1170)
+ java.base@11.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.18/java.lang.Thread.run(Thread.java:834)
+13:16:20.194 [RMI TCP Connection(162)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-auto-3"]
+13:16:20.211 [RMI TCP Connection(162)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-auto-3"]
+13:16:20.271 [RMI TCP Connection(162)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+13:16:20.314 [RMI TCP Connection(162)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+13:16:20.357 [RMI TCP Connection(162)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+13:16:20.361 [RMI TCP Connection(162)-127.0.0.1] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...

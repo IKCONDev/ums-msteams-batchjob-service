@@ -2,7 +2,6 @@ package com.ikn.ums.msteams.dto;
 
 import java.time.LocalDateTime;
 
-import com.ikn.ums.msteams.entity.UserProfile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
