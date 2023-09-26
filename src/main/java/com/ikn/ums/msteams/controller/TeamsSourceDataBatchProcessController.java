@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ikn.ums.msteams.VO.ActionsItemsVO;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
+import com.ikn.ums.msteams.entity.BatchDetails;
 import com.ikn.ums.msteams.entity.Event;
 import com.ikn.ums.msteams.exception.ControllerException;
 import com.ikn.ums.msteams.exception.EmptyInputException;
@@ -316,6 +317,19 @@ public class TeamsSourceDataBatchProcessController {
 					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG + " " + e.getStackTrace().toString());
 			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@GetMapping(path="/batch-details")
+	public ResponseEntity<?> getBatchProcessDetails(){
+		try {
+			List<BatchDetails> batchDetails = teamsSourceDataBatchProcessService.getBatchProcessDetails();
+			return new ResponseEntity<>(batchDetails,HttpStatus.OK);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
 	}
 
 }

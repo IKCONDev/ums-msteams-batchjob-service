@@ -632,4 +632,11 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		
 	}
 
-}// class
+	@Override
+	public List<BatchDetails> getBatchProcessDetails() {
+		// TODO Auto-generated method stub
+	   return batchDetailsRepository.findAll();
+	}	
+	
+}//class
+
