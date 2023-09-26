@@ -2,6 +2,7 @@ package com.ikn.ums.msteams.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,12 +21,21 @@ import lombok.NoArgsConstructor;
 public class BatchDetails {
 	
 	@Id
-	@SequenceGenerator(name = "attendess_gen", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(generator = "attendess_gen")
-	private Integer id;
+	@SequenceGenerator(name = "batchId_gen", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "batchId_gen")
+	@Column(name = "batchId")
+	private Long batchId;
+	
+	@Column(name = "startDateTime")
 	private LocalDateTime  startDateTime;
+	
+	@Column(name = "endDateTime")
 	private LocalDateTime  endDateTime;
+	
+	@Column(name = "lastSuccessfullExecutionDateTime")
 	private LocalDateTime  lastSuccessfullExecutionDateTime;
+	
+	@Column(name = "status")
 	private String status;
 
 }

@@ -1,6 +1,6 @@
 package com.ikn.ums.msteams.dto;
 
-import com.ikn.ums.msteams.entity.UserProfile;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LocationDto {
 	
+	@JsonProperty("displayName")
 	private String displayName;
+	@JsonProperty("locationType")
 	private String locationType;
-	private String uniquerId;
+	@JsonProperty("uniqueId")
+	private String uniqueId;
+	@JsonProperty("uniqueIdType")
 	private String uniqueIdType;
 	
 }
