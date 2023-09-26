@@ -609,5 +609,14 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		return rentity.getBody();
 	}
 
+	@Override
+	public List<BatchDetails> getBatchProcessDetails() {
+		// TODO Auto-generated method stub
+	   return batchDetailsRepository.findAll();
+		
+	}
+	
+	
+
 	
 }//class
