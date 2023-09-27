@@ -41,8 +41,6 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
 	@Autowired
 	private CronRepository cronRepository;
 	
-	String cronTime = null;
-	
 	@Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
 		log.info("TeamsRawDataBatchProcessApplication.configureTasks() Entered");
@@ -61,9 +59,7 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
                 
             	//get cron details from db, however only 1 cron will be present
             	List<CronDetails> dbCronList = cronRepository.findAll();
-            	dbCronList.forEach(dbcron -> {
-            		cronTime = dbcron.getCronTime();
-            	});
+            	String cronTime = dbCronList.get(0).getCronTime();
             	//insert a cron into db if no cron is present in db
             	CronDetails savedCron = null;
             	CronTrigger trigger = null;
