@@ -96,7 +96,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	@Override
 	public void performSourceDataBatchProcessing(BatchDetailsDto lastBatchDetails) throws IOException, Exception {
 		
-		List<List<Event>> allUsersEventList =  new ArrayList<>();
+		List<List<Event>> allUsersEventListOfCurrentBatchProcess =  new ArrayList<>();
 
 		// get access token from MS teams server , only if existing access token is
 		// expired
@@ -160,7 +160,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						// save user events
 						List<Event> userEventList = saveAllUsersCalendarEvents(calendarEventsDtolist, userDto, currentDbBatchDetails.getBatchId());
 						if(userEventList.size()>0) {
-							allUsersEventList.add(userEventList);
+							allUsersEventListOfCurrentBatchProcess.add(userEventList);
 						}
 					}
 				});
@@ -172,10 +172,14 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				batchDetailsRepository.save(currentDbBatchDetails);
 				log.info("Current batch processing details after completion " + currentDbBatchDetails);
 				
-				//copy all the events of current batch processing to meeting microservice
-				copySourceDataofCurrentBatchProcessingToMeetingsMicroservice(allUsersEventList);
+				//if batch processing contains any events of users , then copy the meetings to meeting microservice
+				if(allUsersEventListOfCurrentBatchProcess.size() > 0) {
+					//copy all the events of current batch processing to meeting microservice
+					copySourceDataofCurrentBatchProcessingToMeetingsMicroservice(allUsersEventListOfCurrentBatchProcess);
+				}
 				
 			} catch (Exception e) {
+				e.printStackTrace();
 				// set current batch processing details, if failed
 				currentDbBatchDetails.setStatus("FAILED");
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
@@ -623,7 +627,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	private void copySourceDataofCurrentBatchProcessingToMeetingsMicroservice(List<List<Event>> allUsersEventList) {
 		log.info(
-				"TeamsSourceDataBatchProcessServiceImpl.copySourceDataofCurrentBatchProcessingToMeetingsMicroservice() entered");
+				"TeamsSourceDataBatchProcessServiceImpl.copySourceDataofCurrentBatchProcessingToMeetingsMicroservice() entered with allUsersEventList of current batchprocessing");
 		String url = "http://UMS-MEETING-SERVICE/meetings/";
 		HttpEntity<List<List<Event>>> httpEntity = new HttpEntity<List<List<Event>>>(allUsersEventList);
 		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
