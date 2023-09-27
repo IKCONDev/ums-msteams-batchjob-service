@@ -59,7 +59,10 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
                 
             	//get cron details from db, however only 1 cron will be present
             	List<CronDetails> dbCronList = cronRepository.findAll();
-            	String cronTime = dbCronList.get(0).getCronTime();
+            	String cronTime = null;
+            	if(dbCronList.size() > 0) {
+            		cronTime = dbCronList.get(0).getCronTime();
+            	}
             	//insert a cron into db if no cron is present in db
             	CronDetails savedCron = null;
             	CronTrigger trigger = null;
@@ -67,7 +70,7 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
             		trigger = new CronTrigger(cronTime);
              	}else {
              		CronDetails defaultCron = new CronDetails();
-            		defaultCron.setCronTime("0 */2 * * * *");
+            		defaultCron.setCronTime("0 */5 * * * *");
             		savedCron = cronRepository.save(defaultCron);
             		log.info(" A default cron time is added by the task scheduler for batch processing ");
             		cronTime = savedCron.getCronTime();

@@ -78,8 +78,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	private LocalDateTime lastBatchProcessingStartTime;
 
-	private List<List<EventDto>> allUsersEventList;
-
 	private ObjectMapper mapper;
 
 	AccessToken acToken = new AccessToken(this.accessToken, OffsetDateTime.now());
@@ -164,7 +162,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						}
 					}
 				});
-				log.info(allUsersEventList.toString());
+				//log.info(allUsersEventList.toString());
 				// set current batch processing details, if passed
 				currentDbBatchDetails.setStatus("COMPLETED");
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
