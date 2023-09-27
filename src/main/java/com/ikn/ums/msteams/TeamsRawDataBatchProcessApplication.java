@@ -2,6 +2,7 @@ package com.ikn.ums.msteams;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,12 +23,13 @@ import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.client.RestTemplate;
 
 import com.ikn.ums.msteams.controller.TeamsSourceDataBatchProcessController;
+import com.ikn.ums.msteams.entity.CronDetails;
 import com.ikn.ums.msteams.repo.CronRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
-//@EnableScheduling
+@EnableScheduling
 @ComponentScan(basePackages = "com.ikn.ums.msteams")
 @Slf4j
 @EnableDiscoveryClient
@@ -38,6 +40,8 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
 	
 	@Autowired
 	private CronRepository cronRepository;
+	
+	String cronTime = null;
 	
 	@Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
@@ -55,9 +59,24 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
             @Override
             public Date nextExecutionTime(TriggerContext triggerContext) {
                 
-            	//get cron time from db
-              	String cronTime = cronRepository.getCronTime(1).getCronTime();
-                CronTrigger trigger = new CronTrigger(cronTime);
+            	//get cron details from db, however only 1 cron will be present
+            	List<CronDetails> dbCronList = cronRepository.findAll();
+            	dbCronList.forEach(dbcron -> {
+            		cronTime = dbcron.getCronTime();
+            	});
+            	//insert a cron into db if no cron is present in db
+            	CronDetails savedCron = null;
+            	CronTrigger trigger = null;
+            	if(cronTime != "" && cronTime != null) {
+            		trigger = new CronTrigger(cronTime);
+             	}else {
+             		CronDetails defaultCron = new CronDetails();
+            		defaultCron.setCronTime("0 */2 * * * *");
+            		savedCron = cronRepository.save(defaultCron);
+            		log.info(" A default cron time is added by the task scheduler for batch processing ");
+            		cronTime = savedCron.getCronTime();
+            		trigger = new CronTrigger(cronTime);
+            	}
                 log.info("The scheduler is scheduled for next cron time : "+cronTime);
                 Date nextExec = trigger.nextExecutionTime(triggerContext);  
                 return nextExec;
