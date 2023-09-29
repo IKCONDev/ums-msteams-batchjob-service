@@ -199,7 +199,7 @@ public class TeamsSourceDataBatchProcessController {
 					"TeamsSourceDataBatchProcessController.updateActionItemGeneratedStatus() exiting with exception : Exception occured while updating action items generation status for events  "
 							+ e.fillInStackTrace());
 			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
-					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG + " " + e.getStackTrace().toString());
+					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG);
 			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
