@@ -74,6 +74,7 @@ public class TeamsSourceDataBatchProcessController {
 				return new ResponseEntity<>(ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_SUCCESS_MSG, HttpStatus.OK);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.info(
 					"TeamsSourceDataBatchProcessController.rawDataBatchProcessing() : Exception occured while executing raw data batch process : "
 							+ e.getMessage());
