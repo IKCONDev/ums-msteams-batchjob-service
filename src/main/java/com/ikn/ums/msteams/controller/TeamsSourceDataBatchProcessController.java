@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.azure.core.credential.AccessToken;
 import com.ikn.ums.msteams.VO.ActionsItemsVO;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.BatchDetails;
@@ -22,6 +23,7 @@ import com.ikn.ums.msteams.exception.ErrorCodeMessages;
 import com.ikn.ums.msteams.exception.InvalidInputException;
 import com.ikn.ums.msteams.service.EventService;
 import com.ikn.ums.msteams.service.TeamsSourceDataBatchProcessService;
+import com.ikn.ums.msteams.utils.InitializeMicrosoftGraph;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,17 +37,23 @@ public class TeamsSourceDataBatchProcessController {
 
 	@Autowired
 	private EventService eventService;
-	// @Autowired
-	// private InitializeMicrosoftGraph microsoftGraph;
+	
+	@Autowired
+	private InitializeMicrosoftGraph microsoftGraph;
 
-	/*
-	 * @GetMapping(path = "/auth/token") public ResponseEntity<?>
-	 * authenticateTeamsServer() { try { String accessToken =
-	 * this.microsoftGraph.initializeMicrosoftGraph(); return new
-	 * ResponseEntity<>(accessToken, HttpStatus.ACCEPTED); } catch (Exception e) {
-	 * e.printStackTrace(); return new ResponseEntity<>(e.getMessage(),
-	 * HttpStatus.INTERNAL_SERVER_ERROR); } }
-	 */
+	
+	  @GetMapping(path = "/auth/token") 
+	  public ResponseEntity<?> authenticateTeamsServer() { 
+		try { 
+			AccessToken accessToken = this.microsoftGraph.initializeMicrosoftGraph(); 
+			String actualToken = accessToken.getToken();
+			return new ResponseEntity<>(actualToken, HttpStatus.ACCEPTED); 
+		} catch (Exception e) {
+	        e.printStackTrace(); 
+	        return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR); 
+	    } 
+	  }
+	 
 
 	/**
 	 * The batch processing code, that communicates with microsoft teams server and

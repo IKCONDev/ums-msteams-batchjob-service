@@ -72,7 +72,8 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
              		CronDetails defaultCron = new CronDetails();
             		defaultCron.setCronTime("0 */5 * * * *");
             		savedCron = cronRepository.save(defaultCron);
-            		log.info(" A default cron time is added by the task scheduler for batch processing ");
+            		log.info("Since there is no cron expression found in db, A default cron time is added by the task scheduler for batch processing :"+savedCron.getCronTime());
+            		
             		cronTime = savedCron.getCronTime();
             		trigger = new CronTrigger(cronTime);
             	}
