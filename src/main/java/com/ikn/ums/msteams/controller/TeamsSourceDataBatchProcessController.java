@@ -41,15 +41,20 @@ public class TeamsSourceDataBatchProcessController {
 	@Autowired
 	private InitializeMicrosoftGraph microsoftGraph;
 
-	
+	/**
+	 * Test method to check the token retrieval from microsoft azure identity server
+	 * @return
+	 */
 	  @GetMapping(path = "/auth/token") 
 	  public ResponseEntity<?> authenticateTeamsServer() { 
+		  log.info("authenticateTeamsServer() entered with no args");
 		try { 
 			AccessToken accessToken = this.microsoftGraph.initializeMicrosoftGraph(); 
 			String actualToken = accessToken.getToken();
+			log.info("authenticateTeamsServer() executed succesfully.");
 			return new ResponseEntity<>(actualToken, HttpStatus.ACCEPTED); 
 		} catch (Exception e) {
-	        e.printStackTrace(); 
+			log.error("authenticateTeamsServer() : An error occurred while retrieving token: {}." + e.getMessage(), e);
 	        return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR); 
 	    } 
 	  }

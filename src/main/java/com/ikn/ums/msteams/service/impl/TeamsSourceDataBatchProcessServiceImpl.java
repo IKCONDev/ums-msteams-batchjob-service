@@ -3,14 +3,17 @@ package com.ikn.ums.msteams.service.impl;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
@@ -144,21 +147,24 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				// iterate each user and get their events and save to UMS db
 				userDtoList.forEach(userDto -> {
 					if (!environment.getProperty("userprincipal.exclude.users").contains(userDto.getEmail())) {
+						//the employees/users whoese teams user id is not added, 
+						//they will just be ignored while getting the batch processing details.(TeamsUserId is optional)
+						if(userDto.getTeamsUserId() != null) {
+							String userId = userDto.getTeamsUserId();
+							// get userprincipalName and pass it to calendarView method to fetch the
+							// calendar events if the user
+							String userPrincipalName = userDto.getEmail();
+							System.out.println(userId + " " + userPrincipalName);
 
-						String userId = userDto.getTeamsUserId();
-						// get userprincipalName and pass it to calendarView method to fetch the
-						// calendar events if the user
-						String userPrincipalName = userDto.getEmail();
-						System.out.println(userId + " " + userPrincipalName);
+							// get users calendar view of events using principal name
+							List<EventDto> calendarEventsDtolist = getUserCalendarView(userDto,
+									lastBatchProcessingStartTime);
 
-						// get users calendar view of events using principal name
-						List<EventDto> calendarEventsDtolist = getUserCalendarView(userDto,
-								lastBatchProcessingStartTime);
-
-						// save user events
-						List<Event> userEventList = saveAllUsersCalendarEvents(calendarEventsDtolist, userDto, currentDbBatchDetails.getBatchId());
-						if(userEventList.size()>0) {
-							allUsersEventListOfCurrentBatchProcess.add(userEventList);
+							// save user events
+							List<Event> userEventList = saveAllUsersCalendarEvents(calendarEventsDtolist, userDto, currentDbBatchDetails.getBatchId());
+							if(userEventList.size()>0) {
+								allUsersEventListOfCurrentBatchProcess.add(userEventList);
+							}
 						}
 					}
 				});
@@ -460,6 +466,10 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			event.setEndTimeZone(eventDto.getEnd().getTimeZone());
 			event.setLocation(eventDto.getLocation().getDisplayName());
 			event.setOrganizerEmailId(eventDto.getOrganizer().getEmailAddress().getAddress());
+			//if(user.getDepartment() != null) {
+				//event.setDepartmentId(user.getDepartment().getDepartmentId());
+			//}
+			event.setDepartmentId(user.getDepartmentId());
 			event.setOrganizerName(eventDto.getOrganizer().getEmailAddress().getName());
 			event.setJoinUrl(eventDto.getOnlineMeeting().getJoinUrl());
 			event.setEmailId(user.getEmail());
@@ -467,9 +477,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			List<Transcript> transcripts = new ArrayList<>();
 			if (retrivedTranscriptDtos != null) {
 				retrivedTranscriptDtos.forEach(transcriptDto -> {
-					Transcript t = new Transcript();
-					mapper.modelMapper.map(transcriptDto, t);
-					transcripts.add(t);
+					Transcript transcript = new Transcript();
+					mapper.modelMapper.map(transcriptDto, transcript);
+					transcripts.add(transcript);
 				});
 				// set transcripts to event
 				event.setMeetingTranscripts(transcripts);
@@ -499,6 +509,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					if (attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getEmail())) {
 						// attendee.setUser(userProfilesList.get(i));
 						attendee.setEmailId(userProfilesList.get(i).getEmail());
+						//userProfilesList.get(i).getDepartment().getDepartmentId();
 					}
 					/*
 					 * if(event.getOrganizerEmailId().equalsIgnoreCase(userProfilesList.get(i).

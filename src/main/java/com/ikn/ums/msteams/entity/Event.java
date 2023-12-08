@@ -116,6 +116,9 @@ public class Event {
     
 	@Column(name = "user_id")
     private String emailId;
+	
+	@Column(name = "departmentId")
+	private Long departmentId;
     
     @Column(name = "isActionItemsGenerated",nullable = true)
     private boolean isActionItemsGenerated = false;
