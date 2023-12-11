@@ -87,10 +87,7 @@ public class TeamsSourceDataBatchProcessController {
 				return new ResponseEntity<>(ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_SUCCESS_MSG, HttpStatus.OK);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.info(
-					"TeamsSourceDataBatchProcessController.rawDataBatchProcessing() : Exception occured while executing raw data batch process : "
-							+ e.getMessage());
+			log.error("rawDataBatchProcessing() : An error/exception occurred: {}." + e.getMessage(), e);
 			throw new ControllerException(ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_CODE,
 					ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_MSG);
 		}
@@ -119,9 +116,7 @@ public class TeamsSourceDataBatchProcessController {
 			log.info("TeamsSourceDataBatchProcessController.getActionItemsOfEvent() exited sucessfully");
 			return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 		} catch (Exception e) {
-			log.info(
-					"TeamsSourceDataBatchProcessController.getActionItemsOfEvent() exited with exception : exception occured while getting action items of an event "
-							+ e.fillInStackTrace());
+			log.error("getActionItemsOfEvent() : An error/exception occurred: {}." + e.getMessage(), e);
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_MSG);
 		}
@@ -141,8 +136,7 @@ public class TeamsSourceDataBatchProcessController {
 			log.info("TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully");
 			return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 		} catch (Exception e) {
-			log.info(
-					"TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting with exception : Exception occurred while fetching action items of all events");
+			log.error("getActionItemsOfAllEvents() : An error/exception occurred: {}." + e.getMessage(), e);
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_MSG);
 		}
