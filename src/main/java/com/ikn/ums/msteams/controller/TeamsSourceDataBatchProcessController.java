@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -76,7 +77,8 @@ public class TeamsSourceDataBatchProcessController {
 			log.info("Last batch processing details " + existingBatchProcess.toString());
 			if (existingBatchProcess.getStatus().equalsIgnoreCase("RUNNING")) {
 				log.info("An instance of batch process is already running...");
-				return new ResponseEntity<>("An instance of raw data batch process is already running",
+				String message = "An instance of raw data batch process is already running";
+				return new ResponseEntity<>(message,
 						HttpStatus.PROCESSING);
 			} else {
 				log.info(
@@ -214,15 +216,41 @@ public class TeamsSourceDataBatchProcessController {
 	
 	@GetMapping(path="/batch-details")
 	public ResponseEntity<?> getBatchProcessDetails(){
+		log.info("getBatchProcessDetails() entered with no args");
 		try {
 			List<BatchDetails> batchDetails = teamsSourceDataBatchProcessService.getBatchProcessDetails();
+			log.info("getBatchProcessDetails() executed successfully.");
 			return new ResponseEntity<>(batchDetails,HttpStatus.OK);
 		}catch (Exception e) {
-			// TODO: handle exception
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+			ControllerException umsCE = new ControllerException(ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_CODE, 
+					ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_MSG);
+			throw umsCE;
 		}
-		
-		
+	}
+	
+	@PutMapping(path="/crontime/{crontime}")
+	public ResponseEntity<?> updateBatchProcessTime(@PathVariable String crontime){
+		if(crontime.isBlank() || crontime ==  null) {
+			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
+					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
+		}
+		boolean isCronTimeUpdated = false;
+		log.info("getBatchProcessDetails() entered with no args");
+		try {
+			var constructedBatchProcessTime = "";
+			constructedBatchProcessTime = "0 */"+crontime+" * * * *";
+			teamsSourceDataBatchProcessService.updateBatchProcessTime(constructedBatchProcessTime);
+			log.info("getBatchProcessDetails() executed successfully.");
+			isCronTimeUpdated = true;
+			return new ResponseEntity<>(isCronTimeUpdated,HttpStatus.PARTIAL_CONTENT);
+		}catch (EmptyInputException businessException) {
+			throw businessException;
+		}
+		catch (Exception e) {
+			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_CODE, 
+					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_MSG);
+			throw umsCE;
+		}
 	}
 
 }

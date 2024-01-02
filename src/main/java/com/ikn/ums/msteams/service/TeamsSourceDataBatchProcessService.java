@@ -11,5 +11,6 @@ public interface TeamsSourceDataBatchProcessService {
 	void performSourceDataBatchProcessing(BatchDetailsDto batchDetails) throws Exception;
 	BatchDetailsDto getLatestSourceDataBatchProcessingRecordDetails();
 	List<BatchDetails> getBatchProcessDetails();
+	void updateBatchProcessTime(String cronTime);
 }
 
