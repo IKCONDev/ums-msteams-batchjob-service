@@ -13,6 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
@@ -40,6 +41,9 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
 	
 	@Autowired
 	private CronRepository cronRepository;
+	
+	@Autowired
+	private Environment environment;
 	
 	@Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
@@ -70,7 +74,8 @@ public class TeamsRawDataBatchProcessApplication extends SpringBootServletInitia
             		trigger = new CronTrigger(cronTime);
              	}else {
              		CronDetails defaultCron = new CronDetails();
-            		defaultCron.setCronTime("0 */5 * * * *");
+            		defaultCron.setCronTime(environment.getProperty("batch.process.default.crontime"));
+            		defaultCron.setHour(environment.getProperty("batch.process.default.crontime.hour"));
             		savedCron = cronRepository.save(defaultCron);
             		log.info("Since there is no cron expression found in db, A default cron time is added by the task scheduler for batch processing :"+savedCron.getCronTime());
             		

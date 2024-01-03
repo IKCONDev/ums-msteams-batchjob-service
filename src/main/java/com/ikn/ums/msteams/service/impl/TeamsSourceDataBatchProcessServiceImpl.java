@@ -709,17 +709,31 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	@Transactional(value = TxType.REQUIRED)
 	@Override
-	public CronDetails updateBatchProcessTime(String hour) {
-		if(hour.isBlank() || hour ==  null) {
+	public CronDetails updateBatchProcessTime(CronDetails cronDetails) {
+		if(cronDetails == null ) {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
 		}
 		//there will be however ponly one record in the list
 		CronDetails dbCron = cronRepository.findAll().get(0);
-		    String minute = "*";
-			var cronTime = "0 0 */"+hour+" "+minute+" * *";
+		   // String minute = "*";
+		if(cronDetails.getMinute().equals("0")) {
+			cronDetails.setMinute("*");
+		}
+		//check this in front end itself
+//		if(cronDetails.getHour().equals("0") && Integer.parseInt(cronDetails.getMinute()) < 30) {
+//			cronDetails.setMinute("*");
+//		}
+		var cronTime = "";
+		String hour = cronDetails.getHour().equals("0")?"*":cronDetails.getHour();
+		if(hour.equals("*")) {
+		   cronTime = "0 "+"*/"+cronDetails.getMinute()+" "+hour+" * * *";
+		}else {
+		   cronTime = "0 "+cronDetails.getMinute()+" */"+hour+" * * *";
+		}
 			dbCron.setCronTime(cronTime);
-			dbCron.setHour(hour);
+			dbCron.setHour(cronDetails.getHour());
+			dbCron.setMinute(cronDetails.getMinute());
 		CronDetails updatedCron = cronRepository.save(dbCron);
 		return updatedCron;
 	}

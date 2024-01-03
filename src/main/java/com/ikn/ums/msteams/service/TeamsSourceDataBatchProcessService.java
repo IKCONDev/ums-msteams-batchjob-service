@@ -12,7 +12,7 @@ public interface TeamsSourceDataBatchProcessService {
 	void performSourceDataBatchProcessing(BatchDetailsDto batchDetails) throws Exception;
 	BatchDetailsDto getLatestSourceDataBatchProcessingRecordDetails();
 	List<BatchDetails> getBatchProcessDetails();
-	CronDetails updateBatchProcessTime(String cronTime);
+	CronDetails updateBatchProcessTime(CronDetails cronDetails);
 	CronDetails getCronDetails();
 }
 

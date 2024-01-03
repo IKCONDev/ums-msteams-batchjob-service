@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -229,15 +230,15 @@ public class TeamsSourceDataBatchProcessController {
 		}
 	}
 	
-	@PutMapping(path="/crontime/{hour}")
-	public ResponseEntity<?> updateBatchProcessTime(@PathVariable String hour){
-		if(hour.isBlank() || hour ==  null) {
+	@PutMapping(path="/crontime")
+	public ResponseEntity<?> updateBatchProcessTime(@RequestBody CronDetails cronDetails){
+		if(cronDetails ==  null) {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
 		}
 		log.info("getBatchProcessDetails() entered with no args");
 		try {
-			CronDetails updatedCronDetails = teamsSourceDataBatchProcessService.updateBatchProcessTime(hour);
+			CronDetails updatedCronDetails = teamsSourceDataBatchProcessService.updateBatchProcessTime(cronDetails);
 			log.info("getBatchProcessDetails() executed successfully.");
 			return new ResponseEntity<>(updatedCronDetails,HttpStatus.PARTIAL_CONTENT);
 		}catch (EmptyInputException businessException) {
