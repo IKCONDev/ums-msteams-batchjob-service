@@ -25,5 +25,7 @@ public class CronDetails {
 	private Integer cronId;
 	@Column(name = "cronTime")
 	private String cronTime;
+	@Column(name = "hour")
+	private String hour;
 
 }

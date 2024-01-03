@@ -17,6 +17,7 @@ import com.azure.core.credential.AccessToken;
 import com.ikn.ums.msteams.VO.ActionsItemsVO;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.BatchDetails;
+import com.ikn.ums.msteams.entity.CronDetails;
 import com.ikn.ums.msteams.entity.Event;
 import com.ikn.ums.msteams.exception.ControllerException;
 import com.ikn.ums.msteams.exception.EmptyInputException;
@@ -228,21 +229,34 @@ public class TeamsSourceDataBatchProcessController {
 		}
 	}
 	
-	@PutMapping(path="/crontime/{crontime}")
-	public ResponseEntity<?> updateBatchProcessTime(@PathVariable String crontime){
-		if(crontime.isBlank() || crontime ==  null) {
+	@PutMapping(path="/crontime/{hour}")
+	public ResponseEntity<?> updateBatchProcessTime(@PathVariable String hour){
+		if(hour.isBlank() || hour ==  null) {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
 		}
-		boolean isCronTimeUpdated = false;
 		log.info("getBatchProcessDetails() entered with no args");
 		try {
-			var constructedBatchProcessTime = "";
-			constructedBatchProcessTime = "0 */"+crontime+" * * * *";
-			teamsSourceDataBatchProcessService.updateBatchProcessTime(constructedBatchProcessTime);
+			CronDetails updatedCronDetails = teamsSourceDataBatchProcessService.updateBatchProcessTime(hour);
 			log.info("getBatchProcessDetails() executed successfully.");
-			isCronTimeUpdated = true;
-			return new ResponseEntity<>(isCronTimeUpdated,HttpStatus.PARTIAL_CONTENT);
+			return new ResponseEntity<>(updatedCronDetails,HttpStatus.PARTIAL_CONTENT);
+		}catch (EmptyInputException businessException) {
+			throw businessException;
+		}
+		catch (Exception e) {
+			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_CODE, 
+					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_MSG);
+			throw umsCE;
+		}
+	}
+	
+	@GetMapping(path="/crontime")
+	public ResponseEntity<?> getBatchProcessTime(){
+		log.info("getBatchProcessDetails() entered with no args");
+		try {
+			CronDetails cronDetails = teamsSourceDataBatchProcessService.getCronDetails();
+			log.info("getBatchProcessDetails() executed successfully.");
+			return new ResponseEntity<>(cronDetails,HttpStatus.OK);
 		}catch (EmptyInputException businessException) {
 			throw businessException;
 		}

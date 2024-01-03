@@ -707,19 +707,26 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		return batchDetailsList;
 	}
 
-	//CronDetails cron = null;
 	@Transactional(value = TxType.REQUIRED)
 	@Override
-	public void updateBatchProcessTime(String cronTime) {
-		if(cronTime.isBlank() || cronTime ==  null) {
+	public CronDetails updateBatchProcessTime(String hour) {
+		if(hour.isBlank() || hour ==  null) {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
 		}
 		//there will be however ponly one record in the list
-		List<CronDetails> cronList = cronRepository.findAll();
-		cronList.forEach(dbCron -> {
+		CronDetails dbCron = cronRepository.findAll().get(0);
+		    String minute = "*";
+			var cronTime = "0 0 */"+hour+" "+minute+" * *";
 			dbCron.setCronTime(cronTime);
-			cronRepository.save(dbCron);
-		});
+			dbCron.setHour(hour);
+		CronDetails updatedCron = cronRepository.save(dbCron);
+		return updatedCron;
+	}
+
+	@Override
+	public CronDetails getCronDetails() {
+		CronDetails cronDetails = cronRepository.findAll().get(0);
+		return cronDetails;
 	}
 }// class
