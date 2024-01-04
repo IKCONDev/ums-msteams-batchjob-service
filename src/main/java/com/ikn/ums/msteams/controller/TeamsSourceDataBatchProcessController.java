@@ -49,7 +49,7 @@ public class TeamsSourceDataBatchProcessController {
 	 * @return
 	 */
 	  @GetMapping(path = "/auth/token") 
-	  public ResponseEntity<?> authenticateTeamsServer() { 
+	  public ResponseEntity<String> authenticateTeamsServer() { 
 		  log.info("authenticateTeamsServer() entered with no args");
 		try { 
 			AccessToken accessToken = this.microsoftGraph.initializeMicrosoftGraph(); 
@@ -71,7 +71,7 @@ public class TeamsSourceDataBatchProcessController {
 	 * @return
 	 */
 	@GetMapping(path = "/batch-process")
-	public ResponseEntity<?> rawDataBatchProcessing() {
+	public ResponseEntity<String> rawDataBatchProcessing() {
 		log.info("TeamsSourceDataBatchProcessController.rawDataBatchProcessing() Entered with no args");
 		try {
 			BatchDetailsDto existingBatchProcess = teamsSourceDataBatchProcessService
@@ -104,7 +104,7 @@ public class TeamsSourceDataBatchProcessController {
 	 * @return
 	 */
 	@GetMapping("/events/actionitems/{eventId}")
-	public ResponseEntity<?> getActionItemsOfEvent(@PathVariable Integer eventId) {
+	public ResponseEntity<List<ActionsItemsVO>> getActionItemsOfEvent(@PathVariable Integer eventId) {
 		log.info("TeamsSourceDataBatchProcessController.getActionItemsOfEvent() entered with args : eventId : "
 				+ eventId);
 		if (eventId < 1) {
@@ -132,7 +132,7 @@ public class TeamsSourceDataBatchProcessController {
 	 * @return
 	 */
 	@GetMapping("/events/actionitems")
-	public ResponseEntity<?> getActionItemsOfAllEvents() {
+	public ResponseEntity<List<ActionsItemsVO>> getActionItemsOfAllEvents() {
 		log.info("TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered");
 		try {
 			log.info("TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution");
@@ -150,7 +150,7 @@ public class TeamsSourceDataBatchProcessController {
 	 * 
 	 */
 	@GetMapping("/events/{userEmailId}")
-	public ResponseEntity<?> getAllEvents(@PathVariable String userEmailId) {
+	public ResponseEntity<List<Event>> getAllEvents(@PathVariable String userEmailId) {
 		log.info("TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : "
 				+ userEmailId);
 		if (userEmailId.equalsIgnoreCase("") || userEmailId == null) {
@@ -175,7 +175,7 @@ public class TeamsSourceDataBatchProcessController {
 	}
 
 	@GetMapping("/events/status/{eventIds}/{isActionItemGenerated}")
-	public ResponseEntity<?> updateActionItemGeneratedStatus(@PathVariable String eventIds,
+	public ResponseEntity<Integer> updateActionItemGeneratedStatus(@PathVariable String eventIds,
 			@PathVariable boolean isActionItemGenerated) {
 		log.info("TeamsSourceDataBatchProcessController.updateActionItemGeneratedStatus() Entered with args : eventIds"
 				+ eventIds + ", isActionItemsGenerated " + isActionItemGenerated);
@@ -212,12 +212,12 @@ public class TeamsSourceDataBatchProcessController {
 							+ e.fillInStackTrace());
 			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
 					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG);
-			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
+			throw umsCE;
 		}
 	}
 	
 	@GetMapping(path="/batch-details")
-	public ResponseEntity<?> getBatchProcessDetails(){
+	public ResponseEntity<List<BatchDetails>> getBatchProcessDetails(){
 		log.info("getBatchProcessDetails() entered with no args");
 		try {
 			List<BatchDetails> batchDetails = teamsSourceDataBatchProcessService.getBatchProcessDetails();
@@ -231,7 +231,7 @@ public class TeamsSourceDataBatchProcessController {
 	}
 	
 	@PutMapping(path="/crontime")
-	public ResponseEntity<?> updateBatchProcessTime(@RequestBody CronDetails cronDetails){
+	public ResponseEntity<CronDetails> updateBatchProcessTime(@RequestBody CronDetails cronDetails){
 		if(cronDetails ==  null) {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
@@ -252,7 +252,7 @@ public class TeamsSourceDataBatchProcessController {
 	}
 	
 	@GetMapping(path="/crontime")
-	public ResponseEntity<?> getBatchProcessTime(){
+	public ResponseEntity<CronDetails> getBatchProcessTime(){
 		log.info("getBatchProcessDetails() entered with no args");
 		try {
 			CronDetails cronDetails = teamsSourceDataBatchProcessService.getCronDetails();
