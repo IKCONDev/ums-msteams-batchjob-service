@@ -100,8 +100,8 @@ public class TeamsSourceDataBatchProcessController {
 		}
 		catch (Exception e) {
 			log.error("rawDataBatchProcessing() : An error/exception occurred: {}." + e.getMessage(), e);
-			throw new ControllerException(ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_CODE,
-					ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_MSG);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCHPROCESS_UNSUCCESS_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_BATCHPROCESS_UNSUCCESS_MSG);
 		}
 	}
 
@@ -119,8 +119,8 @@ public class TeamsSourceDataBatchProcessController {
 			log.info(
 					"TeamsSourceDataBatchProcessController.getActionItemsOfEvent() is exited with exception : Invalid event id : "
 							+ eventId);
-			throw new InvalidInputException(ErrorCodeMessages.ERR_EVENT_INVALID_EVENTID_CODE,
-					ErrorCodeMessages.ERR_EVENT_INVALID_EVENTID_MSG);
+			throw new InvalidInputException(ErrorCodeMessages.ERR_MSTEAMS_EVENT_INVALID_EVENTID_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_EVENT_INVALID_EVENTID_MSG);
 		}
 		try {
 			log.info("TeamsSourceDataBatchProcessController.getActionItemsOfEvent() is under execution");
@@ -129,8 +129,8 @@ public class TeamsSourceDataBatchProcessController {
 			return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("getActionItemsOfEvent() : An error/exception occurred: {}." + e.getMessage(), e);
-			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_CODE,
-					ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_MSG);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_ACTIONITEMS_GET_UNSUCCESS_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_ACTIONITEMS_GET_UNSUCCESS_MSG);
 		}
 
 	}
@@ -149,8 +149,8 @@ public class TeamsSourceDataBatchProcessController {
 			return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("getActionItemsOfAllEvents() : An error/exception occurred: {}." + e.getMessage(), e);
-			throw new ControllerException(ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_CODE,
-					ErrorCodeMessages.ERR_EVENT_ACTIONITEMS_GET_UNSUCCESS_MSG);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_ACTIONITEMS_GET_UNSUCCESS_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_ACTIONITEMS_GET_UNSUCCESS_MSG);
 		}
 	}
 
@@ -164,8 +164,8 @@ public class TeamsSourceDataBatchProcessController {
 		if (Strings.isNullOrEmpty(userEmailId) || userEmailId.isEmpty()) {
 			log.info(
 					"TeamsSourceDataBatchProcessController.getAllEvents() exited with exception : userEmailid is empty or null");
-			throw new EmptyInputException(ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_CODE,
-					ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_MSG);
+			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_EMAIL_ID_EMPTY_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_EMAIL_ID_EMPTY_MSG);
 		}
 		log.info("TeamsSourceDataBatchProcessController.getAllEvents() is under execution");
 		boolean isActionItemsGeneratedForEvent = false;
@@ -173,12 +173,18 @@ public class TeamsSourceDataBatchProcessController {
 			List<Event> eventsList = eventService.getAllEvents(userEmailId, isActionItemsGeneratedForEvent);
 			log.error("TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully");
 			return new ResponseEntity<>(eventsList, HttpStatus.OK);
-		} catch (Exception e) {
+		} catch (EmptyInputException businessException) {
 			log.error(
-					"TeamsSourceDataBatchProcessController.getAllEvents() exited with exception : exception occurred while fetching events of user "
+					"TeamsSourceDataBatchProcessController.getAllEvents() Business Exception occurred while fetching events of user "
+							+ businessException.getMessage(), businessException);
+			throw businessException;
+		}
+		catch (Exception e) {
+			log.error(
+					"TeamsSourceDataBatchProcessController.getAllEvents() General Exception occurred while fetching events of user "
 							+ e.getMessage(), e);
-			throw new ControllerException(ErrorCodeMessages.ERR_EVENTS_GET_ALL_UNSUCCESS_CODE,
-					ErrorCodeMessages.ERR_EVENTS_GET_ALL_UNSUCCESS_MSG);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_EVENTS_GET_ALL_UNSUCCESS_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_EVENTS_GET_ALL_UNSUCCESS_MSG);
 		}
 	}
 
@@ -217,8 +223,8 @@ public class TeamsSourceDataBatchProcessController {
 			log.error(
 					"updateActionItemGeneratedStatus() Exception occured while updating action items generation status for events  "
 							,e);
-			throw new ControllerException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
-					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_UNKNOWN_ERROR_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_UNKNOWN_ERROR_MSG);
 		}
 	}
 	

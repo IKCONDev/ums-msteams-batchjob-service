@@ -198,7 +198,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
 				currentDbBatchDetails.setLastSuccessfullExecutionDateTime(currentbatchStartTime);
 				batchDetailsRepository.save(currentDbBatchDetails);
-				log.info("Current batch processing details after completion " + currentDbBatchDetails);
+				log.info("performSourceDataBatchProcessing() Current batch processing details after completion " + currentDbBatchDetails);
 
 				// if batch processing contains any events of users , then copy the meetings to
 				// meeting microservice
@@ -206,20 +206,21 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					// copy all the events of current batch processing to meeting microservice
 					copySourceDataofCurrentBatchProcessingToMeetingsMicroservice(
 							allUsersEventListOfCurrentBatchProcess);
-
+				log.info("performSourceDataBatchProcessing() executed successfully.");
 			} catch (Exception e) {
 				// set current batch processing details, if failed
 				currentDbBatchDetails.setStatus("FAILED");
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
 				batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
-				log.info("Current batch processing details after exception " + currentDbBatchDetails);
-				log.error("Exception occured while batch processing in Business layer " + e.getMessage(), e);
-				throw new BusinessException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
-						ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG);
+				log.info("performSourceDataBatchProcessing() Current batch processing details after exception " + currentDbBatchDetails);
+				log.error("performSourceDataBatchProcessing() BusinessException :Exception occured while batch processing in Business layer " + e.getMessage(), e);
+				throw new BusinessException(ErrorCodeMessages.ERR_MSTEAMS_UNKNOWN_ERROR_CODE,
+						ErrorCodeMessages.ERR_MSTEAMS_UNKNOWN_ERROR_MSG);
 			}
 		} else {
-			throw new UsersNotFoundException(ErrorCodeMessages.ERR_EVENTS_NOT_FOUND_BATCH_CODE,
-					ErrorCodeMessages.ERR_EVENTS_NOT_FOUND_BATCH_MSG);
+			log.error("performSourceDataBatchProcessing() UsersNotFoundException: Users not found for batch processing / Users List is empty.");
+			throw new UsersNotFoundException(ErrorCodeMessages.ERR_MSTEAMS_USERS_NOT_FOUND_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_USERS_NOT_FOUND_MSG);
 		}
 	}
 
@@ -342,7 +343,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			}
 		});
 		log.info(
-				"getUserCalendarView() : updated user calendare events with its online meetings and transcripts returned");
+				"getUserCalendarView() : updated user calendar events with its online meetings and transcripts returned");
+		log.info(
+				"getUserCalendarView() : executed successully.");
 		return updateEventsListDto;
 	}
 
@@ -350,6 +353,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	// meeting details
 	private EventDto attachOnlineMeetingDetailsToEvent(EventDto eventDto, EmployeeVO user) {
 		log.info("attachOnlineMeetingDetailsToEvent() : entered with args : event object , employee object");
+		log.info("attachOnlineMeetingDetailsToEvent() : is under execution.");
 		// if joinurl is not null, then the event is an online meeting, proceed to get
 		// and insert online meeting object
 		if (eventDto.getOnlineMeeting() != null) {
@@ -367,6 +371,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			}
 		}
 		log.info("attachOnlineMeetingDetailsToEvent() : online meeting details attached to its event object.");
+		log.info("attachOnlineMeetingDetailsToEvent() executed successfully.");
 		return eventDto;
 	}
 
@@ -478,6 +483,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	private List<Event> saveAllUsersCalendarEvents(List<EventDto> eventDtoList, EmployeeVO user,
 			Long currentBatchProcessId) {
 		log.info("saveAllUsersCalendarEvents() entered with args : event objects, user object, currentBatchProcessId");
+		log.info("saveAllUsersCalendarEvents() is under execution.");
 		List<Event> eventEntities = new ArrayList<>();
 		eventDtoList.forEach(eventDto -> {
 			// iterate through event objects and get the online meeting object from each
@@ -566,6 +572,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	private OnlineMeetingDto getOnlineMeeting(String joinWebUrl, String userId) {
 		log.info("getOnlineMeeting() entered with args : joinWebUrl , teamsUserId");
+		log.info("getOnlineMeeting() is under execution...");
 		// prepare url to get online meeting object
 		StringBuilder stringBuilder = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userId
 				+ "/onlineMeetings?$filter=joinWebUrl eq '" + joinWebUrl + "'");
@@ -592,6 +599,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	private List<TranscriptDto> getOnlineMeetingTranscriptDetails(String userId, String onlineMeetingId) {
 		log.info("getOnlineMeetingTranscriptDetails() entered with args : transcriptContentURL");
+		log.info("getOnlineMeetingTranscriptDetails() is under execution...");
 		List<TranscriptDto> meetingTranscriptsList = new ArrayList<>();
 		StringBuilder stringBuilder = new StringBuilder("https://graph.microsoft.com/beta/users/" + userId
 				+ "/onlineMeetings('" + onlineMeetingId + "')/transcripts");
@@ -627,6 +635,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	@Override
 	public BatchDetailsDto getLatestSourceDataBatchProcessingRecordDetails() {
 		log.info("getLatestSourceDataBatchProcessingRecordDetails() entered");
+		log.info("getLatestSourceDataBatchProcessingRecordDetails() is under execution...");
 		Optional<BatchDetails> optBatchDetails = batchDetailsRepository.getLatestBatchProcessingRecord();
 		BatchDetails latestBatchDetails = null;
 		BatchDetailsDto latestBatchDetailsDto = null;
@@ -650,6 +659,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	// details object.
 	private String getTranscriptContent(String transcriptContentUrl) {
 		log.info("getTranscriptContent() entered with args : transcriptContentURL");
+		log.info("getTranscriptContent() is under execution...");
 		StringBuilder stringBuilder = new StringBuilder(transcriptContentUrl);
 		var url = stringBuilder.toString();
 
@@ -671,6 +681,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	private void copySourceDataofCurrentBatchProcessingToMeetingsMicroservice(List<List<Event>> allUsersEventList) {
 		log.info(
 				"copySourceDataofCurrentBatchProcessingToMeetingsMicroservice() entered with allUsersEventList of current batchprocessing");
+		log.info(
+				"copySourceDataofCurrentBatchProcessingToMeetingsMicroservice() is under execution...");
 		var url = "http://UMS-MEETING-SERVICE/meetings/";
 		var httpEntity = new HttpEntity<>(allUsersEventList);
 		var response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
