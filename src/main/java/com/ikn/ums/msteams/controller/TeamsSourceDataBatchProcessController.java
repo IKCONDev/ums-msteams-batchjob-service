@@ -83,7 +83,7 @@ public class TeamsSourceDataBatchProcessController {
 			log.info("Last batch processing details " + existingBatchProcess.toString());
 			if (existingBatchProcess.getStatus().equalsIgnoreCase("RUNNING")) {
 				log.info("An instance of batch process is already running...");
-				String message = "An instance of raw data batch process is already running";
+				var message = "An instance of raw data batch process is already running";
 				return new ResponseEntity<>(message,
 						HttpStatus.PROCESSING);
 			} else {
@@ -144,7 +144,7 @@ public class TeamsSourceDataBatchProcessController {
 		log.info("TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() entered");
 		try {
 			log.info("TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() is under execution");
-			List<ActionsItemsVO> actionItemsList = eventService.getActionItems();
+			var actionItemsList = eventService.getActionItems();
 			log.info("TeamsSourceDataBatchProcessController.getActionItemsOfAllEvents() exiting succesfully");
 			return new ResponseEntity<>(actionItemsList, HttpStatus.OK);
 		} catch (Exception e) {
@@ -203,14 +203,13 @@ public class TeamsSourceDataBatchProcessController {
 				eventidsString.forEach(eventId -> {
 					actualEventIds.add(Integer.parseInt(eventId.trim()));
 				});
-				System.out.println(actualEventIds);
 			} else {
 				List<String> eventIdsList = List.of(orginalEventIds);
 				eventIdsList.forEach(id -> {
 					actualEventIds.add(Integer.parseInt(id));
 				});
 			}
-			Integer status = eventService.updateActionItemStatusOfEvent(isActionItemGenerated, actualEventIds);
+			var status = eventService.updateActionItemStatusOfEvent(isActionItemGenerated, actualEventIds);
 			log.info("updateActionItemGeneratedStatus() exiting sucessfully");
 			return new ResponseEntity<>(status, HttpStatus.OK);
 
@@ -245,7 +244,7 @@ public class TeamsSourceDataBatchProcessController {
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
 		}
 		try {
-			CronDetails updatedCronDetails = teamsSourceDataBatchProcessService.updateBatchProcessTime(cronDetails);
+			var updatedCronDetails = teamsSourceDataBatchProcessService.updateBatchProcessTime(cronDetails);
 			log.info("updateBatchProcessTime() executed successfully.");
 			return new ResponseEntity<>(updatedCronDetails,HttpStatus.PARTIAL_CONTENT);
 		}catch (EmptyInputException businessException) {
@@ -264,7 +263,7 @@ public class TeamsSourceDataBatchProcessController {
 		log.info("getBatchProcessDetails() entered with no args");
 		try {
 			log.info("getBatchProcessDetails() is under execution...");
-			CronDetails cronDetails = teamsSourceDataBatchProcessService.getCronDetails();
+			var cronDetails = teamsSourceDataBatchProcessService.getCronDetails();
 			log.info("getBatchProcessDetails() executed successfully.");
 			return new ResponseEntity<>(cronDetails,HttpStatus.OK);
 		}catch (EmptyInputException businessException) {
