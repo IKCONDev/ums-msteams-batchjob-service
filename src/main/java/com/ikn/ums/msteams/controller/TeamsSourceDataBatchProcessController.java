@@ -243,10 +243,10 @@ public class TeamsSourceDataBatchProcessController {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
 		}
-		log.info("getBatchProcessDetails() entered with no args");
+		log.info("updateBatchProcessTime() entered with no args");
 		try {
 			CronDetails updatedCronDetails = teamsSourceDataBatchProcessService.updateBatchProcessTime(cronDetails);
-			log.info("getBatchProcessDetails() executed successfully.");
+			log.info("updateBatchProcessTime() executed successfully.");
 			return new ResponseEntity<>(updatedCronDetails,HttpStatus.PARTIAL_CONTENT);
 		}catch (EmptyInputException businessException) {
 			log.error("getBatchProcessDetails() Business Exception occured while updating batch process time : "+businessException.getMessage(), businessException);
