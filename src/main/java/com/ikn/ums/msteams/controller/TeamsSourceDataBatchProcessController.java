@@ -20,13 +20,17 @@ import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.entity.BatchDetails;
 import com.ikn.ums.msteams.entity.CronDetails;
 import com.ikn.ums.msteams.entity.Event;
+import com.ikn.ums.msteams.exception.BusinessException;
 import com.ikn.ums.msteams.exception.ControllerException;
 import com.ikn.ums.msteams.exception.EmptyInputException;
 import com.ikn.ums.msteams.exception.ErrorCodeMessages;
 import com.ikn.ums.msteams.exception.InvalidInputException;
+import com.ikn.ums.msteams.exception.TranscriptGenerationFailedException;
+import com.ikn.ums.msteams.exception.UsersNotFoundException;
 import com.ikn.ums.msteams.service.EventService;
 import com.ikn.ums.msteams.service.TeamsSourceDataBatchProcessService;
 import com.ikn.ums.msteams.utils.InitializeMicrosoftGraph;
+import com.netflix.servo.util.Strings;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -88,9 +92,13 @@ public class TeamsSourceDataBatchProcessController {
 				// perform batch processing
 				teamsSourceDataBatchProcessService.performSourceDataBatchProcessing(existingBatchProcess);
 				log.info("TeamsSourceDataBatchProcessController.rawDataBatchProcessing() executed sucessfully");
-				return new ResponseEntity<>(ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_SUCCESS_MSG, HttpStatus.OK);
+				return new ResponseEntity<>(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_SUCCESS_MSG, HttpStatus.OK);
 			}
-		} catch (Exception e) {
+		} catch (BusinessException | UsersNotFoundException | TranscriptGenerationFailedException e) {
+			log.error("rawDataBatchProcessing() : An Business error/exception occurred: {}." + e.getMessage(), e);
+			throw e;
+		}
+		catch (Exception e) {
 			log.error("rawDataBatchProcessing() : An error/exception occurred: {}." + e.getMessage(), e);
 			throw new ControllerException(ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_CODE,
 					ErrorCodeMessages.MSTEAMS_BATCHPROCESS_UNSUCCESS_MSG);
@@ -107,7 +115,7 @@ public class TeamsSourceDataBatchProcessController {
 	public ResponseEntity<List<ActionsItemsVO>> getActionItemsOfEvent(@PathVariable Integer eventId) {
 		log.info("TeamsSourceDataBatchProcessController.getActionItemsOfEvent() entered with args : eventId : "
 				+ eventId);
-		if (eventId < 1) {
+		if (eventId <= 0) {
 			log.info(
 					"TeamsSourceDataBatchProcessController.getActionItemsOfEvent() is exited with exception : Invalid event id : "
 							+ eventId);
@@ -153,7 +161,7 @@ public class TeamsSourceDataBatchProcessController {
 	public ResponseEntity<List<Event>> getAllEvents(@PathVariable String userEmailId) {
 		log.info("TeamsSourceDataBatchProcessController.getAllEvents() entered with args : userEmailId : "
 				+ userEmailId);
-		if (userEmailId.equalsIgnoreCase("") || userEmailId == null) {
+		if (Strings.isNullOrEmpty(userEmailId) || userEmailId.isEmpty()) {
 			log.info(
 					"TeamsSourceDataBatchProcessController.getAllEvents() exited with exception : userEmailid is empty or null");
 			throw new EmptyInputException(ErrorCodeMessages.ERR_EVENT_EMAIL_ID_EMPTY_CODE,
@@ -163,12 +171,12 @@ public class TeamsSourceDataBatchProcessController {
 		boolean isActionItemsGeneratedForEvent = false;
 		try {
 			List<Event> eventsList = eventService.getAllEvents(userEmailId, isActionItemsGeneratedForEvent);
-			log.info("TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully");
+			log.error("TeamsSourceDataBatchProcessController.getAllEvents() is exited sucessfully");
 			return new ResponseEntity<>(eventsList, HttpStatus.OK);
 		} catch (Exception e) {
-			log.info(
+			log.error(
 					"TeamsSourceDataBatchProcessController.getAllEvents() exited with exception : exception occurred while fetching events of user "
-							+ e.fillInStackTrace());
+							+ e.getMessage(), e);
 			throw new ControllerException(ErrorCodeMessages.ERR_EVENTS_GET_ALL_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_EVENTS_GET_ALL_UNSUCCESS_MSG);
 		}
@@ -179,14 +187,16 @@ public class TeamsSourceDataBatchProcessController {
 			@PathVariable boolean isActionItemGenerated) {
 		log.info("TeamsSourceDataBatchProcessController.updateActionItemGeneratedStatus() Entered with args : eventIds"
 				+ eventIds + ", isActionItemsGenerated " + isActionItemGenerated);
+		if(Strings.isNullOrEmpty(eventIds) || eventIds.isEmpty()) {
+			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_EVENTID_EMPTY_CODE, 
+					ErrorCodeMessages.ERR_MSTEAMS_EVENTID_EMPTY_MSG);
+		}
 		try {
 			log.info("TeamsSourceDataBatchProcessController.updateActionItemGeneratedStatus() under execution");
 			// update the status of events
 			List<Integer> actualEventIds = new ArrayList<>();
 			String newEventIds = eventIds.replace("[", "");
 			String orginalEventIds = newEventIds.replace("]", "");
-			// List<String> eventIdsList = List.of(orginalEventIds);
-			System.out.println(orginalEventIds);
 			if (orginalEventIds.contains(",")) {
 				String[] eventids = orginalEventIds.split(",");
 				List<String> eventidsString = Arrays.asList(eventids);
@@ -197,22 +207,19 @@ public class TeamsSourceDataBatchProcessController {
 			} else {
 				List<String> eventIdsList = List.of(orginalEventIds);
 				eventIdsList.forEach(id -> {
-					System.out.println(id);
 					actualEventIds.add(Integer.parseInt(id));
 				});
-				System.out.println(actualEventIds);
 			}
 			Integer status = eventService.updateActionItemStatusOfEvent(isActionItemGenerated, actualEventIds);
-			log.info("TeamsSourceDataBatchProcessController.updateActionItemGeneratedStatus() exiting sucessfully");
+			log.info("updateActionItemGeneratedStatus() exiting sucessfully");
 			return new ResponseEntity<>(status, HttpStatus.OK);
 
 		} catch (Exception e) {
-			log.info(
-					"TeamsSourceDataBatchProcessController.updateActionItemGeneratedStatus() exiting with exception : Exception occured while updating action items generation status for events  "
-							+ e.fillInStackTrace());
-			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
+			log.error(
+					"updateActionItemGeneratedStatus() Exception occured while updating action items generation status for events  "
+							,e);
+			throw new ControllerException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
 					ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG);
-			throw umsCE;
 		}
 	}
 	
@@ -224,9 +231,9 @@ public class TeamsSourceDataBatchProcessController {
 			log.info("getBatchProcessDetails() executed successfully.");
 			return new ResponseEntity<>(batchDetails,HttpStatus.OK);
 		}catch (Exception e) {
-			ControllerException umsCE = new ControllerException(ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_CODE, 
-					ErrorCodeMessages.MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_MSG);
-			throw umsCE;
+			log.error("getBatchProcessDetails() General Exception occured while updating batch process time : "+e.getMessage(), e);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_CODE, 
+					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_MSG);
 		}
 	}
 	
@@ -242,12 +249,13 @@ public class TeamsSourceDataBatchProcessController {
 			log.info("getBatchProcessDetails() executed successfully.");
 			return new ResponseEntity<>(updatedCronDetails,HttpStatus.PARTIAL_CONTENT);
 		}catch (EmptyInputException businessException) {
+			log.error("getBatchProcessDetails() Business Exception occured while updating batch process time : "+businessException.getMessage(), businessException);
 			throw businessException;
 		}
 		catch (Exception e) {
-			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_CODE, 
+			log.error("getBatchProcessDetails() General Exception occured while updating batch process time : "+e.getMessage(), e);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_MSG);
-			throw umsCE;
 		}
 	}
 	
@@ -259,12 +267,13 @@ public class TeamsSourceDataBatchProcessController {
 			log.info("getBatchProcessDetails() executed successfully.");
 			return new ResponseEntity<>(cronDetails,HttpStatus.OK);
 		}catch (EmptyInputException businessException) {
+			log.error("getBatchProcessDetails() Business Exception occured while fetching batch process time : "+businessException.getMessage(), businessException);
 			throw businessException;
 		}
 		catch (Exception e) {
-			ControllerException umsCE = new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_CODE, 
-					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_MSG);
-			throw umsCE;
+			log.error("getBatchProcessDetails() General Exception occured while fetching batch process time : "+e.getMessage(), e);
+			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_GET_UNSUCCESS_CODE, 
+					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_GET_UNSUCCESS_MSG);
 		}
 	}
 

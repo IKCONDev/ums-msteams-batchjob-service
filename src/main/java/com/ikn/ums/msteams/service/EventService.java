@@ -3,7 +3,6 @@ package com.ikn.ums.msteams.service;
 import java.util.List;
 
 import com.ikn.ums.msteams.VO.ActionsItemsVO;
-import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.Event;
 
 public interface EventService {

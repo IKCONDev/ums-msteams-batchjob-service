@@ -26,20 +26,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException entityNotFoundException) {
 		log.info("GlobalExceptionHandler.handleEntityNotFoundException() ENTERED" + entityNotFoundException.getMessage());
-		return new ResponseEntity<String>(entityNotFoundException.getErrorMessage(), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(entityNotFoundException.getErrorMessage(), HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(UserPrincipalNotFoundException.class)
 	public ResponseEntity<String> handleUserPrincipalNotFoundException(UserPrincipalNotFoundException userPrincipalNotFoundException) {
 		log.info("GlobalExceptionHandler.handleEntityNotFoundException() ENTERED" + userPrincipalNotFoundException.getMessage());
-		return new ResponseEntity<String>(userPrincipalNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(userPrincipalNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
 	}
 
 	
 	@ExceptionHandler(UsersNotFoundException.class)
 	public ResponseEntity<String> handleUsersNotFoundException(UsersNotFoundException usersNotFoundException) {
 		log.info("GlobalExceptionHandler.handleEntityNotFoundException() ENTERED" + usersNotFoundException.getMessage());
-		return new ResponseEntity<String>("Business Exception", HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>("Business Exception", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EmptyInputException.class)
 	public ResponseEntity<String> handleEmptyInput(EmptyInputException emptyInputException) {
 		log.info("GlobalExceptionHandler.handleEmptyInput() ENTERED" + emptyInputException.getMessage());
-		return new ResponseEntity<String>("Input field is empty. Please look into it.", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Input field is empty. Please look into it.", HttpStatus.BAD_REQUEST);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException noSuchElementException) {
 		log.info("GlobalExceptionHandler.handleNoSuchElementException() ENTERED" + noSuchElementException.getMessage());
-		return new ResponseEntity<String>("No Value is Present in DB.", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("No Value is Present in DB.", HttpStatus.NOT_FOUND);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<String> handleBusinessException(BusinessException businessException) {
 		log.info("GlobalExceptionHandler.handleBusinessException() ENTERED");
 		log.info("Business Exception Occurred." + businessException.getMessage());
-		return new ResponseEntity<String>("Business Exception.", HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>("Business Exception.", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	/**
@@ -88,14 +88,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<String> handleControllerException(ControllerException controllerException) {
 		log.info("GlobalExceptionHandler.handleControllerException() ENTERED");
 		log.info("Controller Exception Occurred" + controllerException.getMessage());
-		return new ResponseEntity<String>("Business Exception.", HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>("Business Exception.", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		log.info("GlobalExceptionHandler.handleEmptyInput() ENTERED" + ex.getMessage());
-		return new ResponseEntity<Object>("Please change your http method type.", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Please change your http method type.", HttpStatus.NOT_FOUND);
 	}
 
 }

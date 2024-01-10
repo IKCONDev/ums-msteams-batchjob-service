@@ -38,16 +38,24 @@ public class ErrorCodeMessages {
 	 public static final String ERR_EVENTS_GET_ALL_UNSUCCESS_CODE = "EVENTS_INVALID_EVENTID_CODE-1010";
 	 public static final String ERR_EVENTS_GET_ALL_UNSUCCESS_MSG = "Error occured while retrieving all events for user!";
 	 
-	 public static final String MSTEAMS_BATCH_PROCESS_SUCCESS_CODE = "MSTEAMS_BATCH_PROCESS_SUCESS_CODE-1011";
-	 public static final String MSTEAMS_BATCH_PROCESS_SUCCESS_MSG = "Raw Data Batch processing is Successfull !";
+	 public static final String ERR_MSTEAMS_BATCH_PROCESS_SUCCESS_CODE = "MSTEAMS_BATCH_PROCESS_SUCESS_CODE-1011";
+	 public static final String ERR_MSTEAMS_BATCH_PROCESS_SUCCESS_MSG = "Raw Data Batch processing is Successfull !";
 	 
-	 public static final String MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_CODE = "MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_CODE-1012";
-	 public static final String MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_MSG = "Error occured while fethcing batch process list";
+	 public static final String ERR_MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_CODE = "MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_CODE-1012";
+	 public static final String ERR_MSTEAMS_BATCH_PROCESS_GET_UNSUCCESS_MSG = "Error occured while fethcing batch process list";
 	 
 	 public static final String ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE = "MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE-1013";
 	 public static final String ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG = "Cron time or expression is empty.";
 	 
 	 public static final String ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_CODE = "ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_CODE-1014";
 	 public static final String ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_UPADTE_UNSUCCESS_MSG = "Error while updating crontime for batch process.";
+	 
+	 public static final String ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_GET_UNSUCCESS_CODE = "ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_GET_UNSUCCESS_CODE-1015";
+	 public static final String ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_GET_UNSUCCESS_MSG = "Error while fatching crontime of batch process.";
 
+	 public static final String ERR_MSTEAMS_EVENTID_EMPTY_CODE = "ERR_EVENT_EVENTID_EMPTY_CODE-1016";
+	 public static final String ERR_MSTEAMS_EVENTID_EMPTY_MSG = "Empty event id(s) !";
+	 
+	 public static final String ERR_MSTEAMS_TRANSCRIPT_GENERATION_FAILED_CODE = "ERR_MSTEAMS_TRANSCRIPT_GENERATION_FAILED_CODE-1017";
+	 public static final String ERR_MSTEAMS_TRANSCRIPT_GENERATION_FAILED_MSG = "Error while preparing / copying transcript content.";
 }

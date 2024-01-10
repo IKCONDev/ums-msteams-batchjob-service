@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ObjectMapper {
 	
-	public ModelMapper modelMapper;
+	public static final ModelMapper modelMapper;
 	
-	public ObjectMapper() {
-		this.modelMapper = new ModelMapper();
+	static {
+		modelMapper = new ModelMapper();
 		//set a default configuration
-		this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 	}
 
 }

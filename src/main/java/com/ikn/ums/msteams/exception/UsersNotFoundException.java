@@ -1,7 +1,5 @@
 package com.ikn.ums.msteams.exception;
 
-import lombok.Data;
-
 public class UsersNotFoundException extends RuntimeException {
 
 	/**

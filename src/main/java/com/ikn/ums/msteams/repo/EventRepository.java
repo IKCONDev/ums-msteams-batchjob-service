@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.Event;
 
 @Repository
@@ -19,7 +17,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	
 	@Modifying
 	@Query("UPDATE Event e SET e.isActionItemsGenerated=:isActionItemsGenerated WHERE e.id IN (:eventIds)")
-	//@Query("UPDATE Event e SET e.isActionItemsGenerated=:isActionItemsGenerated WHERE e.id=:eventId")
 	Integer updateStatusOfActionItem(boolean isActionItemsGenerated, List<Integer> eventIds);
 
 }

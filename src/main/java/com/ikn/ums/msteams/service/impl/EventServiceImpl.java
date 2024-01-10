@@ -1,21 +1,17 @@
 package com.ikn.ums.msteams.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.ikn.ums.msteams.VO.ActionItemsListVO;
 import com.ikn.ums.msteams.VO.ActionsItemsVO;
-import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.Event;
-import com.ikn.ums.msteams.exception.BusinessException;
-import com.ikn.ums.msteams.exception.EmptyInputException;
 import com.ikn.ums.msteams.repo.EventRepository;
 import com.ikn.ums.msteams.service.EventService;
 

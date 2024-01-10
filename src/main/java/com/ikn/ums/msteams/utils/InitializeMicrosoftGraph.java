@@ -20,7 +20,7 @@ public class InitializeMicrosoftGraph {
 	
 	private ClientSecretCredential clientSecretCredential;
 	@SuppressWarnings("unused")
-	private GraphServiceClient<Request> _graphServiceClient;
+	private GraphServiceClient<Request> graphServiceClient;
 	
 	@Autowired
 	private Environment environment;
@@ -37,7 +37,7 @@ public class InitializeMicrosoftGraph {
 			}
 			final TokenCredentialAuthProvider authProvider = new TokenCredentialAuthProvider(
 					List.of("https://graph.microsoft.com/.default"), clientSecretCredential);
-			this._graphServiceClient = GraphServiceClient.builder().authenticationProvider(authProvider).buildClient();
+			this.graphServiceClient = GraphServiceClient.builder().authenticationProvider(authProvider).buildClient();
 			return getAccessToken();
 		}
 
@@ -46,8 +46,8 @@ public class InitializeMicrosoftGraph {
 			final String[] graphscopes = new String[] { "https://graph.microsoft.com/.default" };
 			final TokenRequestContext context = new TokenRequestContext();
 			context.addScopes(graphscopes);
-			final AccessToken token = this.clientSecretCredential.getToken(context).block();
-			return token;
+			return this.clientSecretCredential.getToken(context).block();
+			
 		}
 
 }
