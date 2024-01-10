@@ -92,6 +92,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	List<EmployeeVO> userDtoList = null;
 	
+	RestTemplate graphRestTemplate;
+	
 	@Autowired
 	private CronRepository cronRepository;
 	
@@ -104,6 +106,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	// constructor
 	@Autowired
 	public TeamsSourceDataBatchProcessServiceImpl() {
+		graphRestTemplate = new RestTemplate();
 		log.info("TeamsSourceDataBatchProcessServiceImpl() constructor executed.");
 	}
 
@@ -172,7 +175,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 							// get userprincipalName and pass it to calendarView method to fetch the
 							// calendar events if the user
 							String userPrincipalName = userDto.getEmail();
-
+							log.info("BATCH PROCESSING STARTED FOR USER : " + userPrincipalName + "WITH TEAMS USERID : "
+									+ userId);
 							// get users calendar view of events using principal name
 							List<EventDto> calendarEventsDtolist = getUserCalendarView(userDto,
 									lastBatchProcessingStartTime);
@@ -183,6 +187,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 							if (!userEventList.isEmpty()) {
 								allUsersEventListOfCurrentBatchProcess.add(userEventList);
 							}
+						} else {
+							log.info("BATCH PROCESSING EXCLUDED FOR USER : " + userDto.getEmail()+" ---NO TEAMS USER ID---");
 						}
 					}
 				});
@@ -205,14 +211,11 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				// set current batch processing details, if failed
 				currentDbBatchDetails.setStatus("FAILED");
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
-				// save and flush the changes instantly in db, bcz when exception is raised ,
-				// the normal save method will not work to save changes instantly in db, within
-				// @Transactional method
 				batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
 				log.info("Current batch processing details after exception " + currentDbBatchDetails);
 				log.error("Exception occured while batch processing in Business layer " + e.getMessage(), e);
 				throw new BusinessException(ErrorCodeMessages.ERR_UNKNOWN_BATCH_CODE,
-						ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG + " " + e.getMessage());
+						ErrorCodeMessages.ERR_UNKNOWN_BATCH_MSG);
 			}
 		} else {
 			throw new UsersNotFoundException(ErrorCodeMessages.ERR_EVENTS_NOT_FOUND_BATCH_CODE,
@@ -295,9 +298,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		// prepare http entity object with headers
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
 
-		// prepare the rest template to hit the graph api calendar view url
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<CalendarViewResponseWrapper> response = restTemplate.exchange(finalCalendarViewUrl,
+		ResponseEntity<CalendarViewResponseWrapper> response = graphRestTemplate.exchange(finalCalendarViewUrl,
 				HttpMethod.GET, hentity, CalendarViewResponseWrapper.class);
 		log.info("getUserCalendarView() sending request to graph api with prepared url : " + finalCalendarViewUrl);
 		// get the response (list of calendar event objects)
@@ -394,7 +395,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					// write transcripts data into a file and store in the file loc in db
 					if (actualMeetingTranscriptsListDto != null) {
 						actualMeetingTranscriptsListDto.forEach(transcriptDto -> {
-							String transcriptContent = getTranscriptContent(transcriptDto.getTranscriptContentUrl());
+							var transcriptContent = getTranscriptContent(transcriptDto.getTranscriptContentUrl());
 
 							// write transcript into file
 							try (FileWriter fileWriter = new FileWriter(
@@ -405,7 +406,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 								// save file loc to db
 								// Get the file path
 								File file = new File(partialTranscriptFinalName+" " + transcriptDto.getTranscriptId());
-								String filePath = file.getAbsolutePath();
+								var filePath = file.getAbsolutePath();
 								log.info("File path: " + filePath);
 								if (!filePath.equalsIgnoreCase("")) {
 
@@ -419,7 +420,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 								}
 
 							} catch (IOException e) {
-								log.error("attachTranscriptsToOnlineMeeting() Exception occutred while preparing transcript content of online meeting.");
+								log.error("attachTranscriptsToOnlineMeeting() Exception occutred while attaching transcript content to its online meeting. "+e.getMessage(), e);
 								throw new TranscriptGenerationFailedException(ErrorCodeMessages.ERR_MSTEAMS_TRANSCRIPT_GENERATION_FAILED_CODE,
 										ErrorCodeMessages.ERR_MSTEAMS_TRANSCRIPT_GENERATION_FAILED_MSG);
 							}
@@ -438,7 +439,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			if (transcriptsListDto != null) {
 				// eventDto.getOnlineMeeting().setMeetingTranscripts(transcriptsListDto);
 				transcriptsListDto.forEach(transcript -> {
-					String transcriptContent = getTranscriptContent(transcript.getTranscriptContentUrl());
+					var transcriptContent = getTranscriptContent(transcript.getTranscriptContentUrl());
 
 					// write transcript into file
 					try (FileWriter fileWriter = new FileWriter(partialTranscriptFinalName+" " + transcript.getTranscriptId())) {
@@ -447,7 +448,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						// save file loc to db
 						// Get the file path
 						File file = new File("Transcript-" + transcript.getTranscriptId());
-						String filePath = file.getPath();
+						var filePath = file.getPath();
 						log.info("File path: " + filePath);
 						if (!filePath.equalsIgnoreCase("")) {
 							// set transcript file path
@@ -459,7 +460,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						}
 
 					} catch (IOException e) {
-						e.printStackTrace();
+						log.error("attachTranscriptsToOnlineMeeting() Exception occutred while attaching transcript content to its online meeting. "+e.getMessage(), e);
 						throw new RuntimeException(e);
 					}
 				});
@@ -579,7 +580,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
 
 		// prepare rest template and hit meeting end point
-		ResponseEntity<OnlineMeetingResponseWrapper> response = restTemplate.exchange(finalUrl, HttpMethod.GET, hentity,
+		ResponseEntity<OnlineMeetingResponseWrapper> response = graphRestTemplate.exchange(finalUrl, HttpMethod.GET, hentity,
 				OnlineMeetingResponseWrapper.class);
 		List<OnlineMeetingDto> onlineMeetingsList = response.getBody().getValue();
 
@@ -605,7 +606,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
 
 		// prepare rest template and hit transcript end point to fetch transcripts for the meeting
-		ResponseEntity<TranscriptsResponseWrapper> response = restTemplate.exchange(url, HttpMethod.GET, hentity,
+		ResponseEntity<TranscriptsResponseWrapper> response = graphRestTemplate.exchange(url, HttpMethod.GET, hentity,
 				TranscriptsResponseWrapper.class);
 
 		// check whether transcript are present for the meeting, the odataCount gives
@@ -660,7 +661,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 		// prepare http entity object with headers
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
-		ResponseEntity<String> rentity = restTemplate.exchange(url, HttpMethod.GET, hentity, String.class);
+		ResponseEntity<String> rentity = graphRestTemplate.exchange(url, HttpMethod.GET, hentity, String.class);
 
 		// body of response contains the transcript content
 		log.info("getTranscriptContent() executed sucessfully.");

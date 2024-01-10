@@ -239,11 +239,11 @@ public class TeamsSourceDataBatchProcessController {
 	
 	@PutMapping(path="/crontime")
 	public ResponseEntity<CronDetails> updateBatchProcessTime(@RequestBody CronDetails cronDetails){
+		log.info("updateBatchProcessTime() entered with no args");
 		if(cronDetails ==  null) {
 			throw new EmptyInputException(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_CODE, 
 					ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_CRONTIME_EMPTY_MSG);
 		}
-		log.info("updateBatchProcessTime() entered with no args");
 		try {
 			CronDetails updatedCronDetails = teamsSourceDataBatchProcessService.updateBatchProcessTime(cronDetails);
 			log.info("updateBatchProcessTime() executed successfully.");
@@ -263,6 +263,7 @@ public class TeamsSourceDataBatchProcessController {
 	public ResponseEntity<CronDetails> getBatchProcessTime(){
 		log.info("getBatchProcessDetails() entered with no args");
 		try {
+			log.info("getBatchProcessDetails() is under execution...");
 			CronDetails cronDetails = teamsSourceDataBatchProcessService.getCronDetails();
 			log.info("getBatchProcessDetails() executed successfully.");
 			return new ResponseEntity<>(cronDetails,HttpStatus.OK);
