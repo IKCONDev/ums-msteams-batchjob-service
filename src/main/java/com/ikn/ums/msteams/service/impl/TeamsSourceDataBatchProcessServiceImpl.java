@@ -98,7 +98,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	private CronRepository cronRepository;
 	
 	private static final String authHeader = "Authorization";
-	private static final String tokenType = " Bearer";
+	private static final String tokenType = " Bearer ";
 	private static final String contentHeader = "content-type";
 	private static final String jsonContentType = "application/json";
 	private static String partialTranscriptFinalName = "Transcript";
