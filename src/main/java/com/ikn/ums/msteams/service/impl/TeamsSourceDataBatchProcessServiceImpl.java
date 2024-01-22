@@ -79,23 +79,28 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	@Autowired
 	private InitializeMicrosoftGraph microsoftGraph;
-
-	private LocalDateTime lastBatchProcessingStartTime;
-
-	AccessToken acToken = new AccessToken(this.accessToken, OffsetDateTime.now());
-
-	List<EmployeeVO> userDtoList = null;
-	
-	RestTemplate graphRestTemplate;
 	
 	@Autowired
 	private CronRepository cronRepository;
+
+	private LocalDateTime lastBatchProcessingStartTime;
+
+	private AccessToken acToken = new AccessToken(this.accessToken, OffsetDateTime.now());
+
+	private List<EmployeeVO> userDtoList = null;
+	
+	private RestTemplate graphRestTemplate;
 	
 	private static final String authHeader = "Authorization";
+	
 	private static final String tokenType = " Bearer ";
+	
 	private static final String contentHeader = "content-type";
+	
 	private static final String jsonContentType = "application/json";
+	
 	private static String partialTranscriptFileName = "Transcript";
+	
 
 	// constructor
 	@Autowired
@@ -711,4 +716,4 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("getCronDetails() executed successfully.");
 		return cronDetails;
 	}
-}// class
+}
