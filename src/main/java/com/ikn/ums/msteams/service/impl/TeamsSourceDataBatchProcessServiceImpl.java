@@ -95,7 +95,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	private static final String tokenType = " Bearer ";
 	private static final String contentHeader = "content-type";
 	private static final String jsonContentType = "application/json";
-	private static String partialTranscriptFinalName = "Transcript";
+	private static String partialTranscriptFileName = "Transcript";
 
 	// constructor
 	@Autowired
@@ -398,13 +398,13 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 							// write transcript into file
 							try (FileWriter fileWriter = new FileWriter(
-									partialTranscriptFinalName+" " + transcriptDto.getTranscriptId())) {
+									partialTranscriptFileName+" " + transcriptDto.getTranscriptId())) {
 								fileWriter.write(transcriptContent);
 								log.info("Transcript content has been written to the file.");
 
 								// save file loc to db
 								// Get the file path
-								File file = new File(partialTranscriptFinalName+" " + transcriptDto.getTranscriptId());
+								File file = new File(partialTranscriptFileName+" " + transcriptDto.getTranscriptId());
 								var filePath = file.getAbsolutePath();
 								log.info("File path: " + filePath);
 								if (!filePath.equalsIgnoreCase("")) {
@@ -415,7 +415,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 									// set transcript content into db column
 									// byte[] transcriptContentBytes = transcriptContent.getBytes("UTF-8");
 									// transcriptDto.setTranscriptContent(Arrays.toString(transcriptContentBytes));
-									// System.out.println(Arrays.toString(transcriptContentBytes));
 								}
 
 							} catch (IOException e) {
@@ -441,7 +440,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					var transcriptContent = getTranscriptContent(transcript.getTranscriptContentUrl());
 
 					// write transcript into file
-					try (FileWriter fileWriter = new FileWriter(partialTranscriptFinalName+" " + transcript.getTranscriptId())) {
+					try (FileWriter fileWriter = new FileWriter(partialTranscriptFileName+" " + transcript.getTranscriptId())) {
 						fileWriter.write(transcriptContent);
 						log.info("Transcript content has been written to the file.");
 						// save file loc to db
