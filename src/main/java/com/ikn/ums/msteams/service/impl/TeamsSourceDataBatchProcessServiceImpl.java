@@ -101,7 +101,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	
 	private static String partialTranscriptFileName = "Transcript";
 	
-
 	// constructor
 	@Autowired
 	public TeamsSourceDataBatchProcessServiceImpl() {
@@ -114,7 +113,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	public void performSourceDataBatchProcessing(BatchDetailsDto lastBatchDetails) throws Exception {
 		log.info("performSourceDataBatchProcessing() entered with args : LastBatchProcessDetails");
 		List<List<Event>> allUsersEventListOfCurrentBatchProcess = new ArrayList<>();
-
 		// get access token from MS teams server , only if existing access token is expired
 		if (this.acToken.isExpired()) {
 			log.info("performSourceDataBatchProcessing() Access Token expired.");
@@ -123,7 +121,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			this.accessToken = this.acToken.getToken();
 			log.info("performSourceDataBatchProcessing() New Access Token aquired.");
 		}
-
 		// get all employees data from employee microservice to perform batch processing
 		var empList = restTemplate.getForObject("http://UMS-EMPLOYEE-SERVICE/employees/get-all",
 				EmployeeListVO.class);
@@ -136,7 +133,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			// set current batch processing details
 			BatchDetailsDto currentBatchDetailsDto = new BatchDetailsDto();
 			BatchDetails batchDetails = new BatchDetails();
-
 			// get current time which is taken as batch processing start date time for
 			// current batch process
 			LocalDateTime currentbatchStartTime = LocalDateTime.now();
@@ -147,10 +143,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			log.info("performSourceDataBatchProcessing() current batch process status : "
 					+ currentBatchDetailsDto.getStatus());
 			currentBatchDetailsDto.setStartDateTime(currentbatchStartTime);
-
 			// map dto to entity
 			ObjectMapper.modelMapper.map(currentBatchDetailsDto, batchDetails);
-
 			// save current batch object
 			BatchDetails currentDbBatchDetails = batchDetailsRepository.save(batchDetails);
 			log.info("performSourceDataBatchProcessing() current batch process details saved in DB ");
@@ -227,38 +221,29 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("getUserCalendarView() entered with args : employee object, lastSuccessfulBatchStartTime");
 		// Get the current date in the system's default time zone
 		LocalDateTime currentStartDateTime = LocalDateTime.now();
-
 		// Set the datetime to 1 hour ago for the first time execution of batch process
 		LocalDateTime dateTimeOneHourAgo = currentStartDateTime.minus(3, ChronoUnit.MINUTES);
-
 		// Convert to UTC
 		ZonedDateTime zonedStartDateTime = dateTimeOneHourAgo.atZone(ZoneId.systemDefault());
 		ZonedDateTime utcZonedStartDateTime = zonedStartDateTime.withZoneSameInstant(ZoneId.of("UTC"));
-
 		// Extract UTC LocalDateTime
 		LocalDateTime dateTimeOneHourAgoUTC = utcZonedStartDateTime.toLocalDateTime();
-
 		// Get the current date in the system's default time zone
 		LocalDateTime currentEndDateTime = LocalDateTime.now();
-
 		// Convert to UTC
 		ZonedDateTime zonedEndDateTime = currentEndDateTime.atZone(ZoneId.systemDefault());
 		ZonedDateTime utcZonedEndDateTime = zonedEndDateTime.withZoneSameInstant(ZoneId.of("UTC"));
-
 		// Extract UTC LocalDateTime
 		LocalDateTime currentEndDateTimeUTC = utcZonedEndDateTime.toLocalDateTime();
-
 		LocalDateTime batchStartTimeUTC = null;
 		// convert lastsuccessfulbatchtime to UTC
 		if (lastSuccessfulBatchStartTime != null) {
 			ZonedDateTime zonedLastSuccessfulBatchTime = lastSuccessfulBatchStartTime.atZone(ZoneId.systemDefault());
 			ZonedDateTime utcZonedLastSuccessfulBatchTime = zonedLastSuccessfulBatchTime
 					.withZoneSameInstant(ZoneId.of("UTC"));
-
 			// Extract UTC LocalDateTime
 			batchStartTimeUTC = utcZonedLastSuccessfulBatchTime.toLocalDateTime();
 		}
-
 		StringBuilder calendarViewBaseUrl = null;
 		if (lastSuccessfulBatchStartTime == null) {
 			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userDto.getEmail()
@@ -282,22 +267,17 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("filter query param applied to URL : " + filter);
 		var skip = environment.getProperty("calendarview.url.queryparam.skip");
 		log.info("skip query param applied to URL : " + skip);
-
 		// append select, filter and skip to calendarViewBaseUrl
 		calendarViewBaseUrl = calendarViewBaseUrl.append(filter).append(skip);
-
 		// prepare final URL
 		var finalCalendarViewUrl = calendarViewBaseUrl.toString();
 		log.info("getUserCalendarView() final calendar url of a employee : " + finalCalendarViewUrl);
-
 		// prepare required http headers for the request
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(authHeader, tokenType + this.accessToken);
 		headers.add(contentHeader, jsonContentType);
-
 		// prepare http entity object with headers
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
-
 		ResponseEntity<CalendarViewResponseWrapper> response = graphRestTemplate.exchange(finalCalendarViewUrl,
 				HttpMethod.GET, hentity, CalendarViewResponseWrapper.class);
 		log.info("getUserCalendarView() sending request to graph api with prepared url : " + finalCalendarViewUrl);
@@ -305,9 +285,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		CalendarViewResponseWrapper calendarViewWrapper = response.getBody();
 		log.info("getUserCalendarView() : calendar view of employee obtained.");
 		List<EventDto> listCalendarViewDto = calendarViewWrapper.getValue();
-
 		ListIterator<EventDto> iterator = listCalendarViewDto.listIterator();
-
 		// prevent concurrent modifications on events list by using iterator instead of
 		// for each loop.
 		while (iterator.hasNext()) {
@@ -318,7 +296,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				iterator.remove();
 			}
 		}
-
 		// get user events with its attached online meetings
 		// for each event attach corresponding online meeting
 		List<EventDto> updateEventsListDto = new ArrayList<>();
