@@ -680,8 +680,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		var url = "http://UMS-MEETING-SERVICE/meetings/";
 		var httpEntity = new HttpEntity<>(allUsersEventList);
 		var response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
-		var successfulCopy = response.getBody();
+		var successfulCopyMessage = response.getBody();
 		log.info("copySourceDataofCurrentBatchProcessingToMeetingsMicroservice() call to meeting microservice : http://localhost:8012/meetings/ is sucessfull.");
+		log.info("copySourceDataofCurrentBatchProcessingToMeetingsMicroservice() : "+successfulCopyMessage);
 		log.info("copySourceDataofCurrentBatchProcessingToMeetingsMicroservice() executed successfully.");
 	}
 
