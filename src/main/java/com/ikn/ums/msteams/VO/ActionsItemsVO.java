@@ -1,7 +1,8 @@
 package com.ikn.ums.msteams.VO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,25 +11,40 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ActionsItemsVO {
+
+	private Integer actionItemId;
 	
+	private Long meetingId;
+
+	private String emailId;
+
+	private List<String> actionItemOwner;
 	
-	private Integer id;
+	private String actionItemTitle;
 	
-	private Integer eventid;
-	
-	private String actionTitle;
-	
-	private String Description;
+	private String actionItemDescription;
 		
-    private String actionPriority;
+	private String actionPriority;
 	
-	private String actionStatus;
+	private String actionStatus = "Not Submitted";
 	
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 	
-	private String userId;
+	private Long departmentId;
+	
+	private LocalDateTime createdDateTime;
+	
+	private LocalDateTime modifiedDateTime;
+	
+	private String createdBy;
+	
+	private String modifiedBy;
+	
+	private String createdByEmailId;
+	
+	private String modifiedByEmailId;
 
 	
 
