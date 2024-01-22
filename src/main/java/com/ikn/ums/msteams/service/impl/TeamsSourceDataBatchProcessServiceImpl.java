@@ -406,9 +406,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 								// Get the file path
 								File file = new File(partialTranscriptFileName+" " + transcriptDto.getTranscriptId());
 								var filePath = file.getAbsolutePath();
-								log.info("File path: " + filePath);
+								log.info("Transcript File path: " + filePath);
 								if (!filePath.equalsIgnoreCase("")) {
-
 									// set transcript file path
 									transcriptDto.setTranscriptFilePath(filePath);
 									transcriptDto.setTranscriptContent(transcriptContent);
@@ -416,7 +415,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 									// byte[] transcriptContentBytes = transcriptContent.getBytes("UTF-8");
 									// transcriptDto.setTranscriptContent(Arrays.toString(transcriptContentBytes));
 								}
-
 							} catch (IOException e) {
 								log.error("attachTranscriptsToOnlineMeeting() Exception occutred while attaching transcript content to its online meeting. "+e.getMessage(), e);
 								throw new TranscriptGenerationFailedException(ErrorCodeMessages.ERR_MSTEAMS_TRANSCRIPT_GENERATION_FAILED_CODE,
@@ -425,12 +423,10 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						});
 						eventDto.getOnlineMeeting().setMeetingTranscripts(actualMeetingTranscriptsListDto);
 					}
-
 				}
 			});
 		} // if
 		else {
-
 			// Retrieve transcripts of single instance meeting and insert into db
 			List<TranscriptDto> transcriptsListDto = getOnlineMeetingTranscriptDetails(user.getTeamsUserId(),
 					eventDto.getOnlineMeeting().getOnlineMeetingId());
@@ -438,7 +434,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				// eventDto.getOnlineMeeting().setMeetingTranscripts(transcriptsListDto);
 				transcriptsListDto.forEach(transcript -> {
 					var transcriptContent = getTranscriptContent(transcript.getTranscriptContentUrl());
-
 					// write transcript into file
 					try (FileWriter fileWriter = new FileWriter(partialTranscriptFileName+" " + transcript.getTranscriptId())) {
 						fileWriter.write(transcriptContent);
@@ -447,7 +442,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						// Get the file path
 						File file = new File("Transcript-" + transcript.getTranscriptId());
 						var filePath = file.getPath();
-						log.info("File path: " + filePath);
+						log.info("Transcript File path: " + filePath);
 						if (!filePath.equalsIgnoreCase("")) {
 							// set transcript file path
 							transcript.setTranscriptFilePath(filePath);
@@ -456,7 +451,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 							// org.apache.commons.codec.binary.Base64.encodeBase64String(transcriptContentBytes);
 							transcript.setTranscriptContent(transcriptContent);
 						}
-
 					} catch (IOException e) {
 						log.error("attachTranscriptsToOnlineMeeting() Exception occutred while attaching transcript content to its online meeting. "+e.getMessage(), e);
 						throw new RuntimeException(e);
@@ -482,10 +476,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			// iterate through event objects and get the online meeting object from each
 			// event object one by one
 			Event event = new Event();
-
 			// map eventDto to event and add all the events to list
 			ObjectMapper.modelMapper.map(eventDto, event);
-
 			// map manual property entries
 			event.setOnlineMeetingId(eventDto.getOnlineMeeting().getOnlineMeetingId());
 			event.setStartDateTime(LocalDateTime.parse(eventDto.getStart().getDateTime()));
@@ -551,7 +543,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			event.setBatchId(currentBatchProcessId);
 			// logic for isOnlinemeeting based on join url (optional)
 			eventEntities.add(event);
-
 			// finally save all event entities of the user in UMS DB,
 			// now all the events contain (its online meeting Id and transcript details if
 			// any)
@@ -570,20 +561,16 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		StringBuilder stringBuilder = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userId
 				+ "/onlineMeetings?$filter=joinWebUrl eq '" + joinWebUrl + "'");
 		var finalUrl = stringBuilder.toString();
-
 		// prepare Http headers required for the request
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(authHeader, tokenType + this.accessToken);
 		headers.add(contentHeader, jsonContentType);
-
 		// prepare http entity with headers
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
-
 		// prepare rest template and hit meeting end point
 		ResponseEntity<OnlineMeetingResponseWrapper> response = graphRestTemplate.exchange(finalUrl, HttpMethod.GET, hentity,
 				OnlineMeetingResponseWrapper.class);
 		List<OnlineMeetingDto> onlineMeetingsList = response.getBody().getValue();
-
 		// however there will be only single meeting object, even if it returns a list,
 		// get the 0th index from list which will give the meeting object
 		log.info("getOnlineMeeting() executed successfully");
@@ -597,19 +584,15 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		StringBuilder stringBuilder = new StringBuilder("https://graph.microsoft.com/beta/users/" + userId
 				+ "/onlineMeetings('" + onlineMeetingId + "')/transcripts");
 		var url = stringBuilder.toString();
-
 		// prepare headers for the request
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(authHeader, tokenType + this.accessToken);
 		headers.add(contentHeader, jsonContentType);
-
 		// prepare http entity object
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
-
 		// prepare rest template and hit transcript end point to fetch transcripts for the meeting
 		ResponseEntity<TranscriptsResponseWrapper> response = graphRestTemplate.exchange(url, HttpMethod.GET, hentity,
 				TranscriptsResponseWrapper.class);
-
 		// check whether transcript are present for the meeting, the odataCount gives
 		// the count of transcripts available for the meeting.
 		// if odataCount is 0, i.e there is no transcript available for the meeting
@@ -635,7 +618,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		if (optBatchDetails.isPresent()) {
 			latestBatchDetails = optBatchDetails.get();
 			latestBatchDetailsDto = new BatchDetailsDto();
-
 			// map entity to dto
 			ObjectMapper.modelMapper.map(latestBatchDetails, latestBatchDetailsDto);
 			return latestBatchDetailsDto;
@@ -655,17 +637,14 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("getTranscriptContent() is under execution...");
 		StringBuilder stringBuilder = new StringBuilder(transcriptContentUrl);
 		var url = stringBuilder.toString();
-
 		// prepare headers for the request
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(authHeader, tokenType + this.accessToken);
 		headers.add("Accept", "text/vtt");
 		headers.setContentType(MediaType.TEXT_PLAIN);
-
 		// prepare http entity object with headers
 		HttpEntity<String> hentity = new HttpEntity<>(headers);
 		ResponseEntity<String> rentity = graphRestTemplate.exchange(url, HttpMethod.GET, hentity, String.class);
-
 		// body of response contains the transcript content
 		log.info("getTranscriptContent() executed sucessfully.");
 		return rentity.getBody();
