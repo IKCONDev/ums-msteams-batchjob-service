@@ -3,17 +3,14 @@ package com.ikn.ums.msteams.service.impl;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
@@ -62,7 +59,6 @@ import com.ikn.ums.msteams.utils.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
-@SuppressWarnings("unused")
 @Service
 @Slf4j
 public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBatchProcessService {
@@ -85,8 +81,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	private InitializeMicrosoftGraph microsoftGraph;
 
 	private LocalDateTime lastBatchProcessingStartTime;
-
-	private ObjectMapper mapper;
 
 	AccessToken acToken = new AccessToken(this.accessToken, OffsetDateTime.now());
 
