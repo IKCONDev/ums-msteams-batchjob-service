@@ -304,7 +304,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			// attach online meeting to event
 			EventDto updatedEventWithOnlineMeeting = null;
 			EventDto updatedEventWithOnlineMeetingAndTranscript = null;
-
 			// get an event's online meeting and transcript, only if the event is an online
 			// Event
 			if (eventDto.getOnlineMeeting() != null) {
@@ -503,7 +502,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				// set event to attendee
 				// attendee.setEvent(event);
 			});
-
 			// set user profile for each attendee
 			List<EmployeeVO> userProfilesList = this.userDtoList;
 			attendeesList.forEach(attendee -> {
@@ -520,7 +518,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					 */
 				}
 			});
-
 			event.setAttendees(attendeesList);
 			event.setBatchId(currentBatchProcessId);
 			// logic for isOnlinemeeting based on join url (optional)

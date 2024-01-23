@@ -95,11 +95,11 @@ public class TeamsSourceDataBatchProcessController {
 				return new ResponseEntity<>(ErrorCodeMessages.ERR_MSTEAMS_BATCH_PROCESS_SUCCESS_MSG, HttpStatus.OK);
 			}
 		} catch (BusinessException | UsersNotFoundException | TranscriptGenerationFailedException e) {
-			log.error("rawDataBatchProcessing() : An Business error/exception occurred: {}." + e.getMessage(), e);
+			log.error("rawDataBatchProcessing() : An Business error/exception occurred {} : " + e.getMessage(), e);
 			throw e;
 		}
 		catch (Exception e) {
-			log.error("rawDataBatchProcessing() : An error/exception occurred: {}." + e.getMessage(), e);
+			log.error("rawDataBatchProcessing() : An error/exception occurred {} : " + e.getMessage(), e);
 			throw new ControllerException(ErrorCodeMessages.ERR_MSTEAMS_BATCHPROCESS_UNSUCCESS_CODE,
 					ErrorCodeMessages.ERR_MSTEAMS_BATCHPROCESS_UNSUCCESS_MSG);
 		}
@@ -119,8 +119,8 @@ public class TeamsSourceDataBatchProcessController {
 			log.info(
 					"TeamsSourceDataBatchProcessController.getActionItemsOfEvent() is exited with exception : Invalid event id : "
 							+ eventId);
-			throw new InvalidInputException(ErrorCodeMessages.ERR_MSTEAMS_EVENT_INVALID_EVENTID_CODE,
-					ErrorCodeMessages.ERR_MSTEAMS_EVENT_INVALID_EVENTID_MSG);
+			throw new InvalidInputException(ErrorCodeMessages.ERR_MSTEAMS_INVALID_EVENTID_CODE,
+					ErrorCodeMessages.ERR_MSTEAMS_INVALID_EVENTID_MSG);
 		}
 		try {
 			log.info("TeamsSourceDataBatchProcessController.getActionItemsOfEvent() is under execution");
