@@ -13,8 +13,9 @@ import com.azure.identity.ClientSecretCredentialBuilder;
 import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
 import com.microsoft.graph.requests.GraphServiceClient;
 
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
-
+@Slf4j
 @Component
 public class InitializeMicrosoftGraph {
 	
@@ -28,6 +29,8 @@ public class InitializeMicrosoftGraph {
 	// initialize Microsoft graph API and get access token
 		//@Override
 		public AccessToken initializeMicrosoftGraph() {
+			log.info("initializeMicrosoftGraph() is entered");
+			log.info("initializeMicrosoftGraph() is under execution");
 			if (clientSecretCredential == null) {
 				final String clientId = environment.getProperty("app.clientId");
 				final String clientSecret = environment.getProperty("app.clientSecret");
@@ -38,14 +41,18 @@ public class InitializeMicrosoftGraph {
 			final TokenCredentialAuthProvider authProvider = new TokenCredentialAuthProvider(
 					List.of("https://graph.microsoft.com/.default"), clientSecretCredential);
 			this.graphServiceClient = GraphServiceClient.builder().authenticationProvider(authProvider).buildClient();
+			log.info("initializeMicrosoftGraph() is executed successfully");
 			return getAccessToken();
 		}
 
 		// helper method
 		private AccessToken getAccessToken() {
+			log.info("getAccessToken() is entered");
+			log.info("getAccessToken() is under execution");
 			final String[] graphscopes = new String[] { "https://graph.microsoft.com/.default" };
 			final TokenRequestContext context = new TokenRequestContext();
 			context.addScopes(graphscopes);
+			log.info("getAccessToken() is executed successfully");
 			return this.clientSecretCredential.getToken(context).block();
 			
 		}
