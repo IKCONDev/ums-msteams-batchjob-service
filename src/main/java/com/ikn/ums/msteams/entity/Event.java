@@ -102,7 +102,7 @@ public class Event {
 	private List<Transcript> meetingTranscripts;
 	   
 	@Column(name = "insertedBy")
-	private String insertedBy = "IKCON UMS";
+	private String insertedBy = "AUTO-BATCH-PROCESS";
     
 	@Column(name = "insertedDate")
     private String insertedDate = LocalDateTime.now().toString();
