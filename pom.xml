@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.ikn.ums</groupId>
 	<artifactId>msteams-batchjob-service</artifactId>
-	<version>ALPHA-0.1</version>
+	<version>ALPHA-0.2</version>
 	<name>msteams-batchjob-service</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>

@@ -466,14 +466,14 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			event.setEndDateTime(LocalDateTime.parse(eventDto.getEnd().getDateTime()));
 			event.setEndTimeZone(eventDto.getEnd().getTimeZone());
 			event.setLocation(eventDto.getLocation().getDisplayName());
-			event.setOrganizerEmailId(eventDto.getOrganizer().getEmailAddress().getAddress());
+			event.setOrganizerEmailId(eventDto.getOrganizer().getEmailAddress().getAddress().toLowerCase());
 			// if(user.getDepartment() != null) {
 			// event.setDepartmentId(user.getDepartment().getDepartmentId());
 			// }
 			event.setDepartmentId(user.getDepartmentId());
 			event.setOrganizerName(eventDto.getOrganizer().getEmailAddress().getName());
 			event.setJoinUrl(eventDto.getOnlineMeeting().getJoinUrl());
-			event.setEmailId(user.getEmail());
+			event.setEmailId(user.getEmail().toLowerCase());
 			List<TranscriptDto> retrivedTranscriptDtos = eventDto.getOnlineMeeting().getMeetingTranscripts();
 			List<Transcript> transcripts = new ArrayList<>();
 			if (retrivedTranscriptDtos != null) {
@@ -490,7 +490,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			List<String> mailIds = new ArrayList<>();
 			eventDto.getAttendees().forEach(attendeeDto -> {
 				Attendee attendee = new Attendee();
-				String attendeeEmailAddress = attendeeDto.getEmailAddress().getAddress();
+				String attendeeEmailAddress = attendeeDto.getEmailAddress().getAddress().toLowerCase();
 				// map dto to entity
 				ObjectMapper.modelMapper.map(attendeeDto, attendee);
 				// manually map the unmatched field
@@ -508,14 +508,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				for (int i = 0; i < userProfilesList.size(); i++) {
 					if (attendee.getEmail().equalsIgnoreCase(userProfilesList.get(i).getEmail())) {
 						// attendee.setUser(userProfilesList.get(i));
-						attendee.setEmailId(userProfilesList.get(i).getEmail());
+						attendee.setEmailId(userProfilesList.get(i).getEmail().toLowerCase());
 						// userProfilesList.get(i).getDepartment().getDepartmentId();
-					}
-					/*
-					 * if(event.getOrganizerEmailId().equalsIgnoreCase(userProfilesList.get(i).
-					 * getEmail())) { Attendee attendee = new Atte
-					 * attendee.setUserId(userProfilesList.get(i).getId()); }
-					 */
+					} 
 				}
 			});
 			event.setAttendees(attendeesList);
