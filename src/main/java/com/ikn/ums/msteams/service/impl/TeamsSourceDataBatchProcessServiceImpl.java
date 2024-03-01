@@ -320,7 +320,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info(
 				"getUserCalendarView() : updated user calendar events with its online meetings and transcripts returned");
 		log.info(
-				"getUserCalendarView() : executed successully.");
+				"getUserCalendarView() : executed successfully.");
 		return updateEventsListDto;
 	}
 
