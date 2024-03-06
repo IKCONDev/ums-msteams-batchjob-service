@@ -833,19 +833,26 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("updateEventinMeetingMicroservice() executed successfully");
 	}
 	public boolean sendBatchProcessEmail(String email, String Status, LocalDateTime startDate, LocalDateTime endDate) {
-	    	String Subject = "Batch Job Status";
-	    	String emailBody = null;
-	    	if(Status == "COMPLETED") {
-	    		emailBody = "The Batch process for the Scheduled time executed Successfully."+"\r \n"+"Start Date Time : "+startDate+"\r \n"+
-	    				 "End Date Time : "+endDate+ "\r \n";
-	    		emailService.sendMail(email, Subject, emailBody, false);
-	    	}
-	    	if(Status == "FAILED"){
-	    		emailBody = "The Batch process for the Scheduled time Was UnSuccessfull."+"\r \n"+"Start Date Time : "+startDate+"\r \n"+
-	    				 "End Date Time : "+endDate+ "\r \n";
-	    		emailService.sendMail(email, Subject, emailBody, false);
-	    	}
-			return true;
+		String Subject = "Batch Job Status";
+    	String emailBody = null;
+    	LocalDateTime timestampUtc = LocalDateTime.parse(startDate.toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestampIstStr = timestampUtc.format(formatter);
+        
+        LocalDateTime timestampUtc1 = LocalDateTime.parse(endDate.toString());
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestampIstStr1 = timestampUtc1.format(formatter1);
+    	if(Status == "COMPLETED") {
+    		emailBody = "The scheduled batch process has been successfully executed within the designated timeframe."+"\r \n"+"Start Date Time : "+timestampIstStr+"\r \n"+
+    				 "End Date Time : "+timestampIstStr1+ "\r \n";
+    		emailService.sendMail(email, Subject, emailBody, false);
+    	}
+    	if(Status == "FAILED"){
+    		emailBody = "The scheduled batch process did not execute successfully within the assigned timeframe."+"\r \n"+"Start Date Time : "+timestampIstStr+"\r \n"+
+    				 "End Date Time : "+timestampIstStr1+ "\r \n";
+    		emailService.sendMail(email, Subject, emailBody, false);
+    	}
+		return true;
 	    	
 	}
 }
