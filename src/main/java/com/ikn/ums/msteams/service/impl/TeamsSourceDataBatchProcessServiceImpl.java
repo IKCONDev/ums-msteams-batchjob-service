@@ -6,14 +6,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -21,6 +20,7 @@ import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -33,10 +33,14 @@ import org.springframework.web.client.RestTemplate;
 import com.azure.core.credential.AccessToken;
 import com.ikn.ums.msteams.VO.EmployeeListVO;
 import com.ikn.ums.msteams.VO.EmployeeVO;
+import com.ikn.ums.msteams.dto.AttendanceRecordDto;
+import com.ikn.ums.msteams.dto.AttendanceReportDto;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.dto.EventDto;
 import com.ikn.ums.msteams.dto.OnlineMeetingDto;
 import com.ikn.ums.msteams.dto.TranscriptDto;
+import com.ikn.ums.msteams.entity.AttendanceRecord;
+import com.ikn.ums.msteams.entity.AttendanceReport;
 import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.BatchDetails;
 import com.ikn.ums.msteams.entity.CronDetails;
@@ -47,6 +51,7 @@ import com.ikn.ums.msteams.exception.EmptyInputException;
 import com.ikn.ums.msteams.exception.ErrorCodeMessages;
 import com.ikn.ums.msteams.exception.TranscriptGenerationFailedException;
 import com.ikn.ums.msteams.exception.UsersNotFoundException;
+import com.ikn.ums.msteams.model.AttendanceReportResponseWrapper;
 import com.ikn.ums.msteams.model.CalendarViewResponseWrapper;
 import com.ikn.ums.msteams.model.OnlineMeetingResponseWrapper;
 import com.ikn.ums.msteams.model.TranscriptsResponseWrapper;
@@ -108,7 +113,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("TeamsSourceDataBatchProcessServiceImpl() constructor executed.");
 	}
 
-	@Transactional
+	@Transactional(dontRollbackOn = {BusinessException.class})
 	@Override
 	public void performSourceDataBatchProcessing(BatchDetailsDto lastBatchDetails) throws Exception {
 		log.info("performSourceDataBatchProcessing() entered with args : LastBatchProcessDetails");
@@ -168,18 +173,21 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 							// get userprincipalName and pass it to calendarView method to fetch the
 							// calendar events if the user
 							String userPrincipalName = userDto.getEmail();
-							log.info("BATCH PROCESSING STARTED FOR USER : " + userPrincipalName + "WITH TEAMS USERID : "
+							log.info("BATCH PROCESSING STARTED FOR USER : " + userPrincipalName + " WITH TEAMS USERID : "
 									+ userId);
 							// get users calendar view of events using principal name
 							List<EventDto> calendarEventsDtolist = getUserCalendarView(userDto,
 									lastBatchProcessingStartTime);
-
-							// save user events
-							List<Event> userEventList = saveAllUsersCalendarEvents(calendarEventsDtolist, userDto,
-									currentDbBatchDetails.getBatchId());
-							if (!userEventList.isEmpty()) {
-								allUsersEventListOfCurrentBatchProcess.add(userEventList);
-							}
+                            if(calendarEventsDtolist.size() > 0) {
+                            	// save user events
+    							List<Event> userEventList = saveAllUsersCalendarEvents(calendarEventsDtolist, userDto,
+    									currentDbBatchDetails.getBatchId());
+    							if (!userEventList.isEmpty()) {
+    								allUsersEventListOfCurrentBatchProcess.add(userEventList);
+    							}
+                            }else {
+                            	log.info("No meetings for user "+userDto.getEmail()+" in current batch process");
+                            }
 						} else {
 							log.info("BATCH PROCESSING EXCLUDED FOR USER : " + userDto.getEmail()+" ---NO TEAMS USER ID---");
 						}
@@ -207,8 +215,6 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
 				log.info("performSourceDataBatchProcessing() Current batch processing details after exception " + currentDbBatchDetails);
 				log.error("performSourceDataBatchProcessing() BusinessException :Exception occured while batch processing in Business layer " + e.getMessage(), e);
-				throw new BusinessException(ErrorCodeMessages.ERR_MSTEAMS_UNKNOWN_ERROR_CODE,
-						ErrorCodeMessages.ERR_MSTEAMS_UNKNOWN_ERROR_MSG);
 			}
 		} else {
 			log.error("performSourceDataBatchProcessing() UsersNotFoundException: Users not found for batch processing / Users List is empty.");
@@ -219,50 +225,28 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 	private List<EventDto> getUserCalendarView(EmployeeVO userDto, LocalDateTime lastSuccessfulBatchStartTime) {
 		log.info("getUserCalendarView() entered with args : employee object, lastSuccessfulBatchStartTime");
-		// Get the current date in the system's default time zone
-		LocalDateTime currentStartDateTime = LocalDateTime.now();
-		// Set the datetime to 1 hour ago for the first time execution of batch process
-		LocalDateTime dateTimeOneHourAgo = currentStartDateTime.minus(3, ChronoUnit.MINUTES);
-		// Convert to UTC
-		ZonedDateTime zonedStartDateTime = dateTimeOneHourAgo.atZone(ZoneId.systemDefault());
-		ZonedDateTime utcZonedStartDateTime = zonedStartDateTime.withZoneSameInstant(ZoneId.of("UTC"));
-		// Extract UTC LocalDateTime
-		LocalDateTime dateTimeOneHourAgoUTC = utcZonedStartDateTime.toLocalDateTime();
-		// Get the current date in the system's default time zone
-		LocalDateTime currentEndDateTime = LocalDateTime.now();
-		// Convert to UTC
-		ZonedDateTime zonedEndDateTime = currentEndDateTime.atZone(ZoneId.systemDefault());
-		ZonedDateTime utcZonedEndDateTime = zonedEndDateTime.withZoneSameInstant(ZoneId.of("UTC"));
-		// Extract UTC LocalDateTime
-		LocalDateTime currentEndDateTimeUTC = utcZonedEndDateTime.toLocalDateTime();
-		LocalDateTime batchStartTimeUTC = null;
-		// convert lastsuccessfulbatchtime to UTC
-		if (lastSuccessfulBatchStartTime != null) {
-			ZonedDateTime zonedLastSuccessfulBatchTime = lastSuccessfulBatchStartTime.atZone(ZoneId.systemDefault());
-			ZonedDateTime utcZonedLastSuccessfulBatchTime = zonedLastSuccessfulBatchTime
-					.withZoneSameInstant(ZoneId.of("UTC"));
-			// Extract UTC LocalDateTime
-			batchStartTimeUTC = utcZonedLastSuccessfulBatchTime.toLocalDateTime();
-		}
 		StringBuilder calendarViewBaseUrl = null;
-		if (lastSuccessfulBatchStartTime == null) {
+		LocalDateTime currentStartDateTimeUtc = LocalDateTime.now(ZoneOffset.UTC);
+		// Set time to 12:00 AM
+		LocalDateTime startOfTheDayUtc = currentStartDateTimeUtc
+				.withHour(0)
+				.withMinute(0)
+				.withSecond(0)
+				.withNano(0);
+        LocalDateTime currentEndDateTimeUtc = LocalDateTime.now(ZoneOffset.UTC);
+        // Set time to end of the day (11:59:59.999 PM)
+        LocalDateTime endOfTheDayUtc = currentEndDateTimeUtc
+                .withHour(23)
+                .withMinute(59)
+                .withSecond(59)
+                .withNano(999_999_999);
+        //get calendar meetings of a user between above times
 			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userDto.getEmail()
-					+ "/calendarView?startDateTime=" + dateTimeOneHourAgoUTC + "&endDateTime=" + currentEndDateTimeUTC);
+					+ "/calendarView?startDateTime=" + startOfTheDayUtc + "&endDateTime=" + endOfTheDayUtc);
 			log.info("getUserCalendarView() : user calendar view formed url : " + calendarViewBaseUrl);
 			log.info(
 					"getUserCalendarView() : user calendar view formed url : https://graph.microsoft.com/v1.0/users/\" + userDto.getEmail()\r\n"
-							+ "					+ \"/calendarView?startDateTime=\" + dateTimeOneHourAgoUTC + \"&endDateTime=\" + currentEndDateTimeUTC");
-		} else {
-			calendarViewBaseUrl = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userDto.getEmail()
-					+ "/calendarView?startDateTime=" + batchStartTimeUTC + "&endDateTime=" + currentEndDateTimeUTC);
-			log.info("getUserCalendarView() : user calendar view formed url : " + calendarViewBaseUrl);
-			log.info(
-					"getUserCalendarView() : user calendar view formed url : https://graph.microsoft.com/v1.0/users/\" + userDto.getEmail()\r\n"
-							+ "					+ \"/calendarView?startDateTime=\" + batchStartTimeUTC + \"&endDateTime=\" + currentEndDateTimeUTC");
-
-		}
-		// String select =
-		// environment.getProperty("calendarview.url.queryparam.select");
+							+ "					+ \"/calendarView?startDateTime=\" + startOfTheDayUtc + \"&endDateTime=\" + endOfTheDayUtc");
 		var filter = environment.getProperty("calendarview.url.queryparam.filter");
 		log.info("filter query param applied to URL : " + filter);
 		var skip = environment.getProperty("calendarview.url.queryparam.skip");
@@ -285,42 +269,87 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		CalendarViewResponseWrapper calendarViewWrapper = response.getBody();
 		log.info("getUserCalendarView() : calendar view of employee obtained.");
 		List<EventDto> listCalendarViewDto = calendarViewWrapper.getValue();
-		ListIterator<EventDto> iterator = listCalendarViewDto.listIterator();
-		// prevent concurrent modifications on events list by using iterator instead of
-		// for each loop.
-		while (iterator.hasNext()) {
-			EventDto eventDto = iterator.next();
-			String eventEndTimeUTC = eventDto.getEnd().getDateTime();
-			LocalDateTime originalEventEndDateTimeUTC = LocalDateTime.parse(eventEndTimeUTC);
-			if (originalEventEndDateTimeUTC.compareTo(currentEndDateTimeUTC) > 0) {
-				iterator.remove();
-			}
-		}
 		// get user events with its attached online meetings
 		// for each event attach corresponding online meeting
 		List<EventDto> updateEventsListDto = new ArrayList<>();
-		listCalendarViewDto.forEach(eventDto -> {
-			// attach userId and principal name to event
-			// attach online meeting to event
-			EventDto updatedEventWithOnlineMeeting = null;
-			EventDto updatedEventWithOnlineMeetingAndTranscript = null;
-			// get an event's online meeting and transcript, only if the event is an online
-			// Event
-			if (eventDto.getOnlineMeeting() != null) {
-				updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
-				log.info(
-						"getUserCalendarView() : user calendar view events updated with its respective online meeting objects.");
-				updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
-						updatedEventWithOnlineMeeting, userDto);
-				log.info(
-						"getUserCalendarView() : user calendar view events with online meeting objects updated with its respective trascripts.");
-				updateEventsListDto.add(updatedEventWithOnlineMeetingAndTranscript);
+		Iterator<EventDto> calendarDtoIterator = listCalendarViewDto.iterator();
+		while(calendarDtoIterator.hasNext()) {
+			var calendarEventDto = calendarDtoIterator.next();
+			List<Event> currentDayEventsList = eventRepository.getCurrentDayEvents(LocalDate.now());
+			Iterator<Event> itr = currentDayEventsList.iterator();
+			while(itr.hasNext()) {
+				Event e = itr.next();
+				if(calendarEventDto.getEventId().equals(e.getEventId())) {
+					//if the current incoming meeting/event is already exist in our DB , execuled it from the batch process
+					//but check if the attendance report of the meeting/event is modified, if it is modified that means
+					//the meeting/event was conducted again,then just update the meeting's/event's attendance report.
+					log.info("Event already found in db table 'event_rawdata_tab', updating attendance report of the event...");
+					Event eventToBeUpdated = eventRepository.findByEventId(calendarEventDto.getEventId());
+					if(eventToBeUpdated != null) {
+						var dbEventAttendanceReportCount = eventToBeUpdated.getAttendanceReport().size();
+						//get current attendance report count of event/meeting
+						OnlineMeetingDto onlineMeetingDto = getOnlineMeeting(calendarEventDto.getOnlineMeeting().getJoinUrl(), userDto.getTeamsUserId());
+						var updatedAttendanceReportCountFromGraphAPI = onlineMeetingDto.getAttendanceReport().size();
+						//if count of attendance report in DB and from Graph API of meeting are not same, 
+						//then just update the attendance report of event
+						//This dbAttendanceReportList collection is LAZY ! calling the below line would get the actual attendance report from DB
+						List<AttendanceReport> dbAttendanceReportList = eventToBeUpdated.getAttendanceReport();
+						List<AttendanceReportDto> attendanceReportFromGraphApiList = onlineMeetingDto.getAttendanceReport();
+						if(dbEventAttendanceReportCount != updatedAttendanceReportCountFromGraphAPI) {
+							dbAttendanceReportList.forEach(dbReport -> {
+								AttendanceReportDto dto = new AttendanceReportDto();
+								ObjectMapper.modelMapper.map(dbReport, dto);
+								attendanceReportFromGraphApiList.remove(dto);
+							});
+							Iterator<AttendanceReportDto> uniqueAttendanceReportIterator = attendanceReportFromGraphApiList.iterator();
+							AttendanceReport uniqueAttendanceReport =  new AttendanceReport();
+							AttendanceReportDto uniAttendanceReportDto = uniqueAttendanceReportIterator.next();
+							ObjectMapper.modelMapper.map(uniAttendanceReportDto, uniqueAttendanceReport);
+							dbAttendanceReportList.add(uniqueAttendanceReport);
+							//the above final collection (dbAttendanceReportList) now contains only the unique attendance
+							//report of an existing event of UMS DB with a new attendance reports of event.
+							Event updatedEvent = eventRepository.save(eventToBeUpdated);
+							//update the event details in Meeting microservice too !
+							updateEventinMeetingMicroservice(updatedEvent);
+						}
+					}
+					calendarDtoIterator.remove();
+					break;
+				}
 			}
-		});
-		log.info(
-				"getUserCalendarView() : updated user calendar events with its online meetings and transcripts returned");
-		log.info(
-				"getUserCalendarView() : executed successfully.");
+			
+		}
+		Iterator<EventDto> calendarDtoIterator2 = listCalendarViewDto.iterator();
+			while(calendarDtoIterator2.hasNext()) {
+				EventDto  eventDto = calendarDtoIterator2.next();
+				// attach userId and principal name to event
+				// attach online meeting to event
+				EventDto updatedEventWithOnlineMeeting = null;
+				EventDto updatedEventWithOnlineMeetingAndTranscript = null;
+				// get an event's online meeting and transcript, only if the event is an online
+				// Event
+				if (eventDto.getOnlineMeeting() != null) {
+					updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
+					log.info(
+							"getUserCalendarView() : user calendar view events updated with its respective online meeting objects.");
+					//first check the meetings in the users calendar is Completed, if completed then get those meetings in this batch process
+					var attendanceReport = updatedEventWithOnlineMeeting.getAttendanceReport();
+					if(attendanceReport == null || attendanceReport.size() == 0) {
+							listCalendarViewDto.remove(eventDto);
+					}
+					else {
+						updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
+								updatedEventWithOnlineMeeting, userDto);
+						log.info(
+								"getUserCalendarView() : user calendar view events with online meeting objects updated with its respective trascripts.");
+						updateEventsListDto.add(updatedEventWithOnlineMeetingAndTranscript);
+					}
+				}
+			}
+			log.info(
+					"getUserCalendarView() : updated user calendar events with its online meetings and transcripts returned");
+			log.info(
+					"getUserCalendarView() : executed successfully.");
 		return updateEventsListDto;
 	}
 
@@ -343,6 +372,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				if (eventDto.getOccurrenceId() != null) {
 					eventDto.getOnlineMeeting().setOccurrenceId(eventDto.getOccurrenceId());
 				}
+				eventDto.setAttendanceReport(onlineMeeting.getAttendanceReport());
 			}
 		}
 		log.info("attachOnlineMeetingDetailsToEvent() : online meeting details attached to its event object.");
@@ -515,6 +545,19 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			});
 			event.setAttendees(attendeesList);
 			event.setBatchId(currentBatchProcessId);
+			List<AttendanceReportDto> attendanceReportDtoList = eventDto.getOnlineMeeting().getAttendanceReport();
+			List<AttendanceReport> attendanceReportList = new ArrayList<>();
+			if(attendanceReportDtoList != null) {
+				attendanceReportDtoList.forEach(dto -> {
+					AttendanceReport attendanceReport = new AttendanceReport();
+					ObjectMapper.modelMapper.map(dto, attendanceReport);
+					attendanceReportList.add(attendanceReport);
+				});
+			}
+			//set attendance reports for an event
+			if(attendanceReportList.size() > 0) {
+				event.setAttendanceReport(attendanceReportList);
+			}
 			// logic for isOnlinemeeting based on join url (optional)
 			eventEntities.add(event);
 			// finally save all event entities of the user in UMS DB,
@@ -547,8 +590,61 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		List<OnlineMeetingDto> onlineMeetingsList = response.getBody().getValue();
 		// however there will be only single meeting object, even if it returns a list,
 		// get the 0th index from list which will give the meeting object
+		OnlineMeetingDto onlineMeetingDto = onlineMeetingsList.get(0);
+		List<AttendanceReportDto> basicAttendanceReportList = getBasicAttendanceReportsOfOnlineMeeting(userId, onlineMeetingDto.getOnlineMeetingId());
+		//send basic attendance report list and get a detailed attendance report list
+		List<AttendanceReportDto> detailedAttendanceReportList = getDetailedAttendanceOfEachAttendanceReportByReportId(userId, onlineMeetingDto.getOnlineMeetingId(), basicAttendanceReportList);
+		detailedAttendanceReportList.forEach(report -> {
+			report.getAttendanceRecords().forEach(record -> {
+				record.setEmailAddress(record.getEmailAddress().toLowerCase());
+			});
+		});
+		onlineMeetingDto.setAttendanceReport(detailedAttendanceReportList);
 		log.info("getOnlineMeeting() executed successfully");
-		return onlineMeetingsList.get(0);
+		return onlineMeetingDto;
+	}
+	
+	private List<AttendanceReportDto> getBasicAttendanceReportsOfOnlineMeeting(String userId,String onlineMeetingId) {
+		log.info("getAttendanceReportOfOnlineMeeting() entered with args : onlineMeetingId");
+		log.info("getAttendanceReportOfOnlineMeeting() is under execution...");
+		StringBuilder urlBuilder = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userId+"/onlineMeetings/"+onlineMeetingId+"/attendanceReports");
+	    var finalUrl = urlBuilder.toString();
+		// prepare headers for the request
+		HttpHeaders headers = new HttpHeaders();
+		headers.add(authHeader, tokenType + this.accessToken);
+		headers.add(contentHeader, jsonContentType);
+		// prepare http entity object
+		HttpEntity<String> hentity = new HttpEntity<>(headers);
+		ResponseEntity<AttendanceReportResponseWrapper> response = graphRestTemplate.exchange(finalUrl, HttpMethod.GET, hentity, AttendanceReportResponseWrapper.class);
+		var basicAttendanceReportList = response.getBody().getValue();
+		log.info("getAttendanceReportOfOnlineMeeting() executed successfully");
+		return basicAttendanceReportList;
+	}
+	
+	private List<AttendanceReportDto> getDetailedAttendanceOfEachAttendanceReportByReportId(String userId, String onlineMeetingId, List<AttendanceReportDto> attendanceReportList) {
+		log.info("getDetailedAttendanceOfEachAttendanceReportByReportId() entered with args : userId, onlineMeetingId, attendanceReportsList");
+		log.info("getDetailedAttendanceOfEachAttendanceReportByReportId() is under execution...");
+		List<AttendanceReportDto> detailedAttendanceReportList = new ArrayList<>();
+		//for each report of the meeting get details 
+		//# an online meeting could have multiple attendance reports, so we get a list of attendance report details
+		//for each report send request and get details of the attendance report of the meeting Id
+		if(attendanceReportList.size() > 0) {
+			attendanceReportList.forEach(report -> {
+				StringBuilder urlBuilder = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userId+"/onlineMeetings/"+onlineMeetingId+"/attendanceReports/"+report.getAttendanceReportId()+"?$expand=attendanceRecords");
+			    var finalUrl = urlBuilder.toString();
+				// prepare headers for the request
+				HttpHeaders headers = new HttpHeaders();
+				headers.add(authHeader, tokenType + this.accessToken);
+				headers.add(contentHeader, jsonContentType);
+				// prepare http entity object
+				HttpEntity<String> hentity = new HttpEntity<>(headers);
+				ResponseEntity<AttendanceReportDto> response = graphRestTemplate.exchange(finalUrl, HttpMethod.GET, hentity, AttendanceReportDto.class);
+				AttendanceReportDto detailedAttendanceReport = response.getBody();
+				detailedAttendanceReportList.add(detailedAttendanceReport);
+			});
+		}
+		log.info("getDetailedAttendanceOfEachAttendanceReportByReportId() executed successfully");
+		return detailedAttendanceReportList;
 	}
 
 	private List<TranscriptDto> getOnlineMeetingTranscriptDetails(String userId, String onlineMeetingId) {
@@ -684,5 +780,14 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		var cronDetails = cronRepository.findAll().get(0);
 		log.info("getCronDetails() executed successfully.");
 		return cronDetails;
+	}
+	
+	private void updateEventinMeetingMicroservice(Event eventToBeUpdated) {
+		log.info("updateEventinMeetingMicroservice() entered with args : eventToBeUpdated");
+		log.info("updateEventinMeetingMicroservice() is under execution...");
+		var url = "http://UMS-MEETING-SERVICE/meetings/update/batchevent";
+		var httpEntity = new HttpEntity<>(eventToBeUpdated);
+		restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Event.class);
+		log.info("updateEventinMeetingMicroservice() executed successfully");
 	}
 }

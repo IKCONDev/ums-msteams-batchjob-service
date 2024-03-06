@@ -25,5 +25,6 @@ public class OnlineMeetingDto {
 	private String onlineMeetingType;
 	@JsonProperty("meetingTranscripts")
 	private List<TranscriptDto> meetingTranscripts;
+	private List<AttendanceReportDto> attendanceReport;
 	
 }

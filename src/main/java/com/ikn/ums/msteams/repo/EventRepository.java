@@ -1,5 +1,6 @@
 package com.ikn.ums.msteams.repo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,11 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	@Modifying
 	@Query("UPDATE Event e SET e.isActionItemsGenerated=:isActionItemsGenerated WHERE e.id IN (:eventIds)")
 	Integer updateStatusOfActionItem(boolean isActionItemsGenerated, List<Integer> eventIds);
+	
+	@Query(value="FROM Event e WHERE DATE(createdDateTime)=:date")
+	//@Query(value = "select * from event_sourcedata_tab where DATE(created_date_time)=:date", nativeQuery = true)
+	List<Event> getCurrentDayEvents(LocalDate date);
+	
+	Event findByEventId(String eventId);
 
 }

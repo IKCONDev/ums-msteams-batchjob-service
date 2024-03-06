@@ -119,6 +119,10 @@ public class Event {
     @Column(name = "batchId")
     private Long batchId;
     
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "meeting_id" ,referencedColumnName = "meetingId", nullable = true)
+    private List<AttendanceReport> attendanceReport;
+    
     //@Column(name = "isSubmitted")
     //private boolean isSubmitted;
 }
