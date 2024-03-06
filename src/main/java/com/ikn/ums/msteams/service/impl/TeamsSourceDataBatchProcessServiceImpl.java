@@ -20,7 +20,6 @@ import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -59,6 +58,7 @@ import com.ikn.ums.msteams.repo.BatchDetailsRepository;
 import com.ikn.ums.msteams.repo.CronRepository;
 import com.ikn.ums.msteams.repo.EventRepository;
 import com.ikn.ums.msteams.service.TeamsSourceDataBatchProcessService;
+import com.ikn.ums.msteams.utils.EmailService;
 import com.ikn.ums.msteams.utils.InitializeMicrosoftGraph;
 import com.ikn.ums.msteams.utils.ObjectMapper;
 
@@ -105,6 +105,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	private static final String jsonContentType = "application/json";
 	
 	private static String partialTranscriptFileName = "Transcript";
+	
+	@Autowired
+	private EmailService emailService;
 	
 	// constructor
 	@Autowired
@@ -198,7 +201,10 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				currentDbBatchDetails.setStatus("COMPLETED");
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
 				currentDbBatchDetails.setLastSuccessfullExecutionDateTime(currentbatchStartTime);
-				batchDetailsRepository.save(currentDbBatchDetails);
+				BatchDetails currentBatchDetails =   batchDetailsRepository.save(currentDbBatchDetails);
+				
+				boolean status = sendBatchProcessEmail("ums-support@ikcontech.com","COMPLETED",currentBatchDetails.getStartDateTime(),currentBatchDetails.getEndDateTime());
+				log.info("performSourceDataBatchProcessing() email sended status : "+ status);
 				log.info("performSourceDataBatchProcessing() Current batch processing details after completion " + currentDbBatchDetails);
 
 				// if batch processing contains any events of users , then copy the meetings to
@@ -212,7 +218,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				// set current batch processing details, if failed
 				currentDbBatchDetails.setStatus("FAILED");
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
-				batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
+				BatchDetails currentBatchDetails =   batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
+				boolean status = sendBatchProcessEmail("ums-support@ikcontech.com","FAILED",currentBatchDetails.getStartDateTime(),currentBatchDetails.getEndDateTime());
+				log.info("performSourceDataBatchProcessing() email sended status"+ status);
 				log.info("performSourceDataBatchProcessing() Current batch processing details after exception " + currentDbBatchDetails);
 				log.error("performSourceDataBatchProcessing() BusinessException :Exception occured while batch processing in Business layer " + e.getMessage(), e);
 			}
@@ -789,5 +797,21 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		var httpEntity = new HttpEntity<>(eventToBeUpdated);
 		restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Event.class);
 		log.info("updateEventinMeetingMicroservice() executed successfully");
+	}
+	public boolean sendBatchProcessEmail(String email, String Status, LocalDateTime startDate, LocalDateTime endDate) {
+	    	String Subject = "Batch Job Status";
+	    	String emailBody = null;
+	    	if(Status == "COMPLETED") {
+	    		emailBody = "The Batch process for the Scheduled time executed Successfully."+"\r \n"+"Start Date Time : "+startDate+"\r \n"+
+	    				 "End Date Time : "+endDate+ "\r \n";
+	    		emailService.sendMail(email, Subject, emailBody, false);
+	    	}
+	    	if(Status == "FAILED"){
+	    		emailBody = "The Batch process for the Scheduled time Was UnSuccessfull."+"\r \n"+"Start Date Time : "+startDate+"\r \n"+
+	    				 "End Date Time : "+endDate+ "\r \n";
+	    		emailService.sendMail(email, Subject, emailBody, false);
+	    	}
+			return true;
+	    	
 	}
 }
