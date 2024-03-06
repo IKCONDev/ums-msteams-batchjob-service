@@ -25,5 +25,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	List<Event> getCurrentDayEvents(LocalDate date);
 	
 	Event findByEventId(String eventId);
+	
+	Event findByOccurrenceId(String occurrenceId);
 
 }

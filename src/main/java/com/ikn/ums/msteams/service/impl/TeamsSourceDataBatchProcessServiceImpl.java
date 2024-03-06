@@ -287,7 +287,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			Iterator<Event> itr = currentDayEventsList.iterator();
 			while(itr.hasNext()) {
 				Event e = itr.next();
-				if(calendarEventDto.getEventId().equals(e.getEventId())) {
+				if(calendarEventDto.getType().equals("singleInstance") && calendarEventDto.getEventId().equals(e.getEventId())) {
 					//if the current incoming meeting/event is already exist in our DB , execuled it from the batch process
 					//but check if the attendance report of the meeting/event is modified, if it is modified that means
 					//the meeting/event was conducted again,then just update the meeting's/event's attendance report.
@@ -323,11 +323,45 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					}
 					calendarDtoIterator.remove();
 					break;
+				}else if(calendarEventDto.getType().equals("occurrence") && calendarEventDto.getOccurrenceId().equalsIgnoreCase(e.getOccurrenceId())) {
+					log.info("Recurring Event already found in db table 'event_rawdata_tab', updating attendance report of the event...");
+					Event recurringeventToBeUpdated = eventRepository.findByOccurrenceId(calendarEventDto.getOccurrenceId());
+					if(recurringeventToBeUpdated != null) {
+						var dbEventAttendanceReportCount = recurringeventToBeUpdated.getAttendanceReport().size();
+						//get current attendance report count of event/meeting
+						OnlineMeetingDto onlineMeetingDto = getOnlineMeeting(calendarEventDto.getOnlineMeeting().getJoinUrl(), userDto.getTeamsUserId());
+						var updatedAttendanceReportCountFromGraphAPI = onlineMeetingDto.getAttendanceReport().size();
+						//if count of attendance report in DB and from Graph API of meeting are not same, 
+						//then just update the attendance report of event
+						//This dbAttendanceReportList collection is LAZY ! calling the below line would get the actual attendance report from DB
+						List<AttendanceReport> dbAttendanceReportList = recurringeventToBeUpdated.getAttendanceReport();
+						List<AttendanceReportDto> attendanceReportFromGraphApiList = onlineMeetingDto.getAttendanceReport();
+						if(dbEventAttendanceReportCount != updatedAttendanceReportCountFromGraphAPI) {
+							dbAttendanceReportList.forEach(dbReport -> {
+								AttendanceReportDto dto = new AttendanceReportDto();
+								ObjectMapper.modelMapper.map(dbReport, dto);
+								attendanceReportFromGraphApiList.remove(dto);
+							});
+							Iterator<AttendanceReportDto> uniqueAttendanceReportIterator = attendanceReportFromGraphApiList.iterator();
+							AttendanceReport uniqueAttendanceReport =  new AttendanceReport();
+							AttendanceReportDto uniAttendanceReportDto = uniqueAttendanceReportIterator.next();
+							ObjectMapper.modelMapper.map(uniAttendanceReportDto, uniqueAttendanceReport);
+							dbAttendanceReportList.add(uniqueAttendanceReport);
+							//the above final collection (dbAttendanceReportList) now contains only the unique attendance
+							//report of an existing event of UMS DB with a new attendance reports of event.
+							Event updatedEvent = eventRepository.save(recurringeventToBeUpdated);
+							//update the event details in Meeting microservice too !
+							updateEventinMeetingMicroservice(updatedEvent);
+						}
+					}
+					calendarDtoIterator.remove();
+					break;
 				}
 			}
 			
 		}
-		Iterator<EventDto> calendarDtoIterator2 = listCalendarViewDto.iterator();
+		List<EventDto> listCalendarViewDto2 = listCalendarViewDto;
+		Iterator<EventDto> calendarDtoIterator2 = listCalendarViewDto2.iterator();
 			while(calendarDtoIterator2.hasNext()) {
 				EventDto  eventDto = calendarDtoIterator2.next();
 				// attach userId and principal name to event
@@ -343,7 +377,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					//first check the meetings in the users calendar is Completed, if completed then get those meetings in this batch process
 					var attendanceReport = updatedEventWithOnlineMeeting.getAttendanceReport();
 					if(attendanceReport == null || attendanceReport.size() == 0) {
-							listCalendarViewDto.remove(eventDto);
+						listCalendarViewDto2.remove(eventDto);
 					}
 					else {
 						updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
