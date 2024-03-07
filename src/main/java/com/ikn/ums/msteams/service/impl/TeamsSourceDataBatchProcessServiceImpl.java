@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
@@ -167,7 +168,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 
 				// iterate each user and get their events and save to UMS db
 				userDtoList.forEach(userDto -> {
-					if (!environment.getProperty("userprincipal.exclude.users").contains(userDto.getEmail())) {
+					//if (!environment.getProperty("userprincipal.exclude.users").contains(userDto.getEmail())) {
 						// the employees/users whoese teams user id is not added,
 						// they will just be ignored while getting the batch processing
 						// details.(TeamsUserId is optional)
@@ -194,7 +195,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						} else {
 							log.info("BATCH PROCESSING EXCLUDED FOR USER : " + userDto.getEmail()+" ---NO TEAMS USER ID---");
 						}
-					}
+					//}
 				});
 				// log.info(allUsersEventList.toString());
 				// set current batch processing details, if passed
@@ -292,7 +293,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					//but check if the attendance report of the meeting/event is modified, if it is modified that means
 					//the meeting/event was conducted again,then just update the meeting's/event's attendance report.
 					log.info("Event already found in db table 'event_rawdata_tab', updating attendance report of the event...");
-					Event eventToBeUpdated = eventRepository.findByEventId(calendarEventDto.getEventId());
+					Event eventToBeUpdated = e;
 					if(eventToBeUpdated != null) {
 						var dbEventAttendanceReportCount = eventToBeUpdated.getAttendanceReport().size();
 						//get current attendance report count of event/meeting
@@ -325,7 +326,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					break;
 				}else if(calendarEventDto.getType().equals("occurrence") && calendarEventDto.getOccurrenceId().equalsIgnoreCase(e.getOccurrenceId())) {
 					log.info("Recurring Event already found in db table 'event_rawdata_tab', updating attendance report of the event...");
-					Event recurringeventToBeUpdated = eventRepository.findByOccurrenceId(calendarEventDto.getOccurrenceId());
+					Event recurringeventToBeUpdated = e;
 					if(recurringeventToBeUpdated != null) {
 						var dbEventAttendanceReportCount = recurringeventToBeUpdated.getAttendanceReport().size();
 						//get current attendance report count of event/meeting
@@ -360,7 +361,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 			}
 			
 		}
-		List<EventDto> listCalendarViewDto2 = listCalendarViewDto;
+		List<EventDto> listCalendarViewDto2 = new CopyOnWriteArrayList<>(listCalendarViewDto);
 		Iterator<EventDto> calendarDtoIterator2 = listCalendarViewDto2.iterator();
 			while(calendarDtoIterator2.hasNext()) {
 				EventDto  eventDto = calendarDtoIterator2.next();
@@ -377,7 +378,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					//first check the meetings in the users calendar is Completed, if completed then get those meetings in this batch process
 					var attendanceReport = updatedEventWithOnlineMeeting.getAttendanceReport();
 					if(attendanceReport == null || attendanceReport.size() == 0) {
-						listCalendarViewDto2.remove(eventDto);
+						listCalendarViewDto.remove(eventDto);
 					}
 					else {
 						updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
