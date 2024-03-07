@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
@@ -135,6 +136,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 				EmployeeListVO.class);
 		log.info("performSourceDataBatchProcessing() Call to employee microservice successfull.");
 		userDtoList = empList.getEmployee();
+//		List<EmployeeVO> activeEmployeesList = userDtoList.stream()
+//				.filter(employee -> employee.getEmployeeStatus().equalsIgnoreCase("Active"))
+//				.collect(Collectors.toList());
 		log.info("performSourceDataBatchProcessing() Employees details fecthed from employee microservice.");
 		if (!userDtoList.isEmpty()) {
 			log.info("performSourceDataBatchProcessing() Employee list size : " + userDtoList.size());
@@ -172,7 +176,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						// the employees/users whoese teams user id is not added,
 						// they will just be ignored while getting the batch processing
 						// details.(TeamsUserId is optional)
-						if (userDto.getTeamsUserId() != null && !userDto.getTeamsUserId().isBlank()) {
+						if (userDto.getEmployeeStatus().equalsIgnoreCase("Active") && userDto.getTeamsUserId() != null && !userDto.getTeamsUserId().isBlank()) {
 							String userId = userDto.getTeamsUserId();
 							// get userprincipalName and pass it to calendarView method to fetch the
 							// calendar events if the user

@@ -29,5 +29,7 @@ public class CronDetails {
 	private String hour;
 	@Column(name = "minute")
 	private String minute;
+	@Column(name = "modifiedBy")
+	private String modifiedBy;
 
 }

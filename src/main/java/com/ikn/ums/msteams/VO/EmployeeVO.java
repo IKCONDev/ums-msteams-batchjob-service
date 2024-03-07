@@ -24,5 +24,7 @@ public class EmployeeVO {
 		private Long departmentId;
 		
 		private DepartmentVO department;
+		
+		private String employeeStatus;
 
 }
