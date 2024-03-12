@@ -37,5 +37,8 @@ public class BatchDetails {
 	
 	@Column(name = "status")
 	private String status;
+	
+	@Column(name = "batchProcessFailureReason")
+	private String batchProcessFailureReason;
 
 }

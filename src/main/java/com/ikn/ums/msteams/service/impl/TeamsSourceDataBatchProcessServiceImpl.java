@@ -29,6 +29,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.azure.core.credential.AccessToken;
@@ -118,7 +119,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("TeamsSourceDataBatchProcessServiceImpl() constructor executed.");
 	}
 
-	@Transactional(dontRollbackOn = {BusinessException.class})
+	@Transactional
 	@Override
 	public void performSourceDataBatchProcessing(BatchDetailsDto lastBatchDetails) throws Exception {
 		log.info("performSourceDataBatchProcessing() entered with args : LastBatchProcessDetails");
@@ -219,10 +220,21 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					copySourceDataofCurrentBatchProcessingToMeetingsMicroservice(
 							allUsersEventListOfCurrentBatchProcess);
 				log.info("performSourceDataBatchProcessing() executed successfully.");
-			} catch (Exception e) {
+			}catch (HttpClientErrorException  e) {
+				currentDbBatchDetails.setStatus("FAILED");
+				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
+				currentDbBatchDetails.setBatchProcessFailureReason(e.getMessage());
+				BatchDetails currentBatchDetails =   batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
+				boolean status = sendBatchProcessEmail("ums-support@ikcontech.com","FAILED",currentBatchDetails.getStartDateTime(),currentBatchDetails.getEndDateTime());
+				log.info("performSourceDataBatchProcessing() email sended status"+ status);
+				log.info("performSourceDataBatchProcessing() Current batch processing details after exception " + currentDbBatchDetails);
+				log.error("performSourceDataBatchProcessing() HttpClientErrorException :Exception occured while batch processing in Business layer " + e.getMessage(), e);
+			} 
+			catch (Exception e) {
 				// set current batch processing details, if failed
 				currentDbBatchDetails.setStatus("FAILED");
 				currentDbBatchDetails.setEndDateTime(LocalDateTime.now());
+				currentDbBatchDetails.setBatchProcessFailureReason(e.getMessage());
 				BatchDetails currentBatchDetails =   batchDetailsRepository.saveAndFlush(currentDbBatchDetails);
 				boolean status = sendBatchProcessEmail("ums-support@ikcontech.com","FAILED",currentBatchDetails.getStartDateTime(),currentBatchDetails.getEndDateTime());
 				log.info("performSourceDataBatchProcessing() email sended status"+ status);
@@ -268,7 +280,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		calendarViewBaseUrl = calendarViewBaseUrl.append(filter).append(skip);
 		// prepare final URL
 		var finalCalendarViewUrl = calendarViewBaseUrl.toString();
-		log.info("getUserCalendarView() final calendar url of a employee : " + finalCalendarViewUrl);
+		log.info("getUserCalendarView() final calendar url of a organizer : " + finalCalendarViewUrl);
 		// prepare required http headers for the request
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(authHeader, tokenType + this.accessToken);
@@ -280,15 +292,26 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("getUserCalendarView() sending request to graph api with prepared url : " + finalCalendarViewUrl);
 		// get the response (list of calendar event objects)
 		CalendarViewResponseWrapper calendarViewWrapper = response.getBody();
-		log.info("getUserCalendarView() : calendar view of employee obtained.");
+		log.info("getUserCalendarView() : calendar view of organizer "+userDto.getEmail()+" obtained.");
 		List<EventDto> listCalendarViewDto = calendarViewWrapper.getValue();
 		// get user events with its attached online meetings
 		// for each event attach corresponding online meeting
 		List<EventDto> updateEventsListDto = new ArrayList<>();
+		Iterator<EventDto> calendarDtoIteratorOriginal = listCalendarViewDto.iterator();
+		while(calendarDtoIteratorOriginal.hasNext()) {
+			EventDto e = calendarDtoIteratorOriginal.next();
+			int currentYear = LocalDate.now().getYear();
+			int previousYear = currentYear - 1;
+			if(!e.getCreatedDateTime().contains(String.valueOf(currentYear)) && !e.getCreatedDateTime().contains(String.valueOf(previousYear))){
+				calendarDtoIteratorOriginal.remove();
+			}
+		}
 		Iterator<EventDto> calendarDtoIterator = listCalendarViewDto.iterator();
 		while(calendarDtoIterator.hasNext()) {
 			var calendarEventDto = calendarDtoIterator.next();
-			List<Event> currentDayEventsList = eventRepository.getCurrentDayEvents(LocalDate.now());
+			log.info("getUserCalendarView() Organizer " +userDto.getFirstName()+" "+userDto.getLastName()+" with email id "+userDto.getEmail()+" Organized an Event/Meeting with subject : "+calendarEventDto.getSubject());
+			log.info("The Event/Meeting Join Url is "+calendarEventDto.getOnlineMeeting().getJoinUrl());
+			List<Event> currentDayEventsList = eventRepository.getCurrentDayEvents(LocalDate.now(),userDto.getEmail());
 			Iterator<Event> itr = currentDayEventsList.iterator();
 			while(itr.hasNext()) {
 				Event e = itr.next();
@@ -296,7 +319,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					//if the current incoming meeting/event is already exist in our DB , execuled it from the batch process
 					//but check if the attendance report of the meeting/event is modified, if it is modified that means
 					//the meeting/event was conducted again,then just update the meeting's/event's attendance report.
-					log.info("Event already found in db table 'event_rawdata_tab', updating attendance report of the event...");
+					log.info("The Single Instance Event "+calendarEventDto.getSubject()+"is already found in db table 'event_sourcedata_tab',just updating attendance report of the event...");
 					Event eventToBeUpdated = e;
 					if(eventToBeUpdated != null) {
 						var dbEventAttendanceReportCount = eventToBeUpdated.getAttendanceReport().size();
@@ -326,10 +349,11 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 							updateEventinMeetingMicroservice(updatedEvent);
 						}
 					}
+					log.info("Exlucded this Event / Meeting '"+calendarEventDto.getSubject()+"' from batch process of organizer "+userDto.getEmail()+" as it is already found in Database");
 					calendarDtoIterator.remove();
 					break;
 				}else if(calendarEventDto.getType().equals("occurrence") && calendarEventDto.getOccurrenceId().equalsIgnoreCase(e.getOccurrenceId())) {
-					log.info("Recurring Event already found in db table 'event_rawdata_tab', updating attendance report of the event...");
+					log.info("Recurring Event "+calendarEventDto.getSubject()+" already found in db table 'event_sourcedata_tab',just updating attendance report of the event...");
 					Event recurringeventToBeUpdated = e;
 					if(recurringeventToBeUpdated != null) {
 						var dbEventAttendanceReportCount = recurringeventToBeUpdated.getAttendanceReport().size();
@@ -359,6 +383,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 							updateEventinMeetingMicroservice(updatedEvent);
 						}
 					}
+					log.info("Excluded this Recurring Event / Meeting '"+calendarEventDto.getSubject()+"' from batch process of organizer "+userDto.getEmail()+" as it is already found in Database");
 					calendarDtoIterator.remove();
 					break;
 				}
@@ -369,24 +394,54 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		Iterator<EventDto> calendarDtoIterator2 = listCalendarViewDto2.iterator();
 			while(calendarDtoIterator2.hasNext()) {
 				EventDto  eventDto = calendarDtoIterator2.next();
+				log.info("getUserCalendarView() Including this Event/Meeting '"+eventDto.getSubject()+"' in batch processing of organizer "+userDto.getEmail());
 				// attach userId and principal name to event
 				// attach online meeting to event
-				EventDto updatedEventWithOnlineMeeting = null;
-				EventDto updatedEventWithOnlineMeetingAndTranscript = null;
+				EventDto eventWithOnlineMeeting = null;
 				// get an event's online meeting and transcript, only if the event is an online
 				// Event
 				if (eventDto.getOnlineMeeting() != null) {
-					updatedEventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
+					eventWithOnlineMeeting = attachOnlineMeetingDetailsToEvent(eventDto, userDto);
 					log.info(
 							"getUserCalendarView() : user calendar view events updated with its respective online meeting objects.");
 					//first check the meetings in the users calendar is Completed, if completed then get those meetings in this batch process
-					var attendanceReport = updatedEventWithOnlineMeeting.getAttendanceReport();
-					if(attendanceReport == null || attendanceReport.size() == 0) {
-						listCalendarViewDto.remove(eventDto);
+					var attendanceReportFromGraphAPI = eventWithOnlineMeeting.getAttendanceReport();
+					if(eventWithOnlineMeeting.getType().equalsIgnoreCase("occurrence")) {
+						//if no attendance report remove the event from cutrrent batch process
+						if(attendanceReportFromGraphAPI == null || attendanceReportFromGraphAPI.size() == 0) {
+							listCalendarViewDto2.remove(eventWithOnlineMeeting);
+							log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
+						}
+						//using the master eventid of this occurence, get the attendance report size of the entire event from db,
+						// compare the db attendance report size with incoming attendance report size from teams db, if equal exclude it from Batch process
+						//else include it in batch process
+						var dbOccurenceEvents = eventRepository.findByEventId(eventWithOnlineMeeting.getEventId());
+						if(dbOccurenceEvents != null) {
+							int totaldbAttReportCount = 0;
+							for(int i=0; i<dbOccurenceEvents.size(); i++) {
+								int attreportCount = dbOccurenceEvents.get(i).getAttendanceReport().size();
+								totaldbAttReportCount += attreportCount;
+							}
+							//compare attendance report counts, if matches remove the event from current batch process
+							if(attendanceReportFromGraphAPI.size() == totaldbAttReportCount) {
+								//remove from batch process
+								listCalendarViewDto2.remove(eventWithOnlineMeeting);
+								log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
+							}
+						}
 					}
-					else {
+					else if(eventWithOnlineMeeting.getType().equalsIgnoreCase("singleInstance") && attendanceReportFromGraphAPI == null 
+							|| attendanceReportFromGraphAPI.size() == 0) {
+						listCalendarViewDto2.remove(eventWithOnlineMeeting);
+						log.info("The Single Instance Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
+					}
+					
+					//finally update the unique event from todays calendar of a user with its online meeting and transcript, 
+					//then insert it into DB.
+					if(listCalendarViewDto2.contains(eventWithOnlineMeeting)) {
+						EventDto updatedEventWithOnlineMeetingAndTranscript = null;
 						updatedEventWithOnlineMeetingAndTranscript = attachTranscriptsToOnlineMeeting(
-								updatedEventWithOnlineMeeting, userDto);
+								eventWithOnlineMeeting, userDto);
 						log.info(
 								"getUserCalendarView() : user calendar view events with online meeting objects updated with its respective trascripts.");
 						updateEventsListDto.add(updatedEventWithOnlineMeetingAndTranscript);
@@ -400,8 +455,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		return updateEventsListDto;
 	}
 
-	// attach online meeting to event, so that event will now contain its online
-	// meeting details
+	// attach online meeting to event, so that event will  contain its online meeting details
 	private EventDto attachOnlineMeetingDetailsToEvent(EventDto eventDto, EmployeeVO user) {
 		log.info("attachOnlineMeetingDetailsToEvent() : entered with args : event object , employee object");
 		log.info("attachOnlineMeetingDetailsToEvent() : is under execution.");
@@ -525,6 +579,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 	}
 
 	// map all event dto's to event entities to save into db
+	
 	private List<Event> saveAllUsersCalendarEvents(List<EventDto> eventDtoList, EmployeeVO user,
 			Long currentBatchProcessId) {
 		log.info("saveAllUsersCalendarEvents() entered with args : event objects, user object, currentBatchProcessId");
@@ -698,7 +753,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("getOnlineMeetingTranscriptDetails() entered with args : transcriptContentURL");
 		log.info("getOnlineMeetingTranscriptDetails() is under execution...");
 		List<TranscriptDto> meetingTranscriptsList = new ArrayList<>();
-		StringBuilder stringBuilder = new StringBuilder("https://graph.microsoft.com/beta/users/" + userId
+		StringBuilder stringBuilder = new StringBuilder("https://graph.microsoft.com/v1.0/users/" + userId
 				+ "/onlineMeetings('" + onlineMeetingId + "')/transcripts");
 		var url = stringBuilder.toString();
 		// prepare headers for the request

@@ -17,5 +17,6 @@ public class BatchDetailsDto {
 	private LocalDateTime  endDateTime;
 	private LocalDateTime  lastSuccessfullExecutionDateTime;
 	private String status;
+	private String batchProcessFailureReason;
 
 }
