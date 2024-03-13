@@ -48,10 +48,10 @@ public class Event {
 	@Column(name = "subject")
 	private String subject;
 	
-	@Column(name = "type")
+	@Column(name = "type", nullable = false)
 	private String type;
 	
-	@Column(name = "occurrenceId")
+	@Column(name = "occurrenceId", unique = true, nullable = true)
 	private String occurrenceId;
 	
 	@Column(name = "startDateTime")

@@ -10,6 +10,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -319,7 +320,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					//if the current incoming meeting/event is already exist in our DB , execuled it from the batch process
 					//but check if the attendance report of the meeting/event is modified, if it is modified that means
 					//the meeting/event was conducted again,then just update the meeting's/event's attendance report.
-					log.info("The Single Instance Event "+calendarEventDto.getSubject()+"is already found in db table 'event_sourcedata_tab',just updating attendance report of the event...");
+					log.info("The Single Instance Event '"+calendarEventDto.getSubject()+"' is already found in db table 'event_sourcedata_tab',just updating attendance report of the event...");
 					Event eventToBeUpdated = e;
 					if(eventToBeUpdated != null) {
 						var dbEventAttendanceReportCount = eventToBeUpdated.getAttendanceReport().size();
@@ -353,35 +354,66 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					calendarDtoIterator.remove();
 					break;
 				}else if(calendarEventDto.getType().equals("occurrence") && calendarEventDto.getOccurrenceId().equalsIgnoreCase(e.getOccurrenceId())) {
-					log.info("Recurring Event "+calendarEventDto.getSubject()+" already found in db table 'event_sourcedata_tab',just updating attendance report of the event...");
+					log.info("Recurring Event '"+calendarEventDto.getSubject()+"' already found in db table 'event_sourcedata_tab',just updating attendance report of the event...");
 					Event recurringeventToBeUpdated = e;
 					if(recurringeventToBeUpdated != null) {
-						var dbEventAttendanceReportCount = recurringeventToBeUpdated.getAttendanceReport().size();
 						//get current attendance report count of event/meeting
 						OnlineMeetingDto onlineMeetingDto = getOnlineMeeting(calendarEventDto.getOnlineMeeting().getJoinUrl(), userDto.getTeamsUserId());
-						var updatedAttendanceReportCountFromGraphAPI = onlineMeetingDto.getAttendanceReport().size();
 						//if count of attendance report in DB and from Graph API of meeting are not same, 
 						//then just update the attendance report of event
 						//This dbAttendanceReportList collection is LAZY ! calling the below line would get the actual attendance report from DB
-						List<AttendanceReport> dbAttendanceReportList = recurringeventToBeUpdated.getAttendanceReport();
 						List<AttendanceReportDto> attendanceReportFromGraphApiList = onlineMeetingDto.getAttendanceReport();
-						if(dbEventAttendanceReportCount != updatedAttendanceReportCountFromGraphAPI) {
-							dbAttendanceReportList.forEach(dbReport -> {
-								AttendanceReportDto dto = new AttendanceReportDto();
-								ObjectMapper.modelMapper.map(dbReport, dto);
-								attendanceReportFromGraphApiList.remove(dto);
-							});
-							Iterator<AttendanceReportDto> uniqueAttendanceReportIterator = attendanceReportFromGraphApiList.iterator();
-							AttendanceReport uniqueAttendanceReport =  new AttendanceReport();
-							AttendanceReportDto uniAttendanceReportDto = uniqueAttendanceReportIterator.next();
-							ObjectMapper.modelMapper.map(uniAttendanceReportDto, uniqueAttendanceReport);
-							dbAttendanceReportList.add(uniqueAttendanceReport);
+						var dbOccurenceEvents = eventRepository.findBySeriesMasterId(recurringeventToBeUpdated.getSeriesMasterId());
+						if(dbOccurenceEvents != null) {
+							int totaldbAttReportCount = 0;
+							for(int i=0; i<dbOccurenceEvents.size(); i++) {
+								int attreportCount = dbOccurenceEvents.get(i).getAttendanceReport().size();
+								totaldbAttReportCount += attreportCount;
+							}
+							//compare attendance report counts, if matches remove the event from current batch process
+							if(attendanceReportFromGraphApiList.size() == totaldbAttReportCount) {
+								//remove from batch process
+								calendarDtoIterator.remove();
+								break;
+							}else {
+								//add the meeting into batch process and also update attendance records, bcz this meeting is already present in db
+								//it will have attendance reports, you just need to insert this recurring meeting and update attendance report
+								List<List<AttendanceReport>> recurringEventAttendanceReportsLists = new ArrayList<>();
+								for(int i=0; i<dbOccurenceEvents.size(); i++) {
+									var attendanceReportOfSingleOccurrence = dbOccurenceEvents.get(i).getAttendanceReport();
+									recurringEventAttendanceReportsLists.add(attendanceReportOfSingleOccurrence);
+								}
+								//prepare a single list collection with all attendance reports of a recurring event from multiple collections
+								 List<AttendanceReport> singleAttendanceReportsListOfRecurringEvent = new ArrayList<>();
+								for (List<AttendanceReport> list : recurringEventAttendanceReportsLists) {
+									singleAttendanceReportsListOfRecurringEvent.addAll(list);
+						        }
+								//compare the attendance reports from teams and Db and removed matched repots, 
+								//if found any unique attendance report then attach that report to this recurring event
+								//Iterator<AttendanceReport> itrE = singleAttendanceReportsListOfRecurringEvent.iterator();
+								singleAttendanceReportsListOfRecurringEvent.forEach(report -> {
+									Iterator<AttendanceReportDto> itrDto = attendanceReportFromGraphApiList.iterator();
+									while(itrDto.hasNext()) {
+										AttendanceReportDto reportDto = itrDto.next();
+										if(reportDto.getAttendanceReportId().equalsIgnoreCase(report.getAttendanceReportId())) {
+											itrDto.remove();
+										}
+									}
+								});
+								var dbAttReport = recurringeventToBeUpdated.getAttendanceReport();
+								attendanceReportFromGraphApiList.forEach(reportDto -> {
+									AttendanceReport newReport = new AttendanceReport();
+									ObjectMapper.modelMapper.map(reportDto, newReport);
+									dbAttReport.add(newReport);
+								});
+								recurringeventToBeUpdated.setAttendanceReport(dbAttReport);
+							}
+						}
 							//the above final collection (dbAttendanceReportList) now contains only the unique attendance
 							//report of an existing event of UMS DB with a new attendance reports of event.
 							Event updatedEvent = eventRepository.save(recurringeventToBeUpdated);
 							//update the event details in Meeting microservice too !
 							updateEventinMeetingMicroservice(updatedEvent);
-						}
 					}
 					log.info("Excluded this Recurring Event / Meeting '"+calendarEventDto.getSubject()+"' from batch process of organizer "+userDto.getEmail()+" as it is already found in Database");
 					calendarDtoIterator.remove();
@@ -411,24 +443,52 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						if(attendanceReportFromGraphAPI == null || attendanceReportFromGraphAPI.size() == 0) {
 							listCalendarViewDto2.remove(eventWithOnlineMeeting);
 							log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
-						}
-						//using the master eventid of this occurence, get the attendance report size of the entire event from db,
-						// compare the db attendance report size with incoming attendance report size from teams db, if equal exclude it from Batch process
-						//else include it in batch process
-						var dbOccurenceEvents = eventRepository.findByEventId(eventWithOnlineMeeting.getEventId());
-						if(dbOccurenceEvents != null) {
-							int totaldbAttReportCount = 0;
-							for(int i=0; i<dbOccurenceEvents.size(); i++) {
-								int attreportCount = dbOccurenceEvents.get(i).getAttendanceReport().size();
-								totaldbAttReportCount += attreportCount;
+						}else {
+							//using the master eventid of this occurence, get the attendance report size of the entire event from db,
+							// compare the db attendance report size with incoming attendance report size from teams db, if equal exclude it from Batch process
+							//else include it in batch process
+							var dbOccurenceEvents = eventRepository.findBySeriesMasterId(eventWithOnlineMeeting.getSeriesMasterId());
+							if(dbOccurenceEvents != null) {
+								int totaldbAttReportCount = 0;
+								for(int i=0; i<dbOccurenceEvents.size(); i++) {
+									int attreportCount = dbOccurenceEvents.get(i).getAttendanceReport().size();
+									totaldbAttReportCount += attreportCount;
+								}
+								//compare attendance report counts, if matches remove the event from current batch process
+								if(attendanceReportFromGraphAPI.size() == totaldbAttReportCount) {
+									//remove from batch process
+									listCalendarViewDto2.remove(eventWithOnlineMeeting);
+									log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
+								}else {
+									//add the meeting into batch process and also update attendance records, bcz this meeting is already present in db
+									//it will have attendance reports, you just need to insert this recurring meeting and update attendance report
+									List<List<AttendanceReport>> recurringEventAttendanceReportsLists = new ArrayList<>();
+									for(int i=0; i<dbOccurenceEvents.size(); i++) {
+										var attendanceReportOfSingleOccurrence = dbOccurenceEvents.get(i).getAttendanceReport();
+										recurringEventAttendanceReportsLists.add(attendanceReportOfSingleOccurrence);
+									}
+									//prepare a single list collection with all attendance reports of a recurring event from multiple collections
+									 List<AttendanceReport> singleAttendanceReportsListOfRecurringEvent = new ArrayList<>();
+									for (List<AttendanceReport> list : recurringEventAttendanceReportsLists) {
+										singleAttendanceReportsListOfRecurringEvent.addAll(list);
+							        }
+									//compare the attendance reports from teams and Db and removed matched repots, 
+									//if found any unique attendance report then attach that report to this recurring event
+									//Iterator<AttendanceReport> itr = singleAttendanceReportsListOfRecurringEvent.iterator();
+									singleAttendanceReportsListOfRecurringEvent.forEach(report -> {
+										Iterator<AttendanceReportDto> itrDto = attendanceReportFromGraphAPI.iterator();
+										while(itrDto.hasNext()) {
+											AttendanceReportDto reportDto = itrDto.next();
+											if(report.getAttendanceReportId().equalsIgnoreCase(reportDto.getAttendanceReportId())) {
+												itrDto.remove();
+											}
+										}
+									});
+									eventWithOnlineMeeting.setAttendanceReport(attendanceReportFromGraphAPI);
+								}
 							}
-							//compare attendance report counts, if matches remove the event from current batch process
-							if(attendanceReportFromGraphAPI.size() == totaldbAttReportCount) {
-								//remove from batch process
-								listCalendarViewDto2.remove(eventWithOnlineMeeting);
-								log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
-							}
 						}
+						
 					}
 					else if(eventWithOnlineMeeting.getType().equalsIgnoreCase("singleInstance") && attendanceReportFromGraphAPI == null 
 							|| attendanceReportFromGraphAPI.size() == 0) {
@@ -857,9 +917,9 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		//there will be however ponly one record in the list
 		var dbCron = cronRepository.findAll().get(0);
 		   // String minute = "*";
-		if(cronDetails.getMinute().equals("0")) {
-			cronDetails.setMinute("*");
-		}
+//		if(cronDetails.getMinute().equals("0")) {
+//			cronDetails.setMinute("0");
+//		}
 		var cronTime = "";
 		var hour = cronDetails.getHour().equals("0")?"*":cronDetails.getHour();
 		if(hour.equals("*")) {

@@ -24,7 +24,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	//@Query(value = "select * from event_sourcedata_tab where DATE(created_date_time)=:date", nativeQuery = true)
 	List<Event> getCurrentDayEvents(LocalDate date, String emailId);
 	
-	List<Event> findByEventId(String eventId);
+	List<Event> findBySeriesMasterId(String seriesMasterId);
 	
 	Event findByOccurrenceId(String occurrenceId);
 

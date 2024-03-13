@@ -26,7 +26,7 @@ public class AttendanceReport {
 	@javax.persistence.Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer Id;
+	private Long id;
 	@Column(name = "attendanceReportId")
 	private String attendanceReportId;
 	@Column(name = "totalParticipantCount")
