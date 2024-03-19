@@ -916,16 +916,20 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		log.info("updateBatchProcessTime() is under execution...");
 		//there will be however ponly one record in the list
 		var dbCron = cronRepository.findAll().get(0);
-		   // String minute = "*";
-//		if(cronDetails.getMinute().equals("0")) {
-//			cronDetails.setMinute("0");
-//		}
+		//String minute = "*";
+		//if(cronDetails.getMinute().equals("0")) {
+			//cronDetails.setMinute("*");
+		//}
 		var cronTime = "";
 		var hour = cronDetails.getHour().equals("0")?"*":cronDetails.getHour();
 		if(hour.equals("*")) {
 		   cronTime = "0 "+"*/"+cronDetails.getMinute()+" "+hour+" * * *";
 		}else {
-		   cronTime = "0 "+cronDetails.getMinute()+" */"+hour+" * * *";
+			if(cronDetails.getMinute().equals("0")) {
+				cronTime = "0 * */"+hour+" * * *";
+			}else {
+				cronTime = "0 "+"*/"+cronDetails.getMinute()+" */"+hour+" * * *";
+			}
 		}
 			dbCron.setCronTime(cronTime);
 			dbCron.setHour(cronDetails.getHour());
