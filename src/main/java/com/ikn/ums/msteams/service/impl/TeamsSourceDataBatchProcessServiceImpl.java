@@ -354,7 +354,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					calendarDtoIterator.remove();
 					break;
 				}else if(calendarEventDto.getType().equals("occurrence") && calendarEventDto.getOccurrenceId().equalsIgnoreCase(e.getOccurrenceId())) {
-					log.info("Recurring Event '"+calendarEventDto.getSubject()+"' already found in db table 'event_sourcedata_tab',just updating attendance report of the event...");
+					log.info("Recurring Event '"+calendarEventDto.getSubject()+"' already found in db table 'event_sourcedata_tab',updating attendance report of the event...");
 					Event recurringeventToBeUpdated = e;
 					if(recurringeventToBeUpdated != null) {
 						//get current attendance report count of event/meeting
@@ -442,7 +442,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						//if no attendance report remove the event from cutrrent batch process
 						if(attendanceReportFromGraphAPI == null || attendanceReportFromGraphAPI.size() == 0) {
 							listCalendarViewDto2.remove(eventWithOnlineMeeting);
-							log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
+							log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Excluding it from current batch process");
 						}else {
 							//using the master eventid of this occurence, get the attendance report size of the entire event from db,
 							// compare the db attendance report size with incoming attendance report size from teams db, if equal exclude it from Batch process
@@ -458,7 +458,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 								if(attendanceReportFromGraphAPI.size() == totaldbAttReportCount) {
 									//remove from batch process
 									listCalendarViewDto2.remove(eventWithOnlineMeeting);
-									log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
+									log.info("The Recurring Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Excluding it from current batch process");
 								}else {
 									//add the meeting into batch process and also update attendance records, bcz this meeting is already present in db
 									//it will have attendance reports, you just need to insert this recurring meeting and update attendance report
@@ -493,7 +493,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 					else if(eventWithOnlineMeeting.getType().equalsIgnoreCase("singleInstance") && attendanceReportFromGraphAPI == null 
 							|| attendanceReportFromGraphAPI.size() == 0) {
 						listCalendarViewDto2.remove(eventWithOnlineMeeting);
-						log.info("The Single Instance Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Exculding it from current batch process");
+						log.info("The Single Instance Event/Meeting '"+eventWithOnlineMeeting.getSubject()+"' which was tried to include in current batch process is still not attended. Excluding it from current batch process");
 					}
 					
 					//finally update the unique event from todays calendar of a user with its online meeting and transcript, 
