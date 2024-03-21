@@ -926,7 +926,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		   cronTime = "0 "+"*/"+cronDetails.getMinute()+" "+hour+" * * *";
 		}else {
 			if(cronDetails.getMinute().equals("0")) {
-				cronTime = "0 * */"+hour+" * * *";
+				cronTime = "0 0 */"+hour+" * * *";
 			}else {
 				cronTime = "0 "+"*/"+cronDetails.getMinute()+" */"+hour+" * * *";
 			}
