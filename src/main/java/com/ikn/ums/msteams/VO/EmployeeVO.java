@@ -26,5 +26,7 @@ public class EmployeeVO {
 		private DepartmentVO department;
 		
 		private String employeeStatus;
+		
+		private String batchProcessStatus;
 
 }

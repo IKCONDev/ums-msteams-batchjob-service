@@ -178,7 +178,8 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 						// the employees/users whoese teams user id is not added,
 						// they will just be ignored while getting the batch processing
 						// details.(TeamsUserId is optional)
-						if (userDto.getEmployeeStatus().equalsIgnoreCase("Active") && userDto.getTeamsUserId() != null && !userDto.getTeamsUserId().isBlank()) {
+						if (userDto.getEmployeeStatus().equalsIgnoreCase("Active") && userDto.getTeamsUserId() != null && !userDto.getTeamsUserId().isBlank() && 
+								userDto.getBatchProcessStatus().equalsIgnoreCase("Enabled")) {
 							String userId = userDto.getTeamsUserId();
 							// get userprincipalName and pass it to calendarView method to fetch the
 							// calendar events if the user
