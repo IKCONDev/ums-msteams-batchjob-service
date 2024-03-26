@@ -29,6 +29,9 @@ public class EventDto {
 		
 	    @JsonProperty("subject")
 		private String subject;
+	    
+	    @JsonProperty("bodyPreview")
+	    private String bodyPreview;
 
 	    @JsonProperty("type")
 		private String type;

@@ -51,6 +51,9 @@ public class Event {
 	@Column(name = "type", nullable = false)
 	private String type;
 	
+	@Column(name = "bodyPreview", nullable = true, length = 10000)
+	private String bodyPreview;
+	
 	@Column(name = "occurrenceId", unique = true, nullable = true)
 	private String occurrenceId;
 	
