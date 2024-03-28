@@ -10,14 +10,12 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
@@ -36,20 +34,17 @@ import org.springframework.web.client.RestTemplate;
 import com.azure.core.credential.AccessToken;
 import com.ikn.ums.msteams.VO.EmployeeListVO;
 import com.ikn.ums.msteams.VO.EmployeeVO;
-import com.ikn.ums.msteams.dto.AttendanceRecordDto;
 import com.ikn.ums.msteams.dto.AttendanceReportDto;
 import com.ikn.ums.msteams.dto.BatchDetailsDto;
 import com.ikn.ums.msteams.dto.EventDto;
 import com.ikn.ums.msteams.dto.OnlineMeetingDto;
 import com.ikn.ums.msteams.dto.TranscriptDto;
-import com.ikn.ums.msteams.entity.AttendanceRecord;
 import com.ikn.ums.msteams.entity.AttendanceReport;
 import com.ikn.ums.msteams.entity.Attendee;
 import com.ikn.ums.msteams.entity.BatchDetails;
 import com.ikn.ums.msteams.entity.CronDetails;
 import com.ikn.ums.msteams.entity.Event;
 import com.ikn.ums.msteams.entity.Transcript;
-import com.ikn.ums.msteams.exception.BusinessException;
 import com.ikn.ums.msteams.exception.EmptyInputException;
 import com.ikn.ums.msteams.exception.ErrorCodeMessages;
 import com.ikn.ums.msteams.exception.TranscriptGenerationFailedException;
@@ -312,7 +307,7 @@ public class TeamsSourceDataBatchProcessServiceImpl implements TeamsSourceDataBa
 		while(calendarDtoIterator.hasNext()) {
 			var calendarEventDto = calendarDtoIterator.next();
 			log.info("getUserCalendarView() Organizer " +userDto.getFirstName()+" "+userDto.getLastName()+" with email id "+userDto.getEmail()+" Organized an Event/Meeting with subject : "+calendarEventDto.getSubject());
-			log.info("The Event/Meeting Join Url is "+calendarEventDto.getOnlineMeeting().getJoinUrl());
+			//log.info("The Event/Meeting Join Url is "+calendarEventDto.getOnlineMeeting().getJoinUrl());
 			List<Event> currentDayEventsList = eventRepository.getCurrentDayEvents(LocalDate.now(),userDto.getEmail());
 			Iterator<Event> itr = currentDayEventsList.iterator();
 			while(itr.hasNext()) {

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ikn.ums.msteams.entity.AttendanceReport;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
